@@ -1,0 +1,12 @@
+# jcllc-mem-sys/docker-compose.yml
+version: '3.8'
+
+services:
+  jcllc-node:
+    build: .
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./data:/root/.jcllc_memsys
+    environment:
+      - JCLLC_STORAGE_PATH=/root/.jcllc_memsys/palace

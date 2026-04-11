@@ -1,0 +1,20 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "juniorllm"
+version = "0.1.0"
+description = "JuniorLLM — Local Manifold LLM Layering SDK. Zero-latency hardware actuation via TDA + Bit Drift + Omni Math. Bypasses cloud LLM roadblocks."
+authors = [{ name = "JuniorCloud LLC" }]
+requires-python = ">=3.11"
+dependencies = [
+    "mlx>=0.5.0", "ollama>=0.4.0", "pyside6>=6.7.0",
+    "typer>=0.9.0", "requests>=2.32.0", "pandas>=2.0.0",
+    "pyarrow>=14.0.0", "reportlab>=4.2.0"
+]
+
+[project.optional-dependencies]
+dev = ["pyinstaller", "create-dmg"]
+[project.scripts]
+juniorllm = "jr_llm.main:main"

@@ -1,0 +1,27 @@
+# jcllc-mem-sys/.gitignore
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+env/
+venv/
+.venv/
+*.egg-info/
+dist/
+build/
+*.log
+data/
+*.parquet
+.DS_Store
+.vscode/
+.idea/
+.streamlit/secrets.tomljcllc_mem_sys/core/omni_math.py
+jcllc_mem_sys/core/omni_math.pyx
+jcllc_mem_sys/core/omni_math.c
+jcllc_mem_sys/core/omni_math.py
+jcllc_mem_sys/core/omni_math.pyx
+jcllc_mem_sys/core/omni_math.c
+jcllc_mem_sys/core/omni_math.py
+jcllc_mem_sys/core/omni_math.pyx
+jcllc_mem_sys/core/omni_math.c

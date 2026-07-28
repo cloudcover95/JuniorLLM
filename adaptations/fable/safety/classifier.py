@@ -1,16 +1,15 @@
 """
 Fable-inspired Safety Classifier for JuniorLLM
-
-Lightweight, transparent classifier that routes high-risk requests
-to a constrained path or refusal, mirroring the spirit of Claude Fable 5's
-external safeguards while remaining fully local and BitNet-native.
+==============================================
+Transparent, offline-capable risk gate.
+Routes high-risk requests to fallback / refuse paths.
 """
 
 from __future__ import annotations
 
 from dataclasses import dataclass
 from enum import Enum
-from typing import List, Optional, Tuple
+from typing import Optional
 
 
 class RiskCategory(str, Enum):
@@ -18,7 +17,7 @@ class RiskCategory(str, Enum):
     CYBER = "cyber"
     BIO_CHEM = "bio_chem"
     DISTILLATION = "distillation"
-    HIGH_STAKES_FINANCE = "high_stakes_finance"  # optional stricter mode
+    HIGH_STAKES_FINANCE = "high_stakes_finance"
     UNKNOWN = "unknown"
 
 
@@ -30,8 +29,6 @@ class ClassificationResult:
     action: str  # "allow" | "fallback" | "refuse"
 
 
-# Simple keyword / pattern heuristics for scaffolding.
-# Production version should be a small BitNet classifier or hybrid.
 CYBER_PATTERNS = [
     "exploit", "payload", "ransomware", "zero-day", "c2 server",
     "lateral movement", "privilege escalation", "malware",
@@ -47,11 +44,7 @@ DISTILL_PATTERNS = [
 
 
 class FableStyleSafetyClassifier:
-    """
-    Transparent safety gate.
-    Returns a ClassificationResult that the runtime uses to decide
-    whether to run the full JuniorLLM-Fable path, a constrained path, or refuse.
-    """
+    """Transparent safety gate used by IntentRouter."""
 
     def classify(self, user_text: str) -> ClassificationResult:
         text = user_text.lower()
@@ -89,6 +82,5 @@ class FableStyleSafetyClassifier:
         )
 
 
-# Convenience
 def classify_request(text: str) -> ClassificationResult:
     return FableStyleSafetyClassifier().classify(text)

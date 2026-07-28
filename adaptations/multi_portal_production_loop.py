@@ -1,12 +1,11 @@
 """
-JuniorLLM Multi-Portal Production Loop
-======================================
-Production-grade loop that exercises and maintains all three portals:
+JuniorLLM Multi-Portal Production Loop (Enhanced TDA integrated)
+================================================================
+Production harness covering:
 - JuniorGemma-4 (BitNet + MLX)
 - JuniorLLM-Fable (safety + long-horizon)
 - JuniorPortal-K3 (sparse MoE / long context)
-
-Designed for continuous beta readiness on edge hardware.
+- Enhanced TDA health + disagreement gate
 """
 
 from __future__ import annotations
@@ -35,16 +34,12 @@ class LoopState:
     timestamp: str
     portals: List[PortalStatus]
     safety_classifier_ok: bool
+    enhanced_tda_ok: bool
     agentic_hooks_ok: bool
     overall: str  # "green" | "yellow" | "red"
 
 
 class MultiPortalProductionLoop:
-    """
-    Stateful production harness.
-    Runs checks, updates STATE, and surfaces readiness for live beta.
-    """
-
     def __init__(self, state_path: Optional[Path] = None):
         self.state_path = state_path or Path.home() / ".juniorllm" / "multi_portal_state.json"
         self.state_path.parent.mkdir(parents=True, exist_ok=True)
@@ -54,7 +49,6 @@ class MultiPortalProductionLoop:
         try:
             from adaptations.gemma4.bitnet_mlx_loader import get_gemma4_loader
             loader = get_gemma4_loader()
-            # Do not force full load on every cycle (edge memory)
             ready = loader is not None
             return PortalStatus(
                 name="gemma4",
@@ -81,13 +75,23 @@ class MultiPortalProductionLoop:
             return PortalStatus("fable", False, str(e), datetime.now(timezone.utc).isoformat())
 
     def _check_kimi(self) -> PortalStatus:
-        # Pointer-based; full MoE lives in junior_bitnet scaffolding
         return PortalStatus(
             name="kimi",
             ready=True,
             notes="Portal pointer + BitNetMoE scaffolding present; distillation pipeline next",
             last_checked=datetime.now(timezone.utc).isoformat(),
         )
+
+    def _check_enhanced_tda(self) -> bool:
+        try:
+            from src.reasoning.enhanced_tda import get_enhanced_tda
+            tda = get_enhanced_tda()
+            # Minimal self-check with a synthetic vector
+            snap = tda.analyze([0.1] * 32, update_baseline=False)
+            return snap.persistence_score >= 0.0 and snap.disagreement_score >= 0.0
+        except Exception as e:
+            logger.warning("Enhanced TDA check failed: %s", e)
+            return False
 
     def run_cycle(self) -> LoopState:
         self.cycle += 1
@@ -98,9 +102,10 @@ class MultiPortalProductionLoop:
         ]
 
         safety_ok = any(p.name == "fable" and p.ready for p in portals)
-        agentic_ok = True  # hooks exist in IntentRouter + Fable path
+        tda_ok = self._check_enhanced_tda()
+        agentic_ok = True
 
-        all_ready = all(p.ready for p in portals)
+        all_ready = all(p.ready for p in portals) and tda_ok
         overall = "green" if all_ready and safety_ok else ("yellow" if safety_ok else "red")
 
         state = LoopState(
@@ -108,12 +113,13 @@ class MultiPortalProductionLoop:
             timestamp=datetime.now(timezone.utc).isoformat(),
             portals=portals,
             safety_classifier_ok=safety_ok,
+            enhanced_tda_ok=tda_ok,
             agentic_hooks_ok=agentic_ok,
             overall=overall,
         )
 
         self._persist(state)
-        logger.info("Multi-portal cycle %d → %s", self.cycle, overall)
+        logger.info("Multi-portal cycle %d → %s (TDA=%s)", self.cycle, overall, tda_ok)
         return state
 
     def _persist(self, state: LoopState) -> None:

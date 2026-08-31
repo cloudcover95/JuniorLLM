@@ -1,0 +1,14 @@
+[Unit]
+Description=Junior BitNet local inference rail (localhost only)
+After=network-online.target
+
+[Service]
+Type=simple
+ExecStart=/usr/local/bin/junior-bitnetd
+Restart=on-failure
+# No unsolicited outbound. Bind loopback in the binary.
+Environment=JUNIOR_OFFLINE=1
+Environment=JUNIOR_BIND=127.0.0.1:8765
+
+[Install]
+WantedBy=multi-user.target

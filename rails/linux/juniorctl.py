@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""juniorctl — JuniorOS / end-user entry."""
+"""juniorctl — JuniorOS entry."""
 from __future__ import annotations
 
 import json
@@ -7,6 +7,15 @@ import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
+LINUX = Path(__file__).resolve().parent
+
+HARDENING = (
+    "NoNewPrivileges=yes",
+    "ProtectSystem=strict",
+    "MemoryDenyWriteExecute=yes",
+    "CapabilityBoundingSet=",
+    "JUNIOR_BIND=127.0.0.1:8765",
+)
 
 
 def _path() -> None:
@@ -21,11 +30,24 @@ def health() -> dict:
     return {
         "product": "JuniorOS overlay",
         "bitnetd": "127.0.0.1:8765",
-        "charter": "docs/BETA_TO_OS.md",
-        "aie": "junior_aie",
+        "security": str(LINUX / "CONTAINER_SECURITY.md"),
         "ports": [p["name"] for p in list_ports()],
-        "cmds": ["health", "port list", "ask <q>", "night"],
-        "one_task": "live beta suite → BitNet Linux OS overlay",
+        "cmds": ["health", "port list", "ask <q>", "night", "security"],
+    }
+
+
+def security() -> dict:
+    unit = (LINUX / "bitnetd.service").read_text(encoding="utf-8")
+    missing = [k for k in HARDENING if k not in unit]
+    seccomp = LINUX / "seccomp-bitnetd.json"
+    return {
+        "unit_ok": not missing,
+        "missing": missing,
+        "seccomp": seccomp.is_file(),
+        "bind": "127.0.0.1:8765",
+        "privileged": False,
+        "docker_socket": False,
+        "doc": "rails/linux/CONTAINER_SECURITY.md",
     }
 
 
@@ -61,6 +83,10 @@ def main(argv: list[str]) -> int:
     if cmd == "health":
         print(json.dumps(health(), indent=2))
         return 0
+    if cmd == "security":
+        report = security()
+        print(json.dumps(report, indent=2))
+        return 0 if report["unit_ok"] and report["seccomp"] else 1
     if cmd == "port" and len(argv) > 2 and argv[2] == "list":
         print(json.dumps(ports(), indent=2))
         return 0
@@ -71,7 +97,7 @@ def main(argv: list[str]) -> int:
     if cmd == "night":
         print(json.dumps(night(), indent=2))
         return 0
-    print("usage: juniorctl health | port list | ask <question> | night", file=sys.stderr)
+    print("usage: juniorctl health | security | port list | ask <q> | night", file=sys.stderr)
     return 2
 
 

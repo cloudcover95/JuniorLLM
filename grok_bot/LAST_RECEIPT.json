@@ -1,0 +1,32 @@
+{
+  "at": "2026-09-09T07:24-06:00",
+  "slice": "B3 Gemma on-disk loader notes wired to ports.ondisk",
+  "port": "JuniorGemma4-4B",
+  "status": "shipped",
+  "next": "B4 Qwen on-disk loader notes wired to ports.ondisk",
+  "run_at": "2026-09-09T07:24-06:00",
+  "plan_bullets": [
+    "Fill B3 skeleton: Gemma checkpoint resolve via ports.ondisk",
+    "New bind module + stdlib tests; tiny loader hook",
+    "port: JuniorGemma4-4B",
+    "PYTHONPATH=. python tests/test_gemma4_ondisk.py",
+    "Missing weights stay on FieldCore; no download"
+  ],
+  "files_added": [
+    "adaptations/gemma4/ondisk_bind.py",
+    "tests/test_gemma4_ondisk.py",
+    "adaptations/gemma4/bitnet_mlx_loader.py",
+    "docs/COMPILED_BACKLOG.md",
+    "STATE.md",
+    "grok_bot/LAST_RECEIPT.md",
+    "grok_bot/LAST_RECEIPT.json"
+  ],
+  "repos": ["cloudcover95/JuniorLLM"],
+  "tests": "pass",
+  "why_stopped": "",
+  "next_smallest_slice": "B4 Qwen on-disk loader notes wired to ports.ondisk",
+  "b2_ondisk_probe": {
+    "BitNet-2B4T": false,
+    "fetch": false
+  }
+}

@@ -6,7 +6,8 @@ Capacity: 4 slots/day. See docs/AUTOMATION_CAPACITY.md.
 A1–A6 done. A7 open (__init__). A8 done. A9 done.
 
 ## B — local LLM suite
-B1 done. B2 done (ports/ondisk.py). B3 skeleton. B4 skeleton. B5 skeleton.
+B1 done. B2 done (ports/ondisk.py). B3 done (gemma4/ondisk_bind.py).
+B4 skeleton. B5 skeleton.
 B6–B9 done.
 
 ## C — JuniorOS

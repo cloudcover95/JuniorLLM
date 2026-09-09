@@ -1,14 +1,12 @@
 NAME="JuniorOS"
-PRETTY_NAME="JuniorOS overlay (BitNet PID-adjacent)"
 ID=junioros
 ID_LIKE="debian alpine"
+PRETTY_NAME="JuniorOS overlay (BitNet rail)"
 VARIANT="overlay"
 VARIANT_ID=overlay
-VERSION_ID="0.1"
 HOME_URL="https://github.com/cloudcover95/JuniorLLM"
-SUPPORT_URL="https://github.com/cloudcover95/JuniorLLM/blob/main/docs/BETA_TO_OS.md"
-BUG_REPORT_URL="https://github.com/cloudcover95/JuniorLLM/issues"
+SUPPORT_URL="https://github.com/cloudcover95/JuniorLLM"
 JUNIOR_BITNETD="127.0.0.1:8765"
+JUNIOR_OFFLINE="1"
 JUNIOR_CHARTER="docs/BETA_TO_OS.md"
-JUNIOR_NIGHT_TICKS="32"
-# Overlay only. Does not replace host /etc/os-release.
+# Overlay only. Not a custom kernel. No OSWorld score.

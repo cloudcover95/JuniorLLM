@@ -1,12 +1,12 @@
 # Receipt
 
-- run_at: 2026-09-09T03:20-06:00
-- slice: rails/linux install-overlay.sh copies os-release + bitnetd unit, loopback only
-- port: JuniorAstraReason
-- plan_bullets: goal=prefix overlay install; files=os-release+installer+test+receipt; port=JuniorAstraReason; test=tests/test_linux_overlay.py; done=DEST prefix has unit+os-release and 0.0.0.0 is refused
-- files_added: rails/linux/os-release.junior rails/linux/install-overlay.sh tests/test_linux_overlay.py grok_bot/LAST_RECEIPT.md
-- repos: JuniorLLM
-- tests: pass
+- run_at: 2026-09-09T03:16-06:00
+- slice: double-check automation + ecosystem pointers + Climbs stdlib probe
+- port: JuniorBitNetFieldCore
+- plan_bullets: verify job, restore charter prompt, probe without FastAPI, pointers only
+- files_added: JuniorClimbs scripts/stonefield_stdlib_probe.py; docs/ECOSYSTEM_SYNC.md on JuniorHome AGI_SDK JuniorMemSys-Suite JuniorPiPython
+- repos: JuniorLLM JuniorClimbs JuniorHome AGI_SDK JuniorMemSys-Suite JuniorPiPython
+- tests: prior linux security 3/3; overlay installer shipped by automation 796f01f
 - status: shipped
-- why_stopped: overlay installer slice landed; backlog item 5 done
-- next_smallest_slice: JuniorClimbs beta probe stdlib-first (stonefield/health + terms without FastAPI)
+- why_stopped: sync complete
+- next_smallest_slice: rootless OCI example without docker.sock (CONTAINER_SECURITY follow-on)

@@ -18,8 +18,12 @@ Finish local software + BitNet Linux OS overlay. Every run is one *small* additi
 ```
 PYTHONPATH=. python tests/test_grok_bot_controls.py
 PYTHONPATH=. python tests/test_astra_reason.py
+PYTHONPATH=. python tests/test_junior_aie.py
 PYTHONPATH=. python rails/linux/juniorctl.py health
+PYTHONPATH=. python rails/linux/juniorctl.py ask "flagstaff late summer dry?"
 ```
+
+End users: `junior_aie/FOR_HUMANS.md`
 
 ## Skills (load body only when needed)
 - `grok_bot/skills/plan-slice/SKILL.md` — start of every run

@@ -1,13 +1,8 @@
 """
 JuniorLLM Multi-Portal Production Loop (Enhanced TDA integrated)
 ================================================================
-Production harness covering:
-- JuniorGemma-4 (BitNet + MLX)
-- JuniorLLM-Fable (safety + long-horizon)
-- JuniorPortal-K3 (sparse MoE / long context)
-- Enhanced TDA health + disagreement gate
+Gemma-4, Fable, Kimi-K3, JuniorAstra + Enhanced TDA gate.
 """
-
 from __future__ import annotations
 
 import json
@@ -36,7 +31,7 @@ class LoopState:
     safety_classifier_ok: bool
     enhanced_tda_ok: bool
     agentic_hooks_ok: bool
-    overall: str  # "green" | "yellow" | "red"
+    overall: str
 
 
 class MultiPortalProductionLoop:
@@ -82,11 +77,29 @@ class MultiPortalProductionLoop:
             last_checked=datetime.now(timezone.utc).isoformat(),
         )
 
+    def _check_astra(self) -> PortalStatus:
+        try:
+            from adaptations.astra.runner import AstraRunner
+            from adaptations.astra.work import WorkStore
+            from tempfile import TemporaryDirectory
+            from pathlib import Path as P
+
+            with TemporaryDirectory() as td:
+                r = AstraRunner(WorkStore(P(td))).start("astra health check")
+                ok = r.status in {"running", "paused", "open", "done"}
+            return PortalStatus(
+                name="astra",
+                ready=ok,
+                notes="Open Astra runner + Work store operational (not GPT-6 weights)",
+                last_checked=datetime.now(timezone.utc).isoformat(),
+            )
+        except Exception as e:
+            return PortalStatus("astra", False, str(e), datetime.now(timezone.utc).isoformat())
+
     def _check_enhanced_tda(self) -> bool:
         try:
             from src.reasoning.enhanced_tda import get_enhanced_tda
             tda = get_enhanced_tda()
-            # Minimal self-check with a synthetic vector
             snap = tda.analyze([0.1] * 32, update_baseline=False)
             return snap.persistence_score >= 0.0 and snap.disagreement_score >= 0.0
         except Exception as e:
@@ -99,11 +112,12 @@ class MultiPortalProductionLoop:
             self._check_gemma4(),
             self._check_fable(),
             self._check_kimi(),
+            self._check_astra(),
         ]
 
         safety_ok = any(p.name == "fable" and p.ready for p in portals)
         tda_ok = self._check_enhanced_tda()
-        agentic_ok = True
+        agentic_ok = any(p.name == "astra" and p.ready for p in portals)
 
         all_ready = all(p.ready for p in portals) and tda_ok
         overall = "green" if all_ready and safety_ok else ("yellow" if safety_ok else "red")
@@ -117,14 +131,12 @@ class MultiPortalProductionLoop:
             agentic_hooks_ok=agentic_ok,
             overall=overall,
         )
-
         self._persist(state)
-        logger.info("Multi-portal cycle %d → %s (TDA=%s)", self.cycle, overall, tda_ok)
+        logger.info("Multi-portal cycle %d → %s (TDA=%s Astra=%s)", self.cycle, overall, tda_ok, agentic_ok)
         return state
 
     def _persist(self, state: LoopState) -> None:
-        data = asdict(state)
-        self.state_path.write_text(json.dumps(data, indent=2))
+        self.state_path.write_text(json.dumps(asdict(state), indent=2))
 
     def status(self) -> Dict[str, Any]:
         if self.state_path.exists():
@@ -134,10 +146,7 @@ class MultiPortalProductionLoop:
 
 def run_production_loop(cycles: int = 1) -> List[LoopState]:
     loop = MultiPortalProductionLoop()
-    results = []
-    for _ in range(cycles):
-        results.append(loop.run_cycle())
-    return results
+    return [loop.run_cycle() for _ in range(cycles)]
 
 
 if __name__ == "__main__":

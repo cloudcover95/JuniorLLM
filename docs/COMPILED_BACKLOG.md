@@ -1,19 +1,11 @@
 # Compiled backlog (do not drop old checklists)
 
 Overnight reads **this file** plus `LAST_RECEIPT.next_smallest_slice`.
-New work still aims at live beta → local LLM suite → JuniorOS overlay.
-Old lists are not retired; they are rows below.
-
-Sources merged:
-- early AGENTS / grok_bot checklist (init files, bitnetd, Gemma path, multi-portal, low_confidence stop)
-- `docs/TEST_ROADMAP_2026.md` tiers 0–4
-- `docs/BETA_TO_OS.md`
-- `rails/linux/ROADMAP.md` + `CONTAINER_SECURITY.md`
-- Swift rail, Obsidian, AIE 15-piece, custom LLM ports
+Capacity: `docs/AUTOMATION_CAPACITY.md` — 4 slots/day max.
 
 Status: `done` | `skeleton` | `open`
 
-## A — live beta suite (must stay green)
+## A — live beta suite
 
 | id | item | status |
 |----|------|--------|
@@ -25,14 +17,14 @@ Status: `done` | `skeleton` | `open`
 | A6 | StoneField engines + Climbs stdlib probe | done |
 | A7 | Missing package `__init__.py` if import breaks | open |
 | A8 | `evals/` harness (FLOPS proxy + accuracy contract) | done |
-| A9 | `STATE.md` written each night | skeleton |
+| A9 | STATE.md + LAST_RECEIPT.json schema | done |
 
-## B — local LLM suite (old + new ports)
+## B — local LLM suite
 
 | id | item | status |
 |----|------|--------|
 | B1 | FieldCore ternary | done |
-| B2 | BitNet-2B4T on-disk only (`ports/ON_DEVICE.md`) | skeleton |
+| B2 | BitNet-2B4T on-disk only | skeleton |
 | B3 | Gemma4 Q4_K_M / MLX loader | skeleton |
 | B4 | Qwen-local cap 8GB | skeleton |
 | B5 | Kimi-edge prune — never 1.5TB | skeleton |
@@ -41,31 +33,30 @@ Status: `done` | `skeleton` | `open`
 | B8 | Multi-portal production loop file | done |
 | B9 | Prompt registry + flywheel receipts | done |
 
-## C — JuniorOS overlay + container security
+## C — JuniorOS + container security
 
 | id | item | status |
 |----|------|--------|
-| C1 | os-release.junior + bitnetd.service loopback | done |
+| C1 | os-release + bitnetd loopback | done |
 | C2 | install-overlay.sh | done |
-| C3 | seccomp + systemd harden + juniorctl security | done |
+| C3 | seccomp + systemd harden | done |
 | C4 | rootless OCI example, no docker.sock | open |
 | C5 | bitnetd real I2_S when GGUF present | open |
-| C6 | Files ledger create/read (TEST_ROADMAP T4) | open |
+| C6 | Files ledger create/read | open |
 | C7 | skill load + hash pin | open |
 
-## D — rails still owed from older lists
+## D — older rails
 
 | id | item | status |
 |----|------|--------|
 | D1 | rails/swift Guardrail.swift | done |
-| D2 | Obsidian vault bridge folder | done |
+| D2 | Obsidian vault bridge | done |
 | D3 | Grok Bot AGENTS + skills | done |
-| D4 | maker/checker in overnight | done |
-| D5 | GNSS/NMEA (Climbs navmesh) | done |
+| D4 | maker/checker | done |
+| D5 | GNSS/NMEA | done |
 | D6 | gym_internal notes not leaked on public ask | open |
 
 ## Night rule
 
-Take the first `open` or `skeleton` row after LAST_RECEIPT's pointer.
-Fill a skeleton before opening a new tree.
-Additive only. One slice. Rewrite LAST_RECEIPT + STATE.md.
+One slice. If LAST_RECEIPT is <45 min old → skip_overlap.
+Fill skeleton before new tree. Rewrite STATE.md + LAST_RECEIPT.md + LAST_RECEIPT.json.

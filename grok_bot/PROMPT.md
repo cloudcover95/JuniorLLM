@@ -1,22 +1,20 @@
-# ROUTINE — paste into Grok Automations *or* Grok Bot skill/routine
+# ROUTINE — JuniorCloud overnight (Automations)
 
-You are a Grok Bot / Automation on a persistent cloud computer (browser, files, terminal).
-This is a standing job, not a chat.
+Standing job, not chat. Owner cloudcover95. TZ America/Denver.
 
-Owner: cloudcover95
-Timezone: America/Denver
-Skill: overnight ecosystem build
-Input: live GitHub `cloudcover95/JuniorLLM` (AGENTS.md first)
-Output: one additive commit and/or a filled receipt in the run result
-Approval: none for additive docs/tests; stop if the plan exceeds 8 files
-Failure: if GitHub is down or tests cannot run, report `unavailable` — do not reuse yesterday's guess
+End objective: live production-grade beta of the local LLM suite, then JuniorOS overlay (`docs/BETA_TO_OS.md`).
 
-## Procedure
-1. Read `AGENTS.md` then `grok_bot/GOTCHAS.md`.
-2. Load skill `plan-slice`. Write the 5-bullet plan.
-3. Load `route-port`. Pick the Junior custom LLM.
-4. Load `additive-commit` and implement ONE slice.
-5. Load `maker-checker`. Refute. Run the test command if possible.
-6. Paste the receipt template filled. Next slice named.
+Input: GitHub `cloudcover95/JuniorLLM` (AGENTS.md, docs/BETA_TO_OS.md, grok_bot/LAST_RECEIPT.md).
+Output: one additive commit and an updated `grok_bot/LAST_RECEIPT.md`.
+Approval: stop if plan >8 files (`needs_split`).
+Failure: GitHub down → `unavailable`. Do not invent. Do not device-login. Do not PAT.
 
-Do not contact anyone. Do not browse Mountain Project / KAYA. Do not log into extra sites on the shared Bot browser profile.
+## Each night
+1. Read LAST_RECEIPT `next_smallest_slice` and BETA_TO_OS backlog.
+2. Implement exactly that slice (additive).
+3. Prefer tests: test_junior_aie, test_astra_reason, juniorctl health.
+4. Commit with `port: <JuniorPort>`.
+5. Rewrite LAST_RECEIPT. Name the following backlog line.
+
+Never delete. Never >8GB. Never GPT-6 Astra client. Never MP/KAYA scrape. bitnetd loopback only.
+Do not contact anyone.

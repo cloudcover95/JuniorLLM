@@ -21,10 +21,11 @@ def health() -> dict:
     return {
         "product": "JuniorOS overlay",
         "bitnetd": "127.0.0.1:8765",
-        "aie": "junior_aie on JuniorLLM main",
+        "charter": "docs/BETA_TO_OS.md",
+        "aie": "junior_aie",
         "ports": [p["name"] for p in list_ports()],
-        "ask": "juniorctl ask \"<question>\"",
-        "one_task": "local software + BitNet Linux OS overlay",
+        "cmds": ["health", "port list", "ask <q>", "night"],
+        "one_task": "live beta suite → BitNet Linux OS overlay",
     }
 
 
@@ -39,6 +40,13 @@ def ask(q: str) -> dict:
         q,
         memory=[("covenant", "do not publish private-land boulders without owner consent")],
     )
+
+
+def night(ticks: int = 32) -> dict:
+    _path()
+    from bitnet_night.cycle import run_cycle
+
+    return run_cycle(ROOT / "agent" / "queue", "complete local suite and JuniorOS overlay", ticks=ticks)
 
 
 def ports() -> list:
@@ -60,7 +68,10 @@ def main(argv: list[str]) -> int:
         q = " ".join(argv[2:]).strip() or "public field conditions brief"
         print(json.dumps(ask(q), indent=2))
         return 0
-    print("usage: juniorctl health | port list | ask <question>", file=sys.stderr)
+    if cmd == "night":
+        print(json.dumps(night(), indent=2))
+        return 0
+    print("usage: juniorctl health | port list | ask <question> | night", file=sys.stderr)
     return 2
 
 

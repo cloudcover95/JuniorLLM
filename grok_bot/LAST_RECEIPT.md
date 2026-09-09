@@ -1,12 +1,12 @@
 # Receipt
 
-- run_at: 2026-09-09T07:24-06:00
-- slice: B3 Gemma on-disk loader notes wired to ports.ondisk
-- port: JuniorGemma4-4B
-- plan_bullets: fill B3 skeleton; bind Gemma4 to ports.ondisk; never fetch; FieldCore fallback; receipt JSON
-- files_added: adaptations/gemma4/ondisk_bind.py, tests/test_gemma4_ondisk.py, adaptations/gemma4/bitnet_mlx_loader.py, docs/COMPILED_BACKLOG.md, STATE.md, grok_bot/LAST_RECEIPT.md, grok_bot/LAST_RECEIPT.json
+- run_at: 2026-09-09T13:07-06:00
+- slice: B4 Qwen on-disk loader notes wired to ports.ondisk
+- port: Qwen-local
+- plan_bullets: fill B4 skeleton; bind Qwen-local to ports.ondisk; never fetch; Gemma then FieldCore fallback; receipt JSON
+- files_added: adaptations/qwen/ondisk_bind.py, adaptations/qwen/gguf_loader.py, tests/test_qwen_ondisk.py, docs/COMPILED_BACKLOG.md, STATE.md, grok_bot/LAST_RECEIPT.md, grok_bot/LAST_RECEIPT.json
 - repos: cloudcover95/JuniorLLM
 - tests: pass
 - status: shipped
 - why_stopped:
-- next_smallest_slice: B4 Qwen on-disk loader notes wired to ports.ondisk
+- next_smallest_slice: B5 Kimi K3 edge on-disk loader notes wired to ports.ondisk (never pull 1.5TB)

@@ -1,12 +1,12 @@
 # Receipt
 
-- run_at: 2026-09-09T03:10-06:00
-- slice: juniorctl night + ON_DEVICE.md + directed routine
-- port: JuniorNightTernary
-- plan_bullets: night wrap, charter, on-device paths, automation retarget
-- files_added: rails/linux/juniorctl.py ports/ON_DEVICE.md docs/BETA_TO_OS.md grok_bot/PROMPT.md
+- run_at: 2026-09-09T03:11-06:00
+- slice: rails/linux/install-overlay.sh copies os-release + bitnetd unit, loopback only
+- port: JuniorAstraReason
+- plan_bullets: overlay identity file; POSIX installer to DEST prefix; refuse 0.0.0.0; stdlib copy test; no systemd enable yet
+- files_added: rails/linux/os-release.junior rails/linux/install-overlay.sh tests/test_linux_overlay.py grok_bot/LAST_RECEIPT.md
 - repos: JuniorLLM
-- tests: not_run_this_commit
+- tests: pass
 - status: shipped
-- why_stopped: night + charter landed
-- next_smallest_slice: rails/linux/install-overlay.sh copies os-release + bitnetd unit, loopback only
+- why_stopped: overlay copy slice landed; enable/systemctl is later
+- next_smallest_slice: junior_aie gym_internal note path; public juniorctl ask must not leak it

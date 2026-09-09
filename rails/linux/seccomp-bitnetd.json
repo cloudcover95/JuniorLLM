@@ -1,0 +1,7 @@
+{
+  "defaultAction": "SCMP_ACT_ERRNO",
+  "archMap": [{"architecture": "SCMP_ARCH_X86_64", "subArchitectures": ["SCMP_ARCH_X86", "SCMP_ARCH_X32"]}],
+  "syscalls": [
+    {"names": ["read", "write", "close", "open", "openat", "stat", "fstat", "lstat", "newfstatat", "mmap", "mprotect", "munmap", "brk", "rt_sigaction", "rt_sigprocmask", "rt_sigreturn", "ioctl", "pread64", "pwrite64", "readv", "writev", "access", "pipe", "pipe2", "select", "sched_yield", "mremap", "madvise", "dup", "dup2", "dup3", "nanosleep", "getpid", "socket", "connect", "sendto", "recvfrom", "sendmsg", "recvmsg", "bind", "listen", "getsockname", "getpeername", "setsockopt", "getsockopt", "clone", "fork", "vfork", "execve", "exit", "exit_group", "wait4", "kill", "uname", "fcntl", "flock", "fsync", "ftruncate", "getcwd", "chdir", "rename", "mkdir", "rmdir", "unlink", "unlinkat", "readlink", "chmod", "umask", "getuid", "getgid", "geteuid", "getegid", "getppid", "getpgrp", "setsid", "sigaltstack", "statfs", "fstatfs", "prctl", "arch_prctl", "gettid", "futex", "sched_getaffinity", "set_tid_address", "clock_gettime", "clock_nanosleep", "exit_group", "epoll_create", "epoll_create1", "epoll_ctl", "epoll_wait", "epoll_pwait", "accept4", "eventfd2", "timerfd_create", "fallocate", "prlimit64", "getrandom", "rseq"], "action": "SCMP_ACT_ALLOW"}
+  ]
+}

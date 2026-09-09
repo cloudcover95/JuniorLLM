@@ -1,16 +1,14 @@
-# jcllc-mem-sys/.github/workflows/ci.yml
-name: CI
+# Local-first. Do not email the owner on every push.
+# Run on the machine: PYTHONPATH=. python tests/test_junior_aie.py
+name: CI (manual only)
 
-on: [push, pull_request]
+on:
+  workflow_dispatch:
 
 jobs:
   test:
+    if: false
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
-        with:
-          python-version: '3.11'
-      - run: pip install -e ".[dev]"
-      - run: ruff check .
-      - run: pytest -v
+      - run: echo "disabled — use local unittest"

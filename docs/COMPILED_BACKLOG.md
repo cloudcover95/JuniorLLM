@@ -24,7 +24,7 @@ Status: `done` | `skeleton` | `open`
 | A5 | Port registry no-network | done |
 | A6 | StoneField engines + Climbs stdlib probe | done |
 | A7 | Missing package `__init__.py` if import breaks | open |
-| A8 | `evals/` harness (FLOPS proxy + accuracy contract) | skeleton |
+| A8 | `evals/` harness (FLOPS proxy + accuracy contract) | done |
 | A9 | `STATE.md` written each night | skeleton |
 
 ## B — local LLM suite (old + new ports)

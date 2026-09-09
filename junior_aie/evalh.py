@@ -3,6 +3,8 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 
+from evals.contracts import rec_ok
+
 
 @dataclass
 class Grade:
@@ -19,5 +21,12 @@ def grade_trajectory(steps: list[str], must_include: list[str], floor: float = 0
     return Grade("trajectory", score, score >= floor, f"{hits}/{len(must_include)}")
 
 
-def ci_gate(grades: list[Grade]) -> bool:
-    return all(g.pass_ for g in grades)
+def rec_vocab_grade(label: str) -> Grade:
+    """CI gate piece: TDA/covenant recommendation vocab from evals.contracts."""
+    ok = rec_ok(label)
+    return Grade("rec_vocab", 1.0 if ok else 0.0, ok, label)
+
+
+def ci_gate(grades: list[Grade], recs: list[str] | None = None) -> bool:
+    extra = [rec_vocab_grade(r) for r in recs] if recs is not None else []
+    return all(g.pass_ for g in list(grades) + extra)

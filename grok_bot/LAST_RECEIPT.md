@@ -1,12 +1,12 @@
 # Receipt
 
 - run_at: 2026-09-09T03:18-06:00
-- slice: compile old checklists into COMPILED_BACKLOG + evals skeleton + OCI note
+- slice: A8 evals harness — wire contracts.rec_ok into junior_aie CI gate
 - port: JuniorAstra
-- plan_bullets: merge lists, skeleton folders, backfill_check, point automation at compiled file
-- files_added: docs/COMPILED_BACKLOG.md STATE.md evals/contracts.py scripts/backfill_check.py rails/linux/oci/README.md
+- plan_bullets: goal fill A8 skeleton; files evalh+tests+receipts; port JuniorAstra; test test_junior_aie + test_evals_contracts; done-check rec_ok rejects unknown and ci_gate fails
+- files_added: junior_aie/evalh.py tests/test_junior_aie.py tests/test_evals_contracts.py evals/__init__.py docs/COMPILED_BACKLOG.md STATE.md grok_bot/LAST_RECEIPT.md
 - repos: JuniorLLM
-- tests: backfill_check expected 0 missing
+- tests: pass
 - status: shipped
-- why_stopped: compiled list is now the night index
-- next_smallest_slice: A8 evals harness — wire contracts.rec_ok into test_junior_aie CI gate
+- why_stopped: one slice; A8 now wired
+- next_smallest_slice: A9 pin STATE night schema + receipt JSON (TEST_ROADMAP T3)

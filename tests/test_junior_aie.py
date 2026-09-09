@@ -8,9 +8,10 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 
+from evals.contracts import rec_ok
 from junior_aie import build_framework
 from junior_aie.consensus import Ballot, decide
-from junior_aie.evalh import ci_gate, grade_trajectory
+from junior_aie.evalh import ci_gate, grade_trajectory, rec_vocab_grade
 from junior_aie.mcp import McpClient, McpServer
 from junior_aie.orchestrator import Orchestrator
 from junior_aie.prompts import PromptRegistry
@@ -76,7 +77,10 @@ class StackTests(unittest.TestCase):
         self.assertTrue(frames[-1].startswith("data: [DONE]"))
         self.assertEqual(st.tokens, 2)
         g = grade_trajectory(["retrieve flagstaff", "assemble", "route gemma"], ["retrieve", "assemble"])
-        self.assertTrue(ci_gate([g]))
+        self.assertTrue(ci_gate([g], recs=["high_confidence", "review_needed"]))
+        self.assertTrue(rec_ok("low_confidence"))
+        self.assertTrue(rec_vocab_grade("high_confidence").pass_)
+        self.assertFalse(ci_gate([g], recs=["ship_it"]))
         reg = PromptRegistry()
         reg.publish("sys", "v1")
         reg.publish("sys", "v2")

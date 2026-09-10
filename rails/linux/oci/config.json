@@ -1,0 +1,73 @@
+{
+  "ociVersion": "1.1.0",
+  "process": {
+    "terminal": false,
+    "user": {"uid": 1000, "gid": 1000},
+    "args": ["/usr/local/bin/junior-bitnetd"],
+    "env": [
+      "JUNIOR_OFFLINE=1",
+      "JUNIOR_BIND=127.0.0.1:8765",
+      "PATH=/usr/local/bin:/usr/bin:/bin"
+    ],
+    "cwd": "/",
+    "noNewPrivileges": true,
+    "capabilities": {
+      "bounding": [],
+      "effective": [],
+      "inheritable": [],
+      "permitted": [],
+      "ambient": []
+    }
+  },
+  "root": {"path": "rootfs", "readonly": true},
+  "hostname": "junior-bitnetd",
+  "mounts": [
+    {
+      "destination": "/proc",
+      "type": "proc",
+      "source": "proc"
+    },
+    {
+      "destination": "/dev",
+      "type": "tmpfs",
+      "source": "tmpfs",
+      "options": ["nosuid", "strictatime", "mode=755", "size=65536k"]
+    }
+  ],
+  "linux": {
+    "namespaces": [
+      {"type": "pid"},
+      {"type": "ipc"},
+      {"type": "uts"},
+      {"type": "mount"},
+      {"type": "user"},
+      {"type": "network"}
+    ],
+    "maskedPaths": [
+      "/proc/kcore",
+      "/proc/latency_stats",
+      "/proc/timer_list",
+      "/proc/timer_stats",
+      "/proc/sched_debug"
+    ],
+    "readonlyPaths": [
+      "/proc/asound",
+      "/proc/bus",
+      "/proc/fs",
+      "/proc/irq",
+      "/proc/sys",
+      "/proc/sysrq-trigger"
+    ],
+    "resources": {
+      "memory": {"limit": 2147483648},
+      "pids": {"limit": 256}
+    }
+  },
+  "annotations": {
+    "org.junioros.service": "bitnetd",
+    "org.junioros.bind": "127.0.0.1:8765",
+    "org.junioros.rootless": "true",
+    "org.junioros.docker_socket": "false",
+    "org.junioros.privileged": "false"
+  }
+}

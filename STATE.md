@@ -1,7 +1,7 @@
 # STATE
 
-- at: 2026-09-10T01:12-06:00
-- slice: A7 live-beta package __init__ exports
+- at: 2026-09-10T07:16-06:00
+- slice: C4 rootless OCI bitnetd unit
 - port: JuniorAstraReason
 - status: shipped
-- next: C4 rootless OCI bitnetd unit
+- next: C5 juniorctl oci validate

@@ -32,7 +32,7 @@ def health() -> dict:
         "bitnetd": "127.0.0.1:8765",
         "security": str(LINUX / "CONTAINER_SECURITY.md"),
         "ports": [p["name"] for p in list_ports()],
-        "cmds": ["health", "port list", "ask <q>", "night", "security"],
+        "cmds": ["health", "port list", "ask <q>", "night", "security", "quant", "lake", "net"],
     }
 
 
@@ -78,6 +78,32 @@ def ports() -> list:
     return list_ports()
 
 
+def quant() -> dict:
+    _path()
+    from scripts.bitnet_quant_prod import run
+
+    return run()
+
+
+def lake() -> dict:
+    _path()
+    import tempfile
+    from bitnet_pq.pipeline import run as lake_run
+
+    return lake_run(Path(tempfile.mkdtemp(prefix="juniorctl-lake-")))
+
+
+def net_status() -> dict:
+    _path()
+    import tempfile
+    from bitnet_net.node import Node
+
+    n = Node(Path(tempfile.mkdtemp(prefix="juniorctl-net-")))
+    n.mint("ctl", 1)
+    n.seal()
+    return {"balances": n.balances, "height": len(n.blocks), "bind": "127.0.0.1"}
+
+
 def main(argv: list[str]) -> int:
     cmd = argv[1] if len(argv) > 1 else "health"
     if cmd == "health":
@@ -97,7 +123,16 @@ def main(argv: list[str]) -> int:
     if cmd == "night":
         print(json.dumps(night(), indent=2))
         return 0
-    print("usage: juniorctl health | security | port list | ask <q> | night", file=sys.stderr)
+    if cmd == "quant":
+        print(json.dumps(quant(), indent=2, default=str))
+        return 0
+    if cmd == "lake":
+        print(json.dumps(lake(), indent=2))
+        return 0
+    if cmd == "net":
+        print(json.dumps(net_status(), indent=2))
+        return 0
+    print("usage: juniorctl health | security | port list | ask <q> | night | quant | lake | net", file=sys.stderr)
     return 2
 
 

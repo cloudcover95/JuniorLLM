@@ -1,16 +1,10 @@
-# Junior lattice stack (honest)
+# Junior lattice stack
 
-Jolt proves **RISC-V execution** under Module-SIS (~&lt;100 KB, 2M+ RV cycles/s CPU, 10M+ Apple). We do **not** beat that at RISC-V.
+`lattice_zk/zkvm` is the BitNet-quant zkVM: 6 ops on 32 trits, AIR per step, Merkle trace, SIS on endpoints.
 
-We prove a **different statement**: a 32-dim BitNet/MemSys vector `z ∈ {-1,0,1}^m` satisfies `A z = c (mod q)`. That is the palace/weight binding we need. Proof is tens of bytes because the witness is tens of trits, not millions of CPU cycles.
+```
+PYTHONPATH=. python -m lattice_zk.zkvm.bench
+PYTHONPATH=. python tests/test_zkvm.py
+```
 
-| Artifact | Status |
-|----------|--------|
-| Module-SIS commit | real toy (same as MemSys) |
-| Polynomial / Merkle commit | real toy |
-| Ternary relation argument | real toy |
-| Tiny ISA + trace root | real toy, **not** RV64 |
-| ML-DSA / Dilithium | **shape only**, `secure=False` |
-| 128-bit PQ SNARK | **not claimed** |
-
-`python -m lattice_zk.bench`
+Not RV64. Not Jolt. Not 128-bit PQ. Production-shaped for *our* statement (quant state transitions).

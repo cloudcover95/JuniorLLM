@@ -1,22 +1,20 @@
 {
-  "at": "2026-09-09T19:29-06:00",
-  "slice": "B5 Kimi K3 edge on-disk loader notes wired to ports.ondisk",
-  "port": "JuniorKimiK3-edge",
+  "at": "2026-09-10T01:12-06:00",
+  "slice": "A7 live-beta package __init__ exports",
+  "port": "JuniorAstraReason",
   "status": "shipped",
-  "next": "A7 live-beta package __init__ exports",
-  "run_at": "2026-09-09T19:29-06:00",
+  "next": "C4 rootless OCI bitnetd unit",
+  "run_at": "2026-09-10T01:12-06:00",
   "plan_bullets": [
-    "Fill B5 skeleton: JuniorKimiK3-edge checkpoint resolve via ports.ondisk",
-    "New bind module + edge loader notes + stdlib tests",
-    "port: JuniorKimiK3-edge",
-    "PYTHONPATH=. python tests/test_kimi_k3_ondisk.py",
-    "Missing prune stays on Gemma if present else FieldCore; no 1.5TB; 8GB cap"
+    "goal: live-beta junior_aie package exports the 15-piece AIE surface",
+    "files: junior_aie/__init__.py, tests/test_a7_init_exports.py, docs/COMPILED_BACKLOG.md, STATE.md, receipts",
+    "port: JuniorAstraReason",
+    "test: PYTHONPATH=. python tests/test_a7_init_exports.py && PYTHONPATH=. python tests/test_junior_aie.py",
+    "done-check: from junior_aie import ContextAssembler, ModelRouter, build_framework; A7 marked done"
   ],
   "files_added": [
-    "ports/ondisk.py",
-    "adaptations/kimi_k3/ondisk_bind.py",
-    "adaptations/kimi_k3/edge_loader.py",
-    "tests/test_kimi_k3_ondisk.py",
+    "junior_aie/__init__.py",
+    "tests/test_a7_init_exports.py",
     "docs/COMPILED_BACKLOG.md",
     "STATE.md",
     "grok_bot/LAST_RECEIPT.md",
@@ -25,11 +23,5 @@
   "repos": ["cloudcover95/JuniorLLM"],
   "tests": "pass",
   "why_stopped": "",
-  "next_smallest_slice": "A7 live-beta package __init__ exports",
-  "b5_ondisk_probe": {
-    "JuniorKimiK3-edge": false,
-    "fetch": false,
-    "full_kimi_1_5tb": false,
-    "cap_gb": 8
-  }
+  "next_smallest_slice": "C4 rootless OCI bitnetd unit"
 }

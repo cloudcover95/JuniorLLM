@@ -3,7 +3,7 @@
 Capacity: 4 slots/day. See docs/AUTOMATION_CAPACITY.md.
 
 ## A — live beta suite
-A1–A6 done. A7 open (__init__). A8 done. A9 done.
+A1–A9 done. A7 package `__init__` exports the 15-piece AIE surface.
 
 ## B — local LLM suite
 B1 done. B2 done (ports/ondisk.py). B3 done (gemma4/ondisk_bind.py).

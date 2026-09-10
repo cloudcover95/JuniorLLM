@@ -1,21 +1,22 @@
 {
-  "at": "2026-09-09T13:07-06:00",
-  "slice": "B4 Qwen on-disk loader notes wired to ports.ondisk",
-  "port": "Qwen-local",
+  "at": "2026-09-09T19:29-06:00",
+  "slice": "B5 Kimi K3 edge on-disk loader notes wired to ports.ondisk",
+  "port": "JuniorKimiK3-edge",
   "status": "shipped",
-  "next": "B5 Kimi K3 edge on-disk loader notes wired to ports.ondisk (never pull 1.5TB)",
-  "run_at": "2026-09-09T13:07-06:00",
+  "next": "A7 live-beta package __init__ exports",
+  "run_at": "2026-09-09T19:29-06:00",
   "plan_bullets": [
-    "Fill B4 skeleton: Qwen-local checkpoint resolve via ports.ondisk",
-    "New bind module + stdlib tests; tiny GGUF loader hook",
-    "port: Qwen-local",
-    "PYTHONPATH=. python tests/test_qwen_ondisk.py",
-    "Missing weights stay on Gemma if present else FieldCore; no download; 8GB cap"
+    "Fill B5 skeleton: JuniorKimiK3-edge checkpoint resolve via ports.ondisk",
+    "New bind module + edge loader notes + stdlib tests",
+    "port: JuniorKimiK3-edge",
+    "PYTHONPATH=. python tests/test_kimi_k3_ondisk.py",
+    "Missing prune stays on Gemma if present else FieldCore; no 1.5TB; 8GB cap"
   ],
   "files_added": [
-    "adaptations/qwen/ondisk_bind.py",
-    "adaptations/qwen/gguf_loader.py",
-    "tests/test_qwen_ondisk.py",
+    "ports/ondisk.py",
+    "adaptations/kimi_k3/ondisk_bind.py",
+    "adaptations/kimi_k3/edge_loader.py",
+    "tests/test_kimi_k3_ondisk.py",
     "docs/COMPILED_BACKLOG.md",
     "STATE.md",
     "grok_bot/LAST_RECEIPT.md",
@@ -24,10 +25,11 @@
   "repos": ["cloudcover95/JuniorLLM"],
   "tests": "pass",
   "why_stopped": "",
-  "next_smallest_slice": "B5 Kimi K3 edge on-disk loader notes wired to ports.ondisk (never pull 1.5TB)",
-  "b4_ondisk_probe": {
-    "Qwen-local": false,
+  "next_smallest_slice": "A7 live-beta package __init__ exports",
+  "b5_ondisk_probe": {
+    "JuniorKimiK3-edge": false,
     "fetch": false,
+    "full_kimi_1_5tb": false,
     "cap_gb": 8
   }
 }

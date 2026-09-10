@@ -1,7 +1,7 @@
 # STATE
 
-- at: 2026-09-09T13:07-06:00
-- slice: B4 Qwen on-disk loader notes wired to ports.ondisk
-- port: Qwen-local
+- at: 2026-09-09T19:29-06:00
+- slice: B5 Kimi K3 edge on-disk loader notes wired to ports.ondisk
+- port: JuniorKimiK3-edge
 - status: shipped
-- next: B5 Kimi K3 edge on-disk loader notes wired to ports.ondisk (never pull 1.5TB)
+- next: A7 live-beta package __init__ exports

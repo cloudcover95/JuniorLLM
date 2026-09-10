@@ -1,21 +1,20 @@
 {
-  "at": "2026-09-10T07:16-06:00",
-  "slice": "C4 rootless OCI bitnetd unit",
+  "at": "2026-09-10T13:08-06:00",
+  "slice": "C5 juniorctl oci validate",
   "port": "JuniorAstraReason",
   "status": "shipped",
-  "next": "C5 juniorctl oci validate",
-  "run_at": "2026-09-10T07:16-06:00",
+  "next": "C6 overlay install oci bundle",
+  "run_at": "2026-09-10T13:08-06:00",
   "plan_bullets": [
-    "goal: fill rails/linux/oci skeleton with a rootless bitnetd unit (loopback only)",
-    "files: rails/linux/oci/config.json, rails/linux/oci/rootless.py, tests/test_c4_rootless_oci.py, docs/COMPILED_BACKLOG.md, STATE.md, receipts",
+    "goal: wire juniorctl oci validate to C4 rootless validator + B3 Gemma notes-only (no download)",
+    "files: rails/linux/juniorctl.py, tests/test_c5_juniorctl_oci.py, docs/COMPILED_BACKLOG.md, STATE.md, receipts",
     "port: JuniorAstraReason",
-    "test: PYTHONPATH=. python tests/test_c4_rootless_oci.py",
-    "done-check: validate ok; no docker.sock; B2 on-disk probe never downloads; C4 marked done"
+    "test: PYTHONPATH=. python tests/test_c5_juniorctl_oci.py",
+    "done-check: validate ok; loopback 127.0.0.1:8765; no docker.sock; gemma fetch=False; C5 marked done"
   ],
   "files_added": [
-    "rails/linux/oci/config.json",
-    "rails/linux/oci/rootless.py",
-    "tests/test_c4_rootless_oci.py",
+    "rails/linux/juniorctl.py",
+    "tests/test_c5_juniorctl_oci.py",
     "docs/COMPILED_BACKLOG.md",
     "STATE.md",
     "grok_bot/LAST_RECEIPT.md",
@@ -24,5 +23,5 @@
   "repos": ["cloudcover95/JuniorLLM"],
   "tests": "pass",
   "why_stopped": "",
-  "next_smallest_slice": "C5 juniorctl oci validate"
+  "next_smallest_slice": "C6 overlay install oci bundle"
 }

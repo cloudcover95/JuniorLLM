@@ -32,7 +32,17 @@ def health() -> dict:
         "bitnetd": "127.0.0.1:8765",
         "security": str(LINUX / "CONTAINER_SECURITY.md"),
         "ports": [p["name"] for p in list_ports()],
-        "cmds": ["health", "port list", "ask <q>", "night", "security", "quant", "lake", "net"],
+        "cmds": [
+            "health",
+            "port list",
+            "ask <q>",
+            "night",
+            "security",
+            "quant",
+            "lake",
+            "net",
+            "oci validate",
+        ],
     }
 
 
@@ -104,6 +114,35 @@ def net_status() -> dict:
     return {"balances": n.balances, "height": len(n.blocks), "bind": "127.0.0.1"}
 
 
+def oci_validate() -> dict:
+    """C5 — juniorctl wrapper around the C4 rootless OCI validator."""
+    _path()
+    from adaptations.gemma4.ondisk_bind import notes as gemma_notes
+    from rails.linux.oci import rootless
+
+    report = rootless.validate()
+    unit = rootless.unit()
+    gemma = gemma_notes()
+    return {
+        "ok": bool(report["ok"]),
+        "issues": list(report["issues"]),
+        "bind": report["bind"],
+        "rootless": bool(report["rootless"]),
+        "privileged": False,
+        "docker_socket": False,
+        "unit": unit["name"],
+        "unit_status": unit["status"],
+        "gemma": {
+            "port": gemma["port"],
+            "present": bool(gemma["present"]),
+            "path": gemma.get("path"),
+            "backend": gemma["backend"],
+            "fetch": False,
+        },
+        "weights": unit.get("weights"),
+    }
+
+
 def main(argv: list[str]) -> int:
     cmd = argv[1] if len(argv) > 1 else "health"
     if cmd == "health":
@@ -132,7 +171,18 @@ def main(argv: list[str]) -> int:
     if cmd == "net":
         print(json.dumps(net_status(), indent=2))
         return 0
-    print("usage: juniorctl health | security | port list | ask <q> | night | quant | lake | net", file=sys.stderr)
+    if cmd == "oci":
+        sub = argv[2] if len(argv) > 2 else "validate"
+        if sub != "validate":
+            print("usage: juniorctl oci validate", file=sys.stderr)
+            return 2
+        report = oci_validate()
+        print(json.dumps(report, indent=2, default=str))
+        return 0 if report["ok"] else 1
+    print(
+        "usage: juniorctl health | security | port list | ask <q> | night | quant | lake | net | oci validate",
+        file=sys.stderr,
+    )
     return 2
 
 

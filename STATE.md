@@ -1,7 +1,7 @@
 # STATE
 
-- at: 2026-09-10T07:16-06:00
-- slice: C4 rootless OCI bitnetd unit
+- at: 2026-09-10T13:08-06:00
+- slice: C5 juniorctl oci validate
 - port: JuniorAstraReason
 - status: shipped
-- next: C5 juniorctl oci validate
+- next: C6 overlay install oci bundle

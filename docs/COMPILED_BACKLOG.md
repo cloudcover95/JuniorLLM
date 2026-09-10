@@ -12,7 +12,7 @@ B6–B9 done.
 
 ## C — JuniorOS
 C1–C3 done. C4 done (rails/linux/oci rootless bitnetd unit).
-C5–C7 open.
+C5 done (juniorctl oci validate). C6–C7 open.
 
 ## D — older rails
 D1–D5 done. D6 open.

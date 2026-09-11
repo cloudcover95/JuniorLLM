@@ -8,6 +8,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 
+from junior_bitnet.stack_quant import stats
 from ports.bitnet_cloud import rows
 from ports.enduser_llm import build
 from ports.inject import write_vault
@@ -36,8 +37,20 @@ def main(argv: list[str]) -> int:
     out = []
     for n in NOTES:
         row = write_vault(n, vault)
-        out.append({"note": n, "area": row.get("area"), "ok": bool(row.get("ok"))})
-    print(json.dumps({"llm": card["name"], "runtime": card["runtime"], "domains": out, "bitnetcloud": len(rows(vault))}, indent=2))
+        q = stats(n)
+        out.append({"note": n, "area": row.get("area"), "ok": bool(row.get("ok")), "quant": q})
+    print(
+        json.dumps(
+            {
+                "llm": card["name"],
+                "runtime": card["runtime"],
+                "domains": out,
+                "bitnetcloud": len(rows(vault)),
+                "mean_sparsity": round(sum(x["quant"]["sparsity"] for x in out) / len(out), 3),
+            },
+            indent=2,
+        )
+    )
     return 0 if all(x["ok"] for x in out) else 1
 
 

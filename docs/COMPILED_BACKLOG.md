@@ -17,3 +17,6 @@ C7 done (overlay PATH pin + systemd --user unit).
 
 ## D — older rails
 D1–D5 done. D6 done (gym_internal notes withheld on public ask).
+
+## T — OS-world style (no OSWorld scores)
+T4 done (JuniorFileLedger local create/read).

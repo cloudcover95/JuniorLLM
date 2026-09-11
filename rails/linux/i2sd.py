@@ -3,6 +3,7 @@ from __future__ import annotations
 
 import socketserver
 import threading
+
 from junior_bitnet.i2s import pack_floats, unpack
 
 HOST = "127.0.0.1"
@@ -41,7 +42,7 @@ def serve(host: str = HOST, port: int = PORT) -> Server:
 
 
 def start_thread(port: int = PORT) -> tuple[Server, threading.Thread]:
-    srv = serve(PORT=port) if False else serve("127.0.0.1", port)
+    srv = serve("127.0.0.1", port)
     t = threading.Thread(target=srv.serve_forever, daemon=True)
     t.start()
     return srv, t

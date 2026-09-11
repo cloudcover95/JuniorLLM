@@ -43,6 +43,7 @@ def health() -> dict:
             "net",
             "oci validate",
             "oci install",
+            "path pin",
         ],
     }
 
@@ -155,6 +156,17 @@ def oci_install(dest: str | None = None) -> dict:
     return stage(target)
 
 
+def path_pin(dest: str | None = None) -> dict:
+    """C7 — pin juniorctl on overlay PATH + stage systemd --user unit."""
+    import os
+
+    _path()
+    from rails.linux.path_pin import stage
+
+    target = dest if dest else os.environ.get("DEST", "")
+    return stage(target)
+
+
 def main(argv: list[str]) -> int:
     cmd = argv[1] if len(argv) > 1 else "health"
     if cmd == "health":
@@ -196,8 +208,17 @@ def main(argv: list[str]) -> int:
             return 0 if report["ok"] else 1
         print("usage: juniorctl oci validate | oci install [DEST]", file=sys.stderr)
         return 2
+    if cmd == "path":
+        sub = argv[2] if len(argv) > 2 else "pin"
+        if sub == "pin":
+            dest = argv[3] if len(argv) > 3 else None
+            report = path_pin(dest)
+            print(json.dumps(report, indent=2, default=str))
+            return 0 if report["ok"] else 1
+        print("usage: juniorctl path pin [DEST]", file=sys.stderr)
+        return 2
     print(
-        "usage: juniorctl health | security | port list | ask <q> | night | quant | lake | net | oci validate | oci install [DEST]",
+        "usage: juniorctl health | security | port list | ask <q> | night | quant | lake | net | oci validate | oci install [DEST] | path pin [DEST]",
         file=sys.stderr,
     )
     return 2

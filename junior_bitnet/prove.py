@@ -1,9 +1,10 @@
-"""Hypothesis tests: BitNet alphabet + JuniorTeqp corresponding states."""
+"""Hypothesis tests: BitNet alphabet + JuniorTeqp + palace/ZK isolation."""
 from __future__ import annotations
 
 from junior_bitnet.bitlinear import bitlinear
 from junior_bitnet.compile_sheet import compile_sheet
 from junior_bitnet.math import absmean, binarize, sparsity
+from junior_bitnet.palace import Palace
 from junior_bitnet.teqp import a_helmholtz, props, rho
 
 
@@ -59,10 +60,22 @@ def prove() -> dict:
     sparse = [0] * 28 + [1, -1, 1, -1]
     h["cs_dense_higher_rho"] = props(dense).rho > props(sparse).rho
 
+    pal = Palace()
+    pal.seal("night", nxt)
+    pulled = pal.pull("night")
+    pulled[0] = 9  # poison the copy
+    obs = pal.observe("night")
+    h["palace_copy_isolated"] = pal.slots["night"].z[0] != 9
+    h["palace_commit_survives_teqp"] = obs["verify"] and obs["commit_unchanged"]
+    for _ in range(8):
+        pal.observe("night")
+    h["palace_repeat_pull_stable"] = pal.observe("night")["commit_unchanged"]
+
     return {
         "ok": all(h.values()),
         "hypotheses": h,
         "sparsity": sparsity(trits),
         "bitlinear_y": bl["y"],
         "night_props": np_.__dict__,
+        "palace": {"backend": pal.backend, "observe": obs},
     }

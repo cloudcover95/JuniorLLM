@@ -29,6 +29,9 @@ INBOX = {
     "arm": "kernel_inbox.jsonl",
     "mlx": "kernel_inbox.jsonl",
     "cpu": "kernel_inbox.jsonl",
+    "theory": "theory_inbox.jsonl",
+    "memsys": "memsys_inbox.jsonl",
+    "engr": "engr_inbox.jsonl",
 }
 
 

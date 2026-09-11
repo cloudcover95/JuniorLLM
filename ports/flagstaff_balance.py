@@ -1,4 +1,4 @@
-"""Checks before a note becomes a node. Area = Home domain, not only rock."""
+"""Checks before a note becomes a node. Area = inferred Home domain."""
 from __future__ import annotations
 
 import math
@@ -7,24 +7,33 @@ from ports.layer_mgr import pick_eos
 from ports.terraform import terraform
 
 AREAS = {
-    "home",
-    "vault",
-    "stock",
-    "cad",
-    "omega",
-    "van",
-    "os",
-    "llm",
-    "flagstaff",
-    "climbs",
-    "stonefield",
-    "xanadu",
-    "golden",
-    "boulder",
+    "home", "vault", "stock", "cad", "omega", "van", "os", "llm",
+    "flagstaff", "climbs", "stonefield", "xanadu", "golden", "boulder",
 }
 
+HINTS = (
+    ("cad", ("dxf", "dwg", "drawing", "omega", "height", "extrude")),
+    ("stock", ("ticker", "node", "book", "etf", "fill")),
+    ("os", ("junioros", "vmlinuz", "asahi", "llama")),
+    ("van", ("victron", "mppt", "transit")),
+    ("climbs", ("crimp", "beta", "v4", "v5", "boulder", "xanadu")),
+    ("flagstaff", ("flagstaff",)),
+    ("llm", ("llm", "terraform", "prompt")),
+    ("home", ("home", "vault")),
+)
 
-def check(note: str, *, area: str = "home", consent: bool = True, private: bool = False) -> dict:
+
+def guess(note: str) -> str:
+    t = (note or "").lower()
+    for area, keys in HINTS:
+        if any(k in t for k in keys):
+            return area
+    return "home"
+
+
+def check(note: str, *, area: str = "auto", consent: bool = True, private: bool = False) -> dict:
+    if area == "auto":
+        area = guess(note)
     tf = terraform(note)
     port = pick_eos(note or area, 8).name
     votes = {

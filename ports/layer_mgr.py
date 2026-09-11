@@ -36,6 +36,8 @@ def pick_eos(task: str, ram_gb: float, fluid: str = "NIGHT", table: dict | None 
         return _named("JuniorFable")
     if "durable" in t or t.strip() == "astra":
         return _named("JuniorAstra")
+    if any(k in t for k in ("flagstaff", "stonefield", "boulder", "beta")):
+        return _named("JuniorBitNetFieldCore")
     phase = _phase(fluid, table)
     name = PHASE_PORT.get(phase, "JuniorBitNetFieldCore")
     if name == "JuniorGemma4-4B" and ram_gb < 6:

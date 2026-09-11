@@ -1,10 +1,9 @@
-"""Custom localLLM for the computer at hand. Written into Home, not a repo clone."""
+"""Custom localLLM for the computer at hand. Written into Home."""
 from __future__ import annotations
 
 import json
 from pathlib import Path
 
-from ports.inject import write_vault
 from ports.terraform import terraform
 from rails.linux.backend import probe
 from rails.linux.llama import plan as llama_plan
@@ -38,6 +37,8 @@ def spec() -> dict:
 
 
 def build(vault: Path, note: str = "home local llm") -> dict:
+    from ports.inject import write_vault
+
     vault = Path(vault)
     vault.mkdir(parents=True, exist_ok=True)
     card = spec()

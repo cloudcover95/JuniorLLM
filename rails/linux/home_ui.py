@@ -1,10 +1,12 @@
-"""Loopback Home page. Terraform first; llama.cpp sits beside when GGUF exists."""
+"""Loopback Home page. Terraform + llama status + last vault rows."""
 from __future__ import annotations
 
+from html import escape
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
 from urllib.parse import parse_qs
 
+from ports.bitnet_cloud import rows
 from ports.enduser_llm import spec
 from ports.user_in import ingest
 from rails.linux.llama import plan as llama_plan
@@ -13,17 +15,21 @@ HOST = "127.0.0.1"
 PORT = 8771
 
 
-def _page() -> bytes:
+def _page(vault: Path) -> bytes:
     s = spec()
     lp = llama_plan()
+    items = "".join(
+        f"<li>{escape(str(r.get('area')))} — {escape(str(r.get('text'))[:80])}</li>"
+        for r in rows(vault)[-8:]
+    )
     return (
         "<!doctype html><meta charset=utf-8><title>JuniorHome</title>"
         "<body style='font-family:sans-serif;max-width:40rem;margin:2rem'>"
         "<h1>JuniorHome</h1>"
-        f"<p>{s['name']} runtime={s['runtime']} llama_ready={lp['ready']} fallback={lp['fallback']}</p>"
-        "<p>Any note. Llama is not spawned per submit.</p>"
+        f"<p>{escape(s['name'])} runtime={escape(s['runtime'])} llama_ready={lp['ready']} fallback={escape(lp['fallback'])}</p>"
         "<form method=post><textarea name=note rows=6 cols=60 required></textarea><br>"
-        "<button>terraform</button></form></body>"
+        "<button>terraform</button></form>"
+        f"<h2>BitnetCloud</h2><ul>{items or '<li>empty</li>'}</ul></body>"
     ).encode()
 
 
@@ -34,7 +40,7 @@ class H(BaseHTTPRequestHandler):
         return
 
     def do_GET(self) -> None:
-        body = _page()
+        body = _page(self.vault)
         self.send_response(200)
         self.send_header("Content-Type", "text/html; charset=utf-8")
         self.send_header("Content-Length", str(len(body)))

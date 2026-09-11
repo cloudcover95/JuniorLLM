@@ -1,13 +1,11 @@
-"""Interpolate missing elevation from miscellaneous notes vs core profile.
-
-Never silent. Output is a hypothesis scored by ternary drift.
-"""
+"""Interpolate missing elevation from miscellaneous notes vs core profile."""
 from __future__ import annotations
 
 import re
 from dataclasses import dataclass
 
 from adaptations.astra_reason.rigid_iq import drift, embed, run_iq
+from adaptations.omega_cad.quant import absmean
 
 NUM = re.compile(r"(?<![A-Z])(\d+(?:\.\d+)?)\s*(MM|IN|INCH)?", re.I)
 
@@ -19,6 +17,7 @@ class Interp:
     agreement: float
     hypothesis: bool
     notes: list[str]
+    trit_agree: float = 0.0
 
 
 def _nums(text: str) -> list[float]:
@@ -32,18 +31,22 @@ def _nums(text: str) -> list[float]:
 
 def interpolate(profile: str, misc: str, sidecar: str = "") -> Interp:
     notes: list[str] = []
-    core = _nums(profile + "\n" + sidecar)
-    extra = _nums(misc)
-    iq = run_iq((profile or "") + " | " + (misc or "") + " | " + sidecar, loops=3)
+    blob = sidecar + "\n" + misc
+    m = re.search(r"HEIGHT\s*[:#]?\s*([0-9.]+)", blob, re.I)
+    core, extra = _nums(profile + "\n" + sidecar), _nums(misc)
+    ta = 0.0
+    if core and extra:
+        tp, _ = absmean(core)
+        tm, _ = absmean(extra + [0] * max(0, len(tp) - len(extra)))
+        n = min(len(tp), len(tm))
+        ta = sum(1 for i in range(n) if tp[i] == tm[i]) / n if n else 0.0
+    if m:
+        return Interp(float(m.group(1)), "explicit", 1.0, False, ["explicit height; skipped IQ"], ta)
     agree = max(0.0, min(1.0, 1.0 - drift(embed(profile or "p"), embed(misc or sidecar or "m"))))
+    iq = run_iq((profile or "") + " | " + (misc or "") + " | " + sidecar, loops=3)
     height = None
     source = "none"
-    m = re.search(r"HEIGHT\s*[:#]?\s*([0-9.]+)", sidecar + "\n" + misc, re.I)
-    if m:
-        height = float(m.group(1))
-        source = "explicit"
-    elif extra:
-        # misc numbers that are small vs longest profile dim → likely thickness
+    if extra:
         span = max(core) if core else None
         cand = [x for x in extra if span is None or x < span * 0.8]
         if cand:
@@ -55,10 +58,7 @@ def interpolate(profile: str, misc: str, sidecar: str = "") -> Interp:
         height = min(core) * 0.25
         source = "profile_quarter"
         notes.append("no misc thickness; used 0.25*min profile dim")
-    hyp = source != "explicit"
-    if iq.recommendation == "low_confidence":
+    if iq.recommendation == "low_confidence" and source != "explicit":
         notes.append("iq low — do not treat as elev")
-        if hyp:
-            height = None
-            source = "blocked"
-    return Interp(height, source, round(agree, 4), hyp, notes)
+        height, source = None, "blocked"
+    return Interp(height, source, round(agree, 4), True, notes, ta)

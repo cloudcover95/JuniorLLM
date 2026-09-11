@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-"""One vault pass across Home + kernel domains."""
 from __future__ import annotations
 
 import json
@@ -24,6 +23,9 @@ NOTES = (
     "custom node book",
     "victron mppt transit",
     "junioros llama plan",
+    "palace seal memsys",
+    "engrtools title block redline",
+    "theorycu zk receipt",
 )
 
 
@@ -35,17 +37,7 @@ def main(argv: list[str]) -> int:
     for n in NOTES:
         row = write_vault(n, vault)
         out.append({"note": n, "area": row.get("area"), "ok": bool(row.get("ok"))})
-    print(
-        json.dumps(
-            {
-                "llm": card["name"],
-                "runtime": card["runtime"],
-                "domains": out,
-                "bitnetcloud": len(rows(vault)),
-            },
-            indent=2,
-        )
-    )
+    print(json.dumps({"llm": card["name"], "runtime": card["runtime"], "domains": out, "bitnetcloud": len(rows(vault))}, indent=2))
     return 0 if all(x["ok"] for x in out) else 1
 
 

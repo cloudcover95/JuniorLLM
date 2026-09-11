@@ -1,9 +1,11 @@
-"""Local Flagstaff LLM context — budget chars per locked Layer-1 tier."""
+"""Local Flagstaff LLM context — fill each locked tier to budget, pack I2_S."""
 from __future__ import annotations
 
 import json
 from pathlib import Path
 
+from junior_bitnet.i2s import pack
+from junior_bitnet.math import absmean
 from ports.layer_mgr import pick_eos
 from ports.terraform import terraform
 
@@ -18,7 +20,13 @@ BUDGET = {
 
 def _fit(text: str, n: int) -> str:
     t = text or ""
-    return t if len(t) <= n else t[: n - 1] + "…"
+    return t if len(t) <= n else t[: n - 1] + "\u2026"
+
+
+def _i2s(text: str) -> str:
+    xs = [float(ord(c) % 97) for c in (text or "x")[:64]]
+    z, _ = absmean(xs)
+    return pack(z).hex()
 
 
 def assemble(ask: str, lock: Path | None = None) -> dict:
@@ -28,10 +36,10 @@ def assemble(ask: str, lock: Path | None = None) -> dict:
     tf = terraform(ask)
     sheets = ""
     try:
-        from junior_bitnet.coolstore import build, props_si
+        from junior_bitnet.coolstore import build
 
         tab = build()
-        sheets = f"FIELD {props_si(tab,'PHASE','FIELD')} NIGHT {props_si(tab,'PHASE','NIGHT')}"
+        sheets = json.dumps(tab["fluids"], separators=(",", ":"))
     except Exception:
         pass
     layers = {}
@@ -39,7 +47,14 @@ def assemble(ask: str, lock: Path | None = None) -> dict:
         if locked and name not in locked:
             continue
         raw = " ".join(x for x in (ask, tf["text"], sheets, name) if x)
-        layers[name] = {"budget": cap, "ctx": _fit(raw, cap), "n": min(len(raw), cap)}
+        ctx = _fit(raw, cap)
+        layers[name] = {
+            "budget": cap,
+            "ctx": ctx,
+            "n": len(ctx),
+            "fill": round(len(ctx) / cap, 3),
+            "i2s": _i2s(ctx),
+        }
     return {
         "port": pick_eos(ask or "flagstaff", 8).name,
         "layers": layers,

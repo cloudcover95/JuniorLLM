@@ -1,11 +1,12 @@
-"""Native hook for Climbs/Stock/Home. Loopback only."""
+"""Native hook. Loopback only."""
 from __future__ import annotations
 
 import json
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
-from urllib.parse import urlparse
+from urllib.parse import parse_qs, urlparse
 
 from ports.enduser_llm import spec
+from ports.flagstaff_balance import guess
 from ports.inject import digest
 from ports.terraform import terraform
 
@@ -26,12 +27,16 @@ class H(BaseHTTPRequestHandler):
         self.wfile.write(b)
 
     def do_GET(self) -> None:
-        path = urlparse(self.path).path
-        if path == "/health":
+        u = urlparse(self.path)
+        if u.path == "/health":
             self._send(200, {"ok": True})
             return
-        if path == "/llm":
+        if u.path == "/llm":
             self._send(200, spec())
+            return
+        if u.path == "/guess":
+            q = (parse_qs(u.query).get("q") or [""])[0]
+            self._send(200, {"area": guess(q), "q": q})
             return
         self._send(404, {"ok": False})
 

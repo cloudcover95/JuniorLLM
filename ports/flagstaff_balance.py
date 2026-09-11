@@ -8,12 +8,15 @@ from ports.terraform import terraform
 
 AREAS = {
     "home", "vault", "stock", "cad", "omega", "van", "os", "llm", "app",
+    "audio", "notes",
     "asahi", "cuda", "arm", "mlx", "cpu",
     "theory", "memsys", "engr",
     "flagstaff", "climbs", "stonefield", "xanadu", "golden", "boulder",
 }
 
 HINTS = (
+    ("audio", ("mp3", "wav", "ffmpeg", "mixdown", "audio edit")),
+    ("notes", ("note taking", "journal", "analysis", "obsidian expand")),
     ("app", ("pyside", "gui app", "sdk module", "app development", "feature flag")),
     ("asahi", ("asahi", "agx")),
     ("cuda", ("cuda", "triton", "nvidia")),

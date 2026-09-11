@@ -1,10 +1,11 @@
-"""Hypothesis tests: BitNet alphabet + JuniorTeqp + palace/ZK isolation."""
+"""Hypothesis tests: BitNet alphabet + JuniorTeqp + palace/ZK + catalog."""
 from __future__ import annotations
 
 from junior_bitnet.bitlinear import bitlinear
 from junior_bitnet.compile_sheet import compile_sheet
 from junior_bitnet.math import absmean, binarize, sparsity
 from junior_bitnet.palace import Palace
+from junior_bitnet.refprop import Library
 from junior_bitnet.teqp import a_helmholtz, props, rho
 
 
@@ -63,13 +64,18 @@ def prove() -> dict:
     pal = Palace()
     pal.seal("night", nxt)
     pulled = pal.pull("night")
-    pulled[0] = 9  # poison the copy
+    pulled[0] = 9
     obs = pal.observe("night")
     h["palace_copy_isolated"] = pal.slots["night"].z[0] != 9
     h["palace_commit_survives_teqp"] = obs["verify"] and obs["commit_unchanged"]
     for _ in range(8):
         pal.observe("night")
     h["palace_repeat_pull_stable"] = pal.observe("night")["commit_unchanged"]
+
+    lib = Library()
+    h["catalog_named_fluids"] = set(lib.names()) >= {"NIGHT", "FIELD", "ABSMEAN", "SPARSE", "DENSE", "ZK"}
+    h["catalog_props_si"] = float(lib.props_si("D", "DENSE")) > float(lib.props_si("D", "SPARSE"))
+    h["catalog_still_sealed"] = all(lib.palace.observe(n.lower())["commit_unchanged"] for n in lib.names())
 
     return {
         "ok": all(h.values()),
@@ -78,4 +84,5 @@ def prove() -> dict:
         "bitlinear_y": bl["y"],
         "night_props": np_.__dict__,
         "palace": {"backend": pal.backend, "observe": obs},
+        "catalog": lib.names(),
     }

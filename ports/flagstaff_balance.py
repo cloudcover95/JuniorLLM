@@ -1,4 +1,4 @@
-"""Checks before a note becomes a node. Area includes kernel domains."""
+"""Checks before a note becomes a node."""
 from __future__ import annotations
 
 import math
@@ -9,6 +9,7 @@ from ports.terraform import terraform
 AREAS = {
     "home", "vault", "stock", "cad", "omega", "van", "os", "llm",
     "asahi", "cuda", "arm", "mlx", "cpu",
+    "theory", "memsys", "engr",
     "flagstaff", "climbs", "stonefield", "xanadu", "golden", "boulder",
 }
 
@@ -19,6 +20,9 @@ HINTS = (
     ("arm", ("aarch64", "raspberry", "arm64")),
     ("cpu", ("x86", "i2sd pack")),
     ("cad", ("dxf", "dwg", "drawing", "omega", "height", "extrude")),
+    ("engr", ("engrtools", "redline", "title block")),
+    ("memsys", ("memsys", "palace", "seal")),
+    ("theory", ("credit union", "zk receipt", "theorycu")),
     ("stock", ("ticker", "node", "book", "etf", "fill")),
     ("os", ("junioros", "vmlinuz", "llama")),
     ("van", ("victron", "mppt", "transit")),

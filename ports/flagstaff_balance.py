@@ -7,7 +7,7 @@ from ports.layer_mgr import pick_eos
 from ports.terraform import terraform
 
 AREAS = {
-    "home", "vault", "stock", "cad", "omega", "van", "os", "llm", "app",
+    "user", "home", "vault", "stock", "cad", "omega", "van", "os", "llm", "app",
     "media", "notes", "scan",
     "asahi", "cuda", "arm", "mlx", "cpu",
     "theory", "memsys", "engr",
@@ -43,7 +43,7 @@ def guess(note: str) -> str:
     for area, keys in HINTS:
         if any(k in t for k in keys):
             return area
-    return "home"
+    return "user"
 
 
 def check(note: str, *, area: str = "auto", consent: bool = True, private: bool = False) -> dict:

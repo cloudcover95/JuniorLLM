@@ -15,6 +15,7 @@ SUITES = (
     "tests.test_bitnet_cloud",
     "tests.test_fusion_llama",
     "tests.test_enduser_llm",
+    "tests.test_tp",
 )
 
 

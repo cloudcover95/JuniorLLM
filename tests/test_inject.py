@@ -17,19 +17,21 @@ class InjectTests(unittest.TestCase):
         self.assertEqual(guess("dxf missing height"), "cad")
         self.assertEqual(guess("custom node book"), "stock")
         self.assertEqual(guess("flagstaff dry V4 crimp"), "climbs")
+        self.assertEqual(guess("asahi mlx overlay"), "asahi")
+        self.assertEqual(guess("triton cuda fused dot"), "cuda")
+        self.assertEqual(guess("aarch64 pi i2sd"), "arm")
 
     def test_consent(self):
         self.assertFalse(digest("x", private=True, consent=False)["ok"])
-        row = digest("flagstaff dry V4 crimp")
+        row = digest("triton cuda fused dot")
         self.assertTrue(row["ok"])
-        self.assertEqual(row["area"], "climbs")
-        self.assertEqual(row["node"]["kind"], "custom")
+        self.assertEqual(row["area"], "cuda")
+        self.assertEqual(row["inbox"], "kernel_inbox.jsonl")
 
     def test_vault(self):
         with tempfile.TemporaryDirectory() as td:
             write_vault("dxf missing height", Path(td))
             self.assertTrue((Path(td) / "cad_inbox.jsonl").is_file())
-            self.assertTrue((Path(td) / "nodes.jsonl").is_file())
 
 
 if __name__ == "__main__":

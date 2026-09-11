@@ -22,6 +22,11 @@ INBOX = {
     "llm": "llm_inbox.jsonl",
     "home": "home_inbox.jsonl",
     "vault": "home_inbox.jsonl",
+    "asahi": "kernel_inbox.jsonl",
+    "cuda": "kernel_inbox.jsonl",
+    "arm": "kernel_inbox.jsonl",
+    "mlx": "kernel_inbox.jsonl",
+    "cpu": "kernel_inbox.jsonl",
 }
 
 

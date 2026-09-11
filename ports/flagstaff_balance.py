@@ -7,13 +7,14 @@ from ports.layer_mgr import pick_eos
 from ports.terraform import terraform
 
 AREAS = {
-    "home", "vault", "stock", "cad", "omega", "van", "os", "llm",
+    "home", "vault", "stock", "cad", "omega", "van", "os", "llm", "app",
     "asahi", "cuda", "arm", "mlx", "cpu",
     "theory", "memsys", "engr",
     "flagstaff", "climbs", "stonefield", "xanadu", "golden", "boulder",
 }
 
 HINTS = (
+    ("app", ("pyside", "gui app", "sdk module", "app development", "feature flag")),
     ("asahi", ("asahi", "agx")),
     ("cuda", ("cuda", "triton", "nvidia")),
     ("mlx", ("mlx", "metal", "m4")),

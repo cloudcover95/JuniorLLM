@@ -1,9 +1,10 @@
-"""Local Flagstaff LLM context — fill each locked tier to budget, pack I2_S."""
+"""Local Flagstaff LLM context — budget fill + I2_S + trit cache."""
 from __future__ import annotations
 
 import json
 from pathlib import Path
 
+from junior_bitnet.ctxcache import Cache
 from junior_bitnet.i2s import pack
 from junior_bitnet.math import absmean
 from ports.layer_mgr import pick_eos
@@ -16,6 +17,8 @@ BUDGET = {
     "ports": 256,
     "terraform": 1024,
 }
+
+CACHE = Cache()
 
 
 def _fit(text: str, n: int) -> str:
@@ -30,6 +33,11 @@ def _i2s(text: str) -> str:
 
 
 def assemble(ask: str, lock: Path | None = None) -> dict:
+    hit = CACHE.get(ask)
+    if hit is not None:
+        out = dict(hit)
+        out["cache"] = "hit"
+        return out
     locked = []
     if lock and Path(lock).is_file():
         locked = list(json.loads(Path(lock).read_text(encoding="utf-8")).get("locked") or [])
@@ -55,9 +63,12 @@ def assemble(ask: str, lock: Path | None = None) -> dict:
             "fill": round(len(ctx) / cap, 3),
             "i2s": _i2s(ctx),
         }
-    return {
+    pack_ = {
         "port": pick_eos(ask or "flagstaff", 8).name,
         "layers": layers,
         "total": sum(v["n"] for v in layers.values()),
         "tf": tf,
+        "cache": "miss",
     }
+    CACHE.put(ask, pack_)
+    return pack_

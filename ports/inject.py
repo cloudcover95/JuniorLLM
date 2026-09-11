@@ -5,7 +5,7 @@ import hashlib
 import json
 from pathlib import Path
 
-from junior_bitnet.sidecar import trit
+from junior_bitnet.edgepack import edgepack
 from ports.flagstaff import assemble
 from ports.flagstaff_balance import check
 from ports.second_brain import log as brain_log
@@ -51,7 +51,7 @@ def digest(note: str, *, area: str = "auto", consent: bool = True, private: bool
         "consent": consent,
         "private": private,
         "kind": "custom",
-        "trit": trit(tf["text"]),
+        "edgepack": edgepack(tf["text"]),
     }
     return {"ok": True, "votes": bal["votes"], "area": area, "inbox": INBOX.get(area, "home_inbox.jsonl"), "node": node, "ctx_total": assemble(note)["total"]}
 

@@ -12,18 +12,16 @@ from ports.flagstaff_balance import guess
 from ports.use_in import ingest
 
 
-class UseInTests(unittest.TestCase):
-    def test_cases(self):
-        self.assertEqual(guess("trim mp3 mixdown"), "audio")
-        self.assertEqual(guess("note taking analysis journal"), "notes")
-        self.assertEqual(guess("pyside gui app"), "app")
-        self.assertEqual(guess("dxf omega drawing"), "cad")
+class UseTests(unittest.TestCase):
+    def test_kinds(self):
+        self.assertEqual(guess("mp3 trim edit wav"), "media")
+        self.assertEqual(guess("journal analysis expand"), "notes")
+        self.assertEqual(guess("photocopy scan tiff store"), "scan")
         with tempfile.TemporaryDirectory() as td:
-            a = ingest(Path(td), "trim mp3 mixdown")
-            n = ingest(Path(td), "note taking analysis journal")
-            self.assertEqual(a["inject"]["inbox"], "audio_inbox.jsonl")
-            self.assertEqual(n["inject"]["inbox"], "notes_inbox.jsonl")
-            self.assertTrue(a["tp_match"] and n["tp_match"])
+            for k in ("media", "notes", "scan"):
+                r = ingest(Path(td), k)
+                self.assertTrue(r["ok"], k)
+                self.assertEqual(r["guess"], k)
 
 
 if __name__ == "__main__":

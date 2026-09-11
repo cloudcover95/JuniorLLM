@@ -22,6 +22,7 @@ INBOX = {
     "os": "os_inbox.jsonl",
     "van": "van_inbox.jsonl",
     "llm": "llm_inbox.jsonl",
+    "app": "app_inbox.jsonl",
     "home": "home_inbox.jsonl",
     "vault": "home_inbox.jsonl",
     "asahi": "kernel_inbox.jsonl",

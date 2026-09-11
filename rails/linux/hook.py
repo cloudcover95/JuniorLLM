@@ -38,6 +38,9 @@ class H(BaseHTTPRequestHandler):
             q = (parse_qs(u.query).get("q") or [""])[0]
             self._send(200, {"area": guess(q), "q": q})
             return
+        if u.path == "/bitnetcloud":
+            self._send(200, {"name": "BitnetCloud", "cloud": False, "local": True, "bind": HOST})
+            return
         self._send(404, {"ok": False})
 
     def do_POST(self) -> None:

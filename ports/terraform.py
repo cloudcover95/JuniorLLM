@@ -1,4 +1,4 @@
-"""Language terraform through local trit ports + fused infer sidecar."""
+"""Language terraform. Cache fusion_y; llama plan once per process."""
 from __future__ import annotations
 
 import re
@@ -12,18 +12,34 @@ DROP = re.compile(
     re.I,
 )
 
+_PLAN: dict | None = None
+_Y: dict[str, float] = {}
+
+
+def _plan() -> dict:
+    global _PLAN
+    if _PLAN is None:
+        _PLAN = llama_plan()
+    return _PLAN
+
 
 def terraform(text: str, ram_gb: float = 8.0) -> dict:
     port = pick_eos(text, ram_gb)
     cleaned = DROP.sub("", text or "")
     cleaned = " ".join(cleaned.split())
-    xs = [float(ord(c) % 97) for c in (cleaned or "x")[:16]]
-    fus = run(xs, xs[::-1] or [1.0])
+    if cleaned not in _Y:
+        xs = [float(ord(c) % 97) for c in (cleaned or "x")[:16]]
+        _Y[cleaned] = run(xs, xs[::-1] or [1.0])["y"]
+    fus = run([1.0], [1.0])  # backend flag only; y from cache
     return {
         "port": port.name,
         "text": cleaned,
         "ok": "0.0.0.0" not in cleaned.lower(),
-        "fusion_y": fus["y"],
+        "fusion_y": _Y[cleaned],
         "fusion_backend": fus["backend"],
-        "llama_ready": llama_plan()["ready"],
+        "llama_ready": bool(_plan()["ready"]),
     }
+
+
+def batch(texts: list[str], ram_gb: float = 8.0) -> list[dict]:
+    return [terraform(t, ram_gb) for t in texts]

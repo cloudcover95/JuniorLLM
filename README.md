@@ -1,134 +1,52 @@
 # JuniorLLM
 
-**Local Manifold LLM Layering SDK** — Zero-latency hardware actuation via TDA + Bit Drift + Omni Math
+Local-first custom ports + ternary engines for JuniorCloud LLC.
+Not a 1.5TB download. Not a generic chat wrapper.
 
-Bypasses cloud LLM roadblocks for timers, algebra, word scrambles, file context, and OS commands.
+## Ports
 
-## Visualizations
+`ports/registry.py` + `ports/layer_mgr.py`
 
-![Data Server Audit Across Cluster](assets/audit_cluster_tda_4k.png)
+| Port | Job |
+|------|-----|
+| JuniorBitNetFieldCore | Crowd/field trit scorer (default, sparse/coexist) |
+| JuniorBitNetDraft | CAD sidecar; compile gate before IQ |
+| JuniorFable | Safety classifier |
+| JuniorAstra | Durable work runtime |
+| JuniorAstraReason | Q4 + rigid IQ loops (dense phase) |
+| JuniorGemma4-4B / Qwen-local / Kimi-edge | High-quant caps |
 
-![Dataset Stack & Black Box Inference](assets/dataset_stack_tda_inference_4k.png)
+Layer manager: Teqp **phase** picks the port. `cad`/`fable`/`astra` keywords still win.
 
-## Quick Start
+## JuniorTeqp
 
-```bash
-cd JuniorLLM
-python -m venv .venv
-source .venv/bin/activate
-pip install -e .
-juniorllm ask "start a timer for 30 seconds"
-juniorllm chat
+REFPROP/CoolProp *shape* on trit states (`junior_bitnet/`):
 
-# JuniorMemSys-Suite v0.4.0
+- `teqp.py` — A_id + A_res, reduced T/ρ
+- `refprop.py` — named fluids NIGHT FIELD ABSMEAN SPARSE DENSE ZK
+- `palace.py` — pull is a copy; SIS commit does not move
+- `coolstore.py` — cold JSON table, no `z`
+- `vault.py` / `ledger.py` — Obsidian note + public observations
 
-**Sovereign Topological Memory Palace SDK**
-
-Apple Silicon Native · MLX-first · TDA + SVD · Bit Drift Inference · MCP Ready
-
-JuniorMemSys-Suite is a production-grade topological memory system built for AI agents and enterprises. It combines **Topological Data Analysis (TDA)**, **Singular Value Decomposition (SVD)**, and **Bit Drift quantization** to create memory retrieval systems that are:
-
-- **Power-efficient** on Apple Silicon
-- **Logic-dense** and enterprise-auditable
-- **Language-agnostic** (Python SDK, Swift client, MCP-compatible)
-
----
-
-## 🚀 Quick Start
-
-### 1. Installation
+## One script
 
 ```bash
-git clone https://github.com/cloudcover95/JuniorMemSys-Suite
-cd JuniorMemSys-Suite
-pip install -e ".[dev,playground,benchmarks]"
+PYTHONPATH=. python scripts/home_sync.py ./vault
+PYTHONPATH=. python scripts/layer_prod.py
+PYTHONPATH=. python scripts/prove_bitnet.py
 ```
 
-### 2. Bootstrap the Node
+`home_sync` writes `JuniorTeqp/property_table.md`, `observations.jsonl`, `coolstore.json`.
 
-The `omega_boot.sh` script handles environment alignment and target service initialization.
+## Prove
 
-```bash
-./omega_boot.sh --ui          # Launch Streamlit / Gradio TDA Sandbox
-./omega_boot.sh --grpc        # Start gRPC receiver for Swift TrueDepth/ARKit
-./omega_boot.sh --web         # Start FastAPI MCP / WebRTC bridge
-```
+`junior_bitnet.prove()` — alphabet, compile-blocks-IQ, BitLinear, night, zk pack, palace isolation, catalog sealed.
+Does **not** prove Microsoft BitNet-2B or NIST REFPROP.
 
----
+## Sisters
 
-## 🛠 Architecture & Directory Tree
-
-```
-JuniorMemSys-Suite/
-├── 📦 junior_memsys_suite/          # Core installable SDK
-│   ├── core/                        # TDA Engine & Math Kernels
-│   │   ├── palace.py                # MemoryPalace logic (Provenance + Storage)
-│   │   ├── tda_mesh.py              # SVD + Bit Drift Manifolds
-│   │   ├── encoder.py               # MLX-Native Sovereign Encoder
-│   │   └── audit.py                 # Enterprise Integrity & Benchmark Engine
-│   └── pipelines/                   # Data integration layer (DatasetMiner, Chunker)
-├── 🖥️ playground/                   # Streamlit Dashboard & Globe Brain Viz
-├── 🔬 benchmarks/                    # LongMemEval QA & Scaling Tests
-├── 🛠️ scripts/                       # Harvester, Kernel Builders, and Seeders
-└── server.py                        # MCP Protocol / FastAPI Server
-```
-
----
-
-## ⚖️ Technical Baseline
-
-JuniorMemSys utilizes **Bit Drift** instead of cosine similarity. Tensors are projected via SVD and quantized to a ±1 binary signature. Retrieval computes the mean Feature Distance across the manifold, enabling sub-millisecond lookups on embedded systems.
-
-### Example: Storing a Memory
-
-```python
-from junior_memsys_suite.core import MemoryPalace
-
-palace = MemoryPalace()
-
-palace.store(
-    wing="alpha", 
-    hall="directives", 
-    room="root_node",
-    content="Optimize for power-efficient, logic-dense engineering.",
-    z_score=2.5
-)
-```
-
----
-
-## 📡 Integration Points
-
-### 1. Native Python SDK
-Import and use directly in your agent loops.
-
-### 2. MCP Tool Integration
-
-JuniorMemSys serves as a native tool for Claude or Cursor. Connect to the local node:
-
-```
-GET http://localhost:8000/mcp/tools
-```
-
-### 3. Server Integrity Audit
-
-Prove data consistency across your memory fabric:
-
-```bash
-junior-memsys audit --wing alpha
-```
-
----
-
-## 🗺 Roadmap (v0.5+)
-
-- **Incremental Indexing**: Automated file-watching and delta-etching
-- **Distributed Swarm**: Local mesh synchronization across multi-agent clusters (Orange Pi/Linux)
-- **Native Swift SDK**: Direct TrueDepth/ARKit memory capture
-- **Quantum Kernel Mode**: Adaptive bit-width for constrained devices
-
----
-
-## 📝 License
-
-MIT License — See LICENSE file for details.
+- BitNet-mlx — Apple Silicon kernels / vision quant
+- JuniorMemSys-Suite — optional SIS backend
+- JuniorEngrTools — desk + Obsidian port
+- JuniorHome — pointers only (`docs/JUNIOR_TEQP.md`)
+- JuniorOmega — CAD solids after compile is ready

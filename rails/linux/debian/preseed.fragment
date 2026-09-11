@@ -1,0 +1,5 @@
+# Drop into a Debian netinst late_command. Uses stock linux-image-*
+d-i pkgsel/include string python3 git systemd
+# late_command example:
+# cp -a /media/usb/junioros-overlay/. /opt/junioros/
+# systemctl enable bitnetd.service

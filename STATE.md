@@ -1,7 +1,7 @@
 # STATE
 
-- at: 2026-09-10T13:08-06:00
-- slice: C5 juniorctl oci validate
+- at: 2026-09-10T19:20-06:00
+- slice: C6 overlay install oci bundle
 - port: JuniorAstraReason
 - status: shipped
-- next: C6 overlay install oci bundle
+- next: C7 overlay PATH pin + user unit

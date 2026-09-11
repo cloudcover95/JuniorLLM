@@ -42,6 +42,7 @@ def health() -> dict:
             "lake",
             "net",
             "oci validate",
+            "oci install",
         ],
     }
 
@@ -143,6 +144,17 @@ def oci_validate() -> dict:
     }
 
 
+def oci_install(dest: str | None = None) -> dict:
+    """C6 — stage the C4 OCI bundle under DEST. Loopback only. No fetch."""
+    import os
+
+    _path()
+    from rails.linux.oci.install_bundle import stage
+
+    target = dest if dest else os.environ.get("DEST", "")
+    return stage(target)
+
+
 def main(argv: list[str]) -> int:
     cmd = argv[1] if len(argv) > 1 else "health"
     if cmd == "health":
@@ -173,14 +185,19 @@ def main(argv: list[str]) -> int:
         return 0
     if cmd == "oci":
         sub = argv[2] if len(argv) > 2 else "validate"
-        if sub != "validate":
-            print("usage: juniorctl oci validate", file=sys.stderr)
-            return 2
-        report = oci_validate()
-        print(json.dumps(report, indent=2, default=str))
-        return 0 if report["ok"] else 1
+        if sub == "validate":
+            report = oci_validate()
+            print(json.dumps(report, indent=2, default=str))
+            return 0 if report["ok"] else 1
+        if sub == "install":
+            dest = argv[3] if len(argv) > 3 else None
+            report = oci_install(dest)
+            print(json.dumps(report, indent=2, default=str))
+            return 0 if report["ok"] else 1
+        print("usage: juniorctl oci validate | oci install [DEST]", file=sys.stderr)
+        return 2
     print(
-        "usage: juniorctl health | security | port list | ask <q> | night | quant | lake | net | oci validate",
+        "usage: juniorctl health | security | port list | ask <q> | night | quant | lake | net | oci validate | oci install [DEST]",
         file=sys.stderr,
     )
     return 2

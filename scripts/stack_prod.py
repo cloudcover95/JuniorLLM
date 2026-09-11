@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""One vault pass across Home domains."""
+"""One vault pass across Home + kernel domains."""
 from __future__ import annotations
 
 import json
@@ -17,9 +17,13 @@ from ports.layer1_iq import cycle
 NOTES = (
     "dxf missing height",
     "triton cuda fused dot",
+    "asahi mlx overlay",
+    "aarch64 pi i2sd",
     "home local llm",
     "flagstaff dry V4 crimp",
     "custom node book",
+    "victron mppt transit",
+    "junioros llama plan",
 )
 
 
@@ -29,7 +33,8 @@ def main(argv: list[str]) -> int:
     card = build(vault, "home local llm")
     out = []
     for n in NOTES:
-        out.append({"note": n, "area": write_vault(n, vault).get("area"), "ok": True})
+        row = write_vault(n, vault)
+        out.append({"note": n, "area": row.get("area"), "ok": bool(row.get("ok"))})
     print(
         json.dumps(
             {
@@ -41,7 +46,7 @@ def main(argv: list[str]) -> int:
             indent=2,
         )
     )
-    return 0
+    return 0 if all(x["ok"] for x in out) else 1
 
 
 if __name__ == "__main__":

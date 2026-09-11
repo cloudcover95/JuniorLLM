@@ -1,7 +1,7 @@
 """Junior custom LLM ports — local / high-quant first."""
 from __future__ import annotations
 
-from dataclasses import dataclass, asdict
+from dataclasses import asdict, dataclass
 
 
 @dataclass(frozen=True)
@@ -30,6 +30,14 @@ PORTS = [
     ),
     LLMPort("JuniorKimiK3-edge", "edge-moe", "pruned-ternary", "mlx", 8.0, "Never pull full 1.5TB"),
     LLMPort("Qwen-local", "high-quant", "Q4_K_M", "gguf", 8.0, "Quality baseline under 8GB cap"),
+    LLMPort(
+        "JuniorBitNetDraft",
+        "bitnet-native",
+        "ternary-1.58",
+        "rigid-iq",
+        0.0,
+        "CAD sidecar / title-block / layer intent. Not a generic chat hook.",
+    ),
 ]
 
 
@@ -43,6 +51,8 @@ def _named(name: str) -> LLMPort:
 
 def pick(task: str, ram_gb: float) -> LLMPort:
     t = (task or "").lower()
+    if any(k in t for k in ("cad", "dxf", "dwg", "drawing", "title block", "omega", "draft")):
+        return _named("JuniorBitNetDraft")
     if "astra-class" in t or "astra reason" in t or "reason" in t or "qwen" in t:
         return _named("JuniorAstraReason")
     if "durable" in t or "checkpoint" in t or t.strip() == "astra" or t.startswith("astra ") and "class" not in t:

@@ -1,9 +1,10 @@
-"""Hypothesis tests for this stack across CAD, night, zk pack, BitLinear."""
+"""Hypothesis tests: BitNet alphabet + JuniorTeqp corresponding states."""
 from __future__ import annotations
 
 from junior_bitnet.bitlinear import bitlinear
 from junior_bitnet.compile_sheet import compile_sheet
 from junior_bitnet.math import absmean, binarize, sparsity
+from junior_bitnet.teqp import a_helmholtz, props, rho
 
 
 def prove() -> dict:
@@ -34,18 +35,34 @@ def prove() -> dict:
     st = [1, -1, 0] * (DIM // 3) + [0] * (DIM % 3)
     nxt = tick(st, 0)
     h["night_closed_trits"] = all(v in (-1, 0, 1) for v in nxt) and len(nxt) == DIM
+    np_ = props(nxt)
+    h["night_teqp_rho"] = 0.0 <= np_.rho <= 1.0
+    h["teqp_A_finite"] = abs(a_helmholtz(nxt, 0.22)) < 1e6
 
     from lattice_zk.pack import pack, unpack
 
     raw = [-1, 0, 1, 1, 0, -1]
     h["zk_pack_roundtrip"] = unpack(pack(raw), len(raw)) == raw
+    h["zk_teqp_rho"] = abs(rho(raw) - 4 / 6) < 1e-9
 
     try:
         from adaptations.astra_reason.rigid_iq import embed
 
-        e = embed("field beta")
+        e = embed("field beta dry open V4")
         h["iq_embed_trits"] = all(v in (-1, 0, 1) for v in e)
+        h["field_teqp_phase"] = props(e).phase in {"sparse", "dense", "mixed", "coexist"}
     except Exception:
         h["iq_embed_trits"] = False
+        h["field_teqp_phase"] = False
 
-    return {"ok": all(h.values()), "hypotheses": h, "sparsity": sparsity(trits), "bitlinear_y": bl["y"]}
+    dense = [1, -1] * 16
+    sparse = [0] * 28 + [1, -1, 1, -1]
+    h["cs_dense_higher_rho"] = props(dense).rho > props(sparse).rho
+
+    return {
+        "ok": all(h.values()),
+        "hypotheses": h,
+        "sparsity": sparsity(trits),
+        "bitlinear_y": bl["y"],
+        "night_props": np_.__dict__,
+    }

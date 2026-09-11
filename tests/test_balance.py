@@ -12,10 +12,16 @@ from ports.inject import digest
 
 
 class BalanceTests(unittest.TestCase):
-    def test_pass(self):
-        b = check("flagstaff dry beta")
+    def test_home(self):
+        self.assertTrue(check("local llm card", area="home")["ok"])
+
+    def test_cad(self):
+        b = check("dxf missing height", area="cad")
         self.assertTrue(b["ok"])
-        self.assertTrue(all(b["votes"].values()))
+        self.assertEqual(b["port"], "JuniorBitNetDraft")
+
+    def test_stock(self):
+        self.assertTrue(check("custom node book", area="stock")["ok"])
 
     def test_private(self):
         self.assertFalse(digest("x", private=True, consent=False)["ok"])

@@ -6,6 +6,7 @@ import json
 from pathlib import Path
 
 from junior_bitnet.edgepack import edgepack
+from ports.bitnet_cloud import put as cloud_put
 from ports.flagstaff import assemble
 from ports.flagstaff_balance import check
 from ports.second_brain import log as brain_log
@@ -69,4 +70,5 @@ def write_vault(note: str, vault: Path, **kw) -> dict:
     with (vault / "nodes.jsonl").open("a", encoding="utf-8") as f:
         f.write(json.dumps(row["node"]) + "\n")
     brain_log(vault, row["area"], row["node"]["text"])
+    cloud_put(vault, row["node"]["text"], row["area"])
     return row

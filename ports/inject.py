@@ -7,6 +7,7 @@ from pathlib import Path
 
 from ports.flagstaff import assemble
 from ports.flagstaff_balance import check
+from ports.second_brain import log as brain_log
 
 INBOX = {
     "climbs": "stonefield_inbox.jsonl",
@@ -60,4 +61,5 @@ def write_vault(note: str, vault: Path, **kw) -> dict:
         f.write(json.dumps(row["node"]) + "\n")
     with (vault / "nodes.jsonl").open("a", encoding="utf-8") as f:
         f.write(json.dumps(row["node"]) + "\n")
+    brain_log(vault, row["area"], row["node"]["text"])
     return row

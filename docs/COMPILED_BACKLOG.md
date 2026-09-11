@@ -16,4 +16,4 @@ C5 done (juniorctl oci validate). C6 done (overlay install oci bundle).
 C7 done (overlay PATH pin + systemd --user unit).
 
 ## D — older rails
-D1–D5 done. D6 open.
+D1–D5 done. D6 done (gym_internal notes withheld on public ask).

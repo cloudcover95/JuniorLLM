@@ -5,6 +5,7 @@ from dataclasses import dataclass
 
 from adaptations.astra.contextpipe import pack, PackedContext
 from junior_aie.retrieval import RetrievalStack
+from junior_aie.visibility import filter_hits, filter_memory
 
 
 @dataclass
@@ -19,10 +20,16 @@ class ContextAssembler:
         self.retrieval = retrieval or RetrievalStack()
         self.budget = budget
 
-    def assemble(self, query: str, memory: list[tuple[str, str]], tools: list[str] | None = None) -> Assembled:
-        hits = self.retrieval.search(query, k=4)
+    def assemble(
+        self,
+        query: str,
+        memory: list[tuple[str, str]],
+        tools: list[str] | None = None,
+        visibility: str = "public",
+    ) -> Assembled:
+        hits = filter_hits(self.retrieval.search(query, k=4), visibility)
         parts: list[tuple[str, str]] = [("query", query)]
-        for key, val in memory:
+        for key, val in filter_memory(memory, visibility):
             parts.append((f"mem:{key}", val))
         for doc, _score in hits:
             parts.append(("retr", doc))

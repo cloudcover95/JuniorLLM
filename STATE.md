@@ -1,7 +1,7 @@
 # STATE
 
-- at: 2026-09-11T01:07-06:00
-- slice: C7 overlay PATH pin + user unit
-- port: JuniorAstraReason
+- at: 2026-09-11T07:27-06:00
+- slice: D6 gym_internal notes not leaked on public ask
+- port: JuniorFable
 - status: shipped
-- next: D6 older rails
+- next: T4 JuniorFileLedger local create/read

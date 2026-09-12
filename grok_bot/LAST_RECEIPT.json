@@ -1,20 +1,20 @@
 {
-  "at": "2026-09-12T01:07-06:00",
-  "slice": "T5 skill load + hash pin",
-  "port": "JuniorAstra",
+  "at": "2026-09-12T07:36-06:00",
+  "slice": "T6 juniorctl skill-pin list (loopback)",
+  "port": "JuniorAstraReason",
   "status": "shipped",
-  "next": "T6 juniorctl skill-pin list (loopback)",
-  "run_at": "2026-09-12T01:07-06:00",
+  "next": "T7 juniorctl skill-pin load (loopback)",
+  "run_at": "2026-09-12T07:36-06:00",
   "plan_bullets": [
-    "goal: load SKILL.md under a root only after sha256 pin",
-    "files: junior_aie/skill_pin.py, tests/test_t5_skill_pin.py, docs/COMPILED_BACKLOG.md, STATE.md, receipts",
-    "port: JuniorAstra",
-    "test: PYTHONPATH=. python tests/test_t5_skill_pin.py",
-    "done-check: pin then load same bytes + matching sha256; refuse unpinned/mutated/path escape/docker.sock/eval-exec-wildcard/>8GB"
+    "goal: juniorctl skill-pin list under a root, loopback only",
+    "files: rails/linux/juniorctl.py, tests/test_t6_juniorctl_skill_pin.py, docs/COMPILED_BACKLOG.md, STATE.md, receipts",
+    "port: JuniorAstraReason",
+    "test: PYTHONPATH=. python tests/test_t6_juniorctl_skill_pin.py",
+    "done-check: list unpinned then pinned rows; refuse docker.sock/wildcard/path escape/PAT; no fetch"
   ],
   "files_added": [
-    "junior_aie/skill_pin.py",
-    "tests/test_t5_skill_pin.py",
+    "rails/linux/juniorctl.py",
+    "tests/test_t6_juniorctl_skill_pin.py",
     "docs/COMPILED_BACKLOG.md",
     "STATE.md",
     "grok_bot/LAST_RECEIPT.md",
@@ -23,5 +23,5 @@
   "repos": ["cloudcover95/JuniorLLM"],
   "tests": "pass",
   "why_stopped": "",
-  "next_smallest_slice": "T6 juniorctl skill-pin list (loopback)"
+  "next_smallest_slice": "T7 juniorctl skill-pin load (loopback)"
 }

@@ -44,6 +44,7 @@ def health() -> dict:
             "oci validate",
             "oci install",
             "path pin",
+            "skill-pin list",
         ],
     }
 
@@ -167,6 +168,71 @@ def path_pin(dest: str | None = None) -> dict:
     return stage(target)
 
 
+def _skill_pin_denied(reason: str, raw: str) -> dict:
+    return {
+        "ok": False,
+        "issues": [reason],
+        "bind": "127.0.0.1:8765",
+        "root": raw,
+        "skills": [],
+        "count": 0,
+        "chain_ok": False,
+        "docker_socket": False,
+        "privileged": False,
+        "download": False,
+        "fetch": False,
+    }
+
+
+def skill_pin_list(root: str | None = None, skills_dir: str = "skills") -> dict:
+    """T6 — list SKILL.md pins under a root. Loopback only. Never fetch."""
+    _path()
+    from junior_aie.skill_pin import DENY_FRAGMENTS, SkillDenied, SkillPins
+
+    raw = (root or "").strip() or str(ROOT / "grok_bot")
+    low = raw.replace("\\", "/").lower()
+    wildcard = ".".join(("0", "0", "0", "0"))
+    if any(frag in low for frag in DENY_FRAGMENTS):
+        return _skill_pin_denied("denied_name", raw)
+    if wildcard in low:
+        return _skill_pin_denied("wildcard", raw)
+    if ".." in Path(raw).parts:
+        return _skill_pin_denied("path_escape", raw)
+
+    try:
+        pins = SkillPins(Path(raw))
+        rels = pins.discover(skills_dir)
+    except SkillDenied as exc:
+        return _skill_pin_denied(str(exc), raw)
+
+    rows: list[dict] = []
+    for rel in rels:
+        latest = pins.latest_pin(rel)
+        name = latest.name if latest else Path(rel).parent.name
+        rows.append(
+            {
+                "name": name,
+                "rel": rel,
+                "pinned": latest is not None,
+                "sha256": latest.sha256 if latest else None,
+                "size": latest.size if latest else None,
+            }
+        )
+    return {
+        "ok": True,
+        "issues": [],
+        "bind": "127.0.0.1:8765",
+        "root": str(Path(raw).resolve()),
+        "skills": rows,
+        "count": len(rows),
+        "chain_ok": pins.verify_chain(),
+        "docker_socket": False,
+        "privileged": False,
+        "download": False,
+        "fetch": False,
+    }
+
+
 def main(argv: list[str]) -> int:
     cmd = argv[1] if len(argv) > 1 else "health"
     if cmd == "health":
@@ -217,8 +283,17 @@ def main(argv: list[str]) -> int:
             return 0 if report["ok"] else 1
         print("usage: juniorctl path pin [DEST]", file=sys.stderr)
         return 2
+    if cmd == "skill-pin":
+        sub = argv[2] if len(argv) > 2 else "list"
+        if sub == "list":
+            dest = argv[3] if len(argv) > 3 else None
+            report = skill_pin_list(dest)
+            print(json.dumps(report, indent=2, default=str))
+            return 0 if report["ok"] else 1
+        print("usage: juniorctl skill-pin list [ROOT]", file=sys.stderr)
+        return 2
     print(
-        "usage: juniorctl health | security | port list | ask <q> | night | quant | lake | net | oci validate | oci install [DEST] | path pin [DEST]",
+        "usage: juniorctl health | security | port list | ask <q> | night | quant | lake | net | oci validate | oci install [DEST] | path pin [DEST] | skill-pin list [ROOT]",
         file=sys.stderr,
     )
     return 2

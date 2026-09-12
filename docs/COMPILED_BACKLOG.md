@@ -20,3 +20,4 @@ D1–D5 done. D6 done (gym_internal notes withheld on public ask).
 
 ## T — OS-world style (no OSWorld scores)
 T4 done (JuniorFileLedger local create/read).
+T5 done (skill load + hash pin).

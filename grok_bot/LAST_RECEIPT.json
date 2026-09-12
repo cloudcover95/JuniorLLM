@@ -1,20 +1,20 @@
 {
-  "at": "2026-09-11T13:03-06:00",
-  "slice": "T4 JuniorFileLedger local create/read",
+  "at": "2026-09-12T01:07-06:00",
+  "slice": "T5 skill load + hash pin",
   "port": "JuniorAstra",
   "status": "shipped",
-  "next": "T5 skill load + hash pin",
-  "run_at": "2026-09-11T13:03-06:00",
+  "next": "T6 juniorctl skill-pin list (loopback)",
+  "run_at": "2026-09-12T01:07-06:00",
   "plan_bullets": [
-    "goal: local file create/read via Files ledger with hash chain under a root",
-    "files: junior_aie/files_ledger.py, tests/test_t4_files_ledger.py, docs/COMPILED_BACKLOG.md, STATE.md, receipts",
+    "goal: load SKILL.md under a root only after sha256 pin",
+    "files: junior_aie/skill_pin.py, tests/test_t5_skill_pin.py, docs/COMPILED_BACKLOG.md, STATE.md, receipts",
     "port: JuniorAstra",
-    "test: PYTHONPATH=. python tests/test_t4_files_ledger.py",
-    "done-check: create writes bytes + ledger row; read returns same bytes + matching sha256; refuse path escape / docker.sock / >8GB; B2/B3 on-disk probe notes only, no download"
+    "test: PYTHONPATH=. python tests/test_t5_skill_pin.py",
+    "done-check: pin then load same bytes + matching sha256; refuse unpinned/mutated/path escape/docker.sock/eval-exec-wildcard/>8GB"
   ],
   "files_added": [
-    "junior_aie/files_ledger.py",
-    "tests/test_t4_files_ledger.py",
+    "junior_aie/skill_pin.py",
+    "tests/test_t5_skill_pin.py",
     "docs/COMPILED_BACKLOG.md",
     "STATE.md",
     "grok_bot/LAST_RECEIPT.md",
@@ -23,5 +23,5 @@
   "repos": ["cloudcover95/JuniorLLM"],
   "tests": "pass",
   "why_stopped": "",
-  "next_smallest_slice": "T5 skill load + hash pin"
+  "next_smallest_slice": "T6 juniorctl skill-pin list (loopback)"
 }

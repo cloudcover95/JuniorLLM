@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""juniorctl — JuniorOS entry. skill_pin_list skill_pin_verify skill_pin_verify_one"""
+"""juniorctl — JuniorOS entry. skill_pin_list skill_pin_verify skill_pin_verify_one skill_pin_tip"""
 from __future__ import annotations
 
 import json
@@ -49,6 +49,7 @@ def health() -> dict:
             "skill-pin pin",
             "skill-pin verify",
             "skill-pin verify-one",
+            "skill-pin tip",
         ],
     }
 
@@ -291,6 +292,14 @@ def skill_pin_load(rel: str | None = None, root: str | None = None) -> dict:
 from rails.linux.juniorctl_bind import install as _install_skillpin
 
 _install_skillpin(globals())
+
+
+def skill_pin_tip(root: str | None = None) -> dict:
+    """T11 — pin-log chain tip under a root. Loopback only. Never fetch. Never exec."""
+    _path()
+    from rails.linux.ctl_skillpin import skill_pin_tip as impl
+
+    return impl(root)
 
 if __name__ == "__main__":
     raise SystemExit(main(sys.argv))

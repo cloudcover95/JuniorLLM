@@ -1,12 +1,12 @@
 # Receipt
 
-- run_at: 2026-09-13T07:31-06:00
-- slice: T10 juniorctl skill-pin verify-one REL (loopback)
+- run_at: 2026-09-13T13:07-06:00
+- slice: T11 juniorctl skill-pin tip (loopback)
 - port: JuniorAstraReason
-- plan_bullets: goal=juniorctl skill-pin verify-one REL under a root, loopback only; files=juniorctl.py+test_t10+backlog+state+receipts; port=JuniorAstraReason; test=PYTHONPATH=. python tests/test_t10_juniorctl_skill_pin_verify_one.py; done-check=unpinned ok, pin match, mismatch fails, missing after pin fails, refuse abs/docker.sock/wildcard/path escape/PAT, no fetch no exec
-- files_added: rails/linux/juniorctl.py, tests/test_t10_juniorctl_skill_pin_verify_one.py, docs/COMPILED_BACKLOG.md, STATE.md, grok_bot/LAST_RECEIPT.md, grok_bot/LAST_RECEIPT.json
+- plan_bullets: goal=juniorctl skill-pin tip reports SKILL_PINS.jsonl chain tip under a root, loopback only; files=ctl_skillpin.py+ctl_cli.py+juniorctl.py+test_t11+backlog+state+receipts; port=JuniorAstraReason; test=PYTHONPATH=. python tests/test_t11_juniorctl_skill_pin_tip.py; done-check=empty tip is ZERO, pin then load advances tip, refuse docker.sock/wildcard/path escape/PAT, no body no fetch no exec
+- files_added: rails/linux/ctl_skillpin.py, rails/linux/ctl_cli.py, rails/linux/juniorctl.py, tests/test_t11_juniorctl_skill_pin_tip.py, docs/COMPILED_BACKLOG.md, STATE.md, grok_bot/LAST_RECEIPT.md, grok_bot/LAST_RECEIPT.json
 - repos: cloudcover95/JuniorLLM
 - tests: pass
 - status: shipped
 - why_stopped:
-- next_smallest_slice: T11 juniorctl skill-pin tip (loopback)
+- next_smallest_slice: T12 juniorctl skill-pin log (loopback)

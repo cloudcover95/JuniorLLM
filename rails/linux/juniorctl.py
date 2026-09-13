@@ -202,7 +202,6 @@ def skill_pin_pin(rel: str | None = None, root: str | None = None) -> dict:
         return _skill_pin_denied("wildcard", raw)
     if ".." in Path(raw).parts:
         return _skill_pin_denied("path_escape", raw)
-
     text = (rel or "").strip()
     if not text:
         return _skill_pin_denied("empty_path", raw)
@@ -213,13 +212,11 @@ def skill_pin_pin(rel: str | None = None, root: str | None = None) -> dict:
         return _skill_pin_denied("wildcard", raw)
     if ".." in Path(text).parts:
         return _skill_pin_denied("path_escape", raw)
-
     try:
         pins = SkillPins(Path(raw))
         row = pins.pin(text)
     except SkillDenied as exc:
         return _skill_pin_denied(str(exc), raw)
-
     return {
         "ok": True,
         "issues": [],
@@ -246,7 +243,9 @@ def skill_pin_load(rel: str | None = None, root: str | None = None) -> dict:
     """T7 — load a pinned SKILL.md under a root. Loopback only. Never fetch. Never exec."""
     _path()
     from junior_aie.skill_pin import DENY_FRAGMENTS, SkillDenied, SkillPins
+    from rails.linux.juniorctl_bind import install
 
+    install(globals())
     raw = (root or "").strip() or str(ROOT / "grok_bot")
     low = raw.replace("\\", "/").lower()
     wildcard = ".".join(("0", "0", "0", "0"))
@@ -256,7 +255,6 @@ def skill_pin_load(rel: str | None = None, root: str | None = None) -> dict:
         return _skill_pin_denied("wildcard", raw)
     if ".." in Path(raw).parts:
         return _skill_pin_denied("path_escape", raw)
-
     text = (rel or "").strip()
     if not text:
         return _skill_pin_denied("empty_path", raw)
@@ -267,13 +265,11 @@ def skill_pin_load(rel: str | None = None, root: str | None = None) -> dict:
         return _skill_pin_denied("wildcard", raw)
     if ".." in Path(text).parts:
         return _skill_pin_denied("path_escape", raw)
-
     try:
         pins = SkillPins(Path(raw))
         body, row = pins.load(text)
     except SkillDenied as exc:
         return _skill_pin_denied(str(exc), raw)
-
     return {
         "ok": True,
         "issues": [],
@@ -295,3 +291,11 @@ def skill_pin_load(rel: str | None = None, root: str | None = None) -> dict:
         "fetch": False,
         "exec": False,
     }
+
+
+from rails.linux.juniorctl_bind import install as _install_skillpin
+
+_install_skillpin(globals())
+
+if __name__ == "__main__":
+    raise SystemExit(main(sys.argv))

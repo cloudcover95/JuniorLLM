@@ -47,6 +47,7 @@ def health() -> dict:
             "skill-pin list",
             "skill-pin load",
             "skill-pin pin",
+            "skill-pin verify",
         ],
     }
 
@@ -295,6 +296,93 @@ def skill_pin_load(rel: str | None = None, root: str | None = None) -> dict:
     }
 
 
+def skill_pin_verify(root: str | None = None, skills_dir: str = "skills") -> dict:
+    """T9 — verify SKILL.md pin chain under a root. Loopback only. Never fetch. Never exec."""
+    _path()
+    from junior_aie.skill_pin import DENY_FRAGMENTS, SkillDenied, SkillPins, sha256_bytes
+
+    raw = (root or "").strip() or str(ROOT / "grok_bot")
+    low = raw.replace("\\", "/").lower()
+    wildcard = ".".join(("0", "0", "0", "0"))
+    if any(frag in low for frag in DENY_FRAGMENTS):
+        return _skill_pin_denied("denied_name", raw)
+    if wildcard in low:
+        return _skill_pin_denied("wildcard", raw)
+    if ".." in Path(raw).parts:
+        return _skill_pin_denied("path_escape", raw)
+
+    try:
+        pins = SkillPins(Path(raw))
+        rels = pins.discover(skills_dir)
+    except SkillDenied as exc:
+        return _skill_pin_denied(str(exc), raw)
+
+    issues: list[str] = []
+    chain_ok = pins.verify_chain()
+    if not chain_ok:
+        issues.append("chain_break")
+
+    rows: list[dict] = []
+    matched = 0
+    for rel in rels:
+        latest = pins.latest_pin(rel)
+        name = latest.name if latest else Path(rel).parent.name
+        digest = None
+        state = "unpinned"
+        match = False
+        target = pins.root / rel
+        if target.is_file():
+            data = target.read_bytes()
+            digest = sha256_bytes(data)
+        if latest is None:
+            state = "unpinned"
+        elif digest is None:
+            state = "missing"
+            issues.append("missing")
+        elif digest != latest.sha256:
+            state = "pin_mismatch"
+            issues.append("pin_mismatch")
+        else:
+            state = "ok"
+            match = True
+            matched += 1
+        rows.append(
+            {
+                "name": name,
+                "rel": rel,
+                "pinned": latest is not None,
+                "match": match,
+                "state": state,
+                "sha256": latest.sha256 if latest else digest,
+                "size": latest.size if latest else None,
+            }
+        )
+
+    seen: set[str] = set()
+    uniq: list[str] = []
+    for item in issues:
+        if item not in seen:
+            seen.add(item)
+            uniq.append(item)
+
+    return {
+        "ok": chain_ok and not uniq,
+        "issues": uniq,
+        "bind": "127.0.0.1:8765",
+        "root": str(Path(raw).resolve()),
+        "skills": rows,
+        "count": len(rows),
+        "matched": matched,
+        "chain_ok": chain_ok,
+        "op": "verify",
+        "docker_socket": False,
+        "privileged": False,
+        "download": False,
+        "fetch": False,
+        "exec": False,
+    }
+
+
 def skill_pin_list(root: str | None = None, skills_dir: str = "skills") -> dict:
     """T6 — list SKILL.md pins under a root. Loopback only. Never fetch."""
     _path()
@@ -413,13 +501,18 @@ def main(argv: list[str]) -> int:
             report = skill_pin_pin(rel, dest)
             print(json.dumps(report, indent=2, default=str))
             return 0 if report["ok"] else 1
+        if sub == "verify":
+            dest = argv[3] if len(argv) > 3 else None
+            report = skill_pin_verify(dest)
+            print(json.dumps(report, indent=2, default=str))
+            return 0 if report["ok"] else 1
         print(
-            "usage: juniorctl skill-pin list [ROOT] | skill-pin load REL [ROOT] | skill-pin pin REL [ROOT]",
+            "usage: juniorctl skill-pin list [ROOT] | skill-pin load REL [ROOT] | skill-pin pin REL [ROOT] | skill-pin verify [ROOT]",
             file=sys.stderr,
         )
         return 2
     print(
-        "usage: juniorctl health | security | port list | ask <q> | night | quant | lake | net | oci validate | oci install [DEST] | path pin [DEST] | skill-pin list [ROOT] | skill-pin load REL [ROOT] | skill-pin pin REL [ROOT]",
+        "usage: juniorctl health | security | port list | ask <q> | night | quant | lake | net | oci validate | oci install [DEST] | path pin [DEST] | skill-pin list [ROOT] | skill-pin load REL [ROOT] | skill-pin pin REL [ROOT] | skill-pin verify [ROOT]",
         file=sys.stderr,
     )
     return 2

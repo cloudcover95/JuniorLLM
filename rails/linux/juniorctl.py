@@ -46,6 +46,7 @@ def health() -> dict:
             "path pin",
             "skill-pin list",
             "skill-pin load",
+            "skill-pin pin",
         ],
     }
 
@@ -182,6 +183,60 @@ def _skill_pin_denied(reason: str, raw: str) -> dict:
         "privileged": False,
         "download": False,
         "fetch": False,
+    }
+
+
+def skill_pin_pin(rel: str | None = None, root: str | None = None) -> dict:
+    """T8 — pin a SKILL.md under a root. Loopback only. Never fetch. Never exec."""
+    _path()
+    from junior_aie.skill_pin import DENY_FRAGMENTS, SkillDenied, SkillPins
+
+    raw = (root or "").strip() or str(ROOT / "grok_bot")
+    low = raw.replace("\\", "/").lower()
+    wildcard = ".".join(("0", "0", "0", "0"))
+    if any(frag in low for frag in DENY_FRAGMENTS):
+        return _skill_pin_denied("denied_name", raw)
+    if wildcard in low:
+        return _skill_pin_denied("wildcard", raw)
+    if ".." in Path(raw).parts:
+        return _skill_pin_denied("path_escape", raw)
+
+    text = (rel or "").strip()
+    if not text:
+        return _skill_pin_denied("empty_path", raw)
+    rel_low = text.replace("\\", "/").lower()
+    if any(frag in rel_low for frag in DENY_FRAGMENTS):
+        return _skill_pin_denied("denied_name", raw)
+    if wildcard in rel_low:
+        return _skill_pin_denied("wildcard", raw)
+    if ".." in Path(text).parts:
+        return _skill_pin_denied("path_escape", raw)
+
+    try:
+        pins = SkillPins(Path(raw))
+        row = pins.pin(text)
+    except SkillDenied as exc:
+        return _skill_pin_denied(str(exc), raw)
+
+    return {
+        "ok": True,
+        "issues": [],
+        "bind": "127.0.0.1:8765",
+        "root": str(Path(raw).resolve()),
+        "rel": text,
+        "name": row.name,
+        "op": row.op,
+        "sha256": row.sha256,
+        "size": row.size,
+        "height": row.height,
+        "skills": [],
+        "count": 1,
+        "chain_ok": pins.verify_chain(),
+        "docker_socket": False,
+        "privileged": False,
+        "download": False,
+        "fetch": False,
+        "exec": False,
     }
 
 
@@ -352,10 +407,19 @@ def main(argv: list[str]) -> int:
             report = skill_pin_load(rel, dest)
             print(json.dumps(report, indent=2, default=str))
             return 0 if report["ok"] else 1
-        print("usage: juniorctl skill-pin list [ROOT] | skill-pin load REL [ROOT]", file=sys.stderr)
+        if sub == "pin":
+            rel = argv[3] if len(argv) > 3 else None
+            dest = argv[4] if len(argv) > 4 else None
+            report = skill_pin_pin(rel, dest)
+            print(json.dumps(report, indent=2, default=str))
+            return 0 if report["ok"] else 1
+        print(
+            "usage: juniorctl skill-pin list [ROOT] | skill-pin load REL [ROOT] | skill-pin pin REL [ROOT]",
+            file=sys.stderr,
+        )
         return 2
     print(
-        "usage: juniorctl health | security | port list | ask <q> | night | quant | lake | net | oci validate | oci install [DEST] | path pin [DEST] | skill-pin list [ROOT] | skill-pin load REL [ROOT]",
+        "usage: juniorctl health | security | port list | ask <q> | night | quant | lake | net | oci validate | oci install [DEST] | path pin [DEST] | skill-pin list [ROOT] | skill-pin load REL [ROOT] | skill-pin pin REL [ROOT]",
         file=sys.stderr,
     )
     return 2

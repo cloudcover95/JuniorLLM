@@ -24,3 +24,4 @@ T5 done (skill load + hash pin).
 T6 done (juniorctl skill-pin list, loopback).
 T7 done (juniorctl skill-pin load, loopback).
 T8 done (juniorctl skill-pin pin, loopback).
+T9 done (juniorctl skill-pin verify, loopback).

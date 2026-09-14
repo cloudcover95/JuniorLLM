@@ -1,8 +1,10 @@
 """Validate Gaia / OSai / Omega envelopes. Stdlib only."""
 from __future__ import annotations
 
+import os
 from pathlib import Path
 
+from ports.gaia_id import status as id_status
 from ports.gaia_sys import system
 
 PROTO = "goldend-osai-omega/1"
@@ -11,11 +13,7 @@ JOBS = {"dash-viewport", "gaia-spine", "terrain-obj", "agi-capsule"}
 
 def load_proto() -> dict:
     p = Path(__file__).resolve().parents[1] / "config" / "protocol.toml"
-    if not p.is_file():
-        return {"id": PROTO, "jobs": sorted(JOBS)}
-    text = p.read_text(encoding="utf-8")
-    jobs = [ln.split("\"")[1] for ln in text.splitlines() if "dash-viewport" in ln or "gaia-spine" in ln or "terrain-obj" in ln or "agi-capsule" in ln]
-    return {"id": PROTO, "jobs": jobs or sorted(JOBS)}
+    return {"id": PROTO, "jobs": sorted(JOBS), "toml": p.is_file()}
 
 
 def check_system(env: dict) -> list[str]:
@@ -43,6 +41,7 @@ def check_system(env: dict) -> list[str]:
 
 def handshake(note: str = "home dash", **kw) -> dict:
     job = kw.pop("job", None)
+    strict = bool(kw.pop("strict", False) or os.environ.get("JUNIOR_STRICT"))
     env = system(note, **kw)
     if job:
         omega = dict(env.get("omega") or {})
@@ -50,10 +49,14 @@ def handshake(note: str = "home dash", **kw) -> dict:
         omega["launch"] = False
         env["omega"] = omega
     bad = check_system(env)
-    if job and job not in JOBS:
-        bad.append("job")
+    ident = id_status(env)
+    if not ident.get("verified"):
+        bad.append("identity")
     env["protocol"] = PROTO
     env["schema_ok"] = not bad
     env["schema_bad"] = bad
+    env["identity"] = ident
     env["jobs_allowed"] = sorted(JOBS)
+    if strict and bad:
+        raise ValueError("handshake " + ",".join(bad))
     return env

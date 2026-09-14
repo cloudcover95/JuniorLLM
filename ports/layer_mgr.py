@@ -30,6 +30,8 @@ def _phase(fluid: str, table: dict | None) -> str:
 
 def pick_eos(task: str, ram_gb: float, fluid: str = "NIGHT", table: dict | None = None) -> LLMPort:
     t = (task or "").lower()
+    if any(k in t for k in ("gaia", "companion", "portrait", "goldend")):
+        return _named("JuniorGaia")
     if any(k in t for k in ("cad", "dxf", "dwg", "drawing", "omega", "draft")):
         return _named("JuniorBitNetDraft")
     if "safety" in t or "fable" in t:

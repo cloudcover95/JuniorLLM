@@ -38,6 +38,14 @@ PORTS = [
         0.0,
         "CAD sidecar / title-block / layer intent. Not a generic chat hook.",
     ),
+    LLMPort(
+        "JuniorGaia",
+        "companion-spine",
+        "ternary-1.58",
+        "home-portrait",
+        0.0,
+        "Local named HUD. Goldend spines. Omega mesh stub. Not Halo Cortana.",
+    ),
 ]
 
 
@@ -51,6 +59,8 @@ def _named(name: str) -> LLMPort:
 
 def pick(task: str, ram_gb: float) -> LLMPort:
     t = (task or "").lower()
+    if any(k in t for k in ("gaia", "companion", "portrait", "goldend")):
+        return _named("JuniorGaia")
     if any(k in t for k in ("cad", "dxf", "dwg", "drawing", "title block", "omega", "draft")):
         return _named("JuniorBitNetDraft")
     if "astra-class" in t or "astra reason" in t or "reason" in t or "qwen" in t:

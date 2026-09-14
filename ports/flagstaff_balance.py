@@ -12,6 +12,7 @@ AREAS = {
     "asahi", "cuda", "arm", "mlx", "cpu",
     "theory", "memsys", "engr",
     "flagstaff", "climbs", "stonefield", "xanadu", "golden", "boulder",
+    "birds", "osai",
 }
 
 HINTS = (
@@ -32,7 +33,9 @@ HINTS = (
     ("os", ("junioros", "vmlinuz", "llama")),
     ("van", ("victron", "mppt", "transit")),
     ("climbs", ("crimp", "beta", "v4", "v5", "boulder", "xanadu")),
+    ("birds", ("jay", "magpie", "hawk", "raptor", "nest", "bird")),
     ("flagstaff", ("flagstaff",)),
+    ("osai", ("osai", "juniorosai", "golden suite")),
     ("llm", ("llm", "terraform", "prompt")),
     ("home", ("home", "vault")),
 )
@@ -47,16 +50,18 @@ def guess(note: str) -> str:
 
 
 def check(note: str, *, area: str = "auto", consent: bool = True, private: bool = False) -> dict:
+    raw = note or ""
     if area == "auto":
-        area = guess(note)
-    tf = terraform(note)
-    port = pick_eos(note or area, 8).name
+        area = guess(raw)
+    tf = terraform(raw)
+    port = pick_eos(raw or area, 8).name
+    blob = f"{raw} {tf.get('text') or ''}"
     votes = {
         "terraform_ok": bool(tf.get("ok") and tf.get("text")),
         "covenant": not (private and not consent),
         "area": area.lower() in AREAS,
         "junior_port": port.startswith("Junior"),
         "finite_y": math.isfinite(float(tf.get("fusion_y") or 0)),
-        "no_bind": "0.0.0.0" not in (tf.get("text") or ""),
+        "no_bind": "0.0.0.0" not in blob,
     }
     return {"ok": all(votes.values()), "votes": votes, "tf": tf, "port": port, "area": area.lower()}

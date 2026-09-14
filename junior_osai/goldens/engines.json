@@ -1,0 +1,11 @@
+{
+  "suite": "JuniorOSai",
+  "species": "engines",
+  "download": false,
+  "cases": [
+    {"id": "vault-ok", "note": "vault seal porch light", "expect_ok": true},
+    {"id": "media-ok", "note": "mp3 mix edit", "expect_ok": true},
+    {"id": "notes-ok", "note": "journal field note", "expect_ok": true},
+    {"id": "bind-no", "note": "bind 0.0.0.0", "expect_ok": false}
+  ]
+}

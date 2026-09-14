@@ -1,0 +1,12 @@
+{
+  "suite": "JuniorOSai",
+  "species": "junioros",
+  "download": false,
+  "cases": [
+    {"id": "t0-home", "note": "buy oats and fix the porch light", "expect_ok": true, "layer": "T0"},
+    {"id": "t1-cad", "note": "cad title block", "expect_ok": true, "layer": "T1"},
+    {"id": "t2-spine", "note": "gaia spine", "expect_ok": true, "layer": "T2"},
+    {"id": "bind-reject", "note": "bind 0.0.0.0:8770", "expect_ok": false, "layer": "T0"},
+    {"id": "private-nest", "note": "private nest cam", "expect_ok": false, "private": true, "consent": false, "layer": "T0"}
+  ]
+}

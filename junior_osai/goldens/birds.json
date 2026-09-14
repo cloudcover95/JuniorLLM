@@ -1,0 +1,12 @@
+{
+  "suite": "JuniorOSai",
+  "species": "birds",
+  "note": "Local cards only. Not eBird. Expand later.",
+  "download": false,
+  "cases": [
+    {"id": "stellar-jay", "note": "flagstaff jay at the picnic table", "area": "flagstaff", "expect_ok": true},
+    {"id": "magpie", "note": "home vault magpie on the van roof", "area": "home", "expect_ok": true},
+    {"id": "private-nest", "note": "nest on private land", "area": "flagstaff", "private": true, "consent": false, "expect_ok": false},
+    {"id": "bind-reject", "note": "bind 0.0.0.0 bird cam", "area": "home", "expect_ok": false}
+  ]
+}

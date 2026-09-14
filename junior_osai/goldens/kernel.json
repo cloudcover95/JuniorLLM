@@ -1,0 +1,12 @@
+{
+  "suite": "JuniorOSai",
+  "species": "kernel",
+  "contract": "userspace-overlay",
+  "vmlinuz": false,
+  "download": false,
+  "cases": [
+    {"id": "i2sd-loopback", "note": "start i2sd on 127.0.0.1", "expect_ok": true},
+    {"id": "no-0.0.0.0", "note": "bitnetd 0.0.0.0", "expect_ok": false},
+    {"id": "no-firmware", "note": "do not write firmware", "expect_ok": true}
+  ]
+}

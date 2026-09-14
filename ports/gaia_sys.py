@@ -7,20 +7,14 @@ from ports.gaia_view import view
 from rails.linux.bitnet_cpp import plan as bitnet_plan
 from rails.linux.llama import plan as llama_plan
 
-LAYERS = (
-    "who",       # ~/.juniorhome/gaia.json name/pronouns
-    "spine",     # 1.58 bolts
-    "dash",      # any-note agent
-    "view",      # orientation + scale for Omega
-    "walk",      # field only if asked
-    "mesh",      # OBJ / SVD terrain
-)
+LAYERS = ("who", "spine", "dash", "view", "walk", "mesh")
 
 
 def system(note: str = "home dash", *, orient: str = "landscape", scale: float = 1.0) -> dict:
     who = load_who()
     v = view(note, orient, scale)
     d = act(note)
+    trit = [int(t) for t in (d.get("trit") or [])]
     return {
         "system": "JuniorGaia",
         "layers": list(LAYERS),
@@ -29,7 +23,13 @@ def system(note: str = "home dash", *, orient: str = "landscape", scale: float =
         "dash_ui": "JuniorHome/ui/dash.html",
         "view": {"orient": v.get("orient"), "px": v.get("px"), "scale": v.get("scale"), "optional": True},
         "omega": v.get("omega"),
-        "note": {"area": d.get("area"), "port": d.get("port"), "gamma": d.get("gamma"), "i2s_hex": d.get("i2s_hex")},
+        "note": {
+            "area": d.get("area"),
+            "port": d.get("port"),
+            "gamma": d.get("gamma"),
+            "trit": trit,
+            "i2s_hex": d.get("i2s_hex"),
+        },
         "field": d.get("field"),
         "probes": {
             "llama_ready": bool(llama_plan().get("ready")),

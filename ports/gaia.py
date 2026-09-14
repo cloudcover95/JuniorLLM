@@ -14,10 +14,10 @@ GAIA = LLMPort(
     "ternary-1.58",
     "home-portrait",
     0.0,
-    "User-named local HUD. Goldend trit spines. Omega/Blender mesh later; no UE5.",
+    "Named HUD. Goldend spines. OBJ terrain + I2_S. No UE5 launch.",
 )
 
-DEFAULT = {"name": "Gaia", "pronouns": "they", "voice": "local", "mesh": "omega-stub"}
+DEFAULT = {"name": "Gaia", "pronouns": "they", "voice": "local", "mesh": "obj"}
 
 
 def load_who(path: Path | None = None) -> dict:
@@ -34,9 +34,7 @@ def spine(note: str, who: dict | None = None) -> dict:
     who = who or load_who()
     q = pack([ord(c) % 13 - 6 for c in (note or "gaia")[:32]] or [0.2, -1.0, 0.4])
     gate = check(note or "gaia home", area="auto")
-    bolts = []
-    for i, t in enumerate(q.get("trit") or []):
-        bolts.append({"i": i, "trit": int(t), "lit": t != 0})
+    bolts = [{"i": i, "trit": int(t), "lit": t != 0} for i, t in enumerate(q.get("trit") or [])]
     return {
         "port": GAIA.name,
         "who": who,
@@ -44,12 +42,8 @@ def spine(note: str, who: dict | None = None) -> dict:
         "gate": gate,
         "gamma": q.get("gamma"),
         "bolts": bolts,
-        "omega": "blender-glb later; no pull",
+        "omega": "obj",
         "ue5_launch": False,
         "download": False,
         "likeness": "original-goldend",
     }
-
-
-if __name__ == "__main__":
-    print(json.dumps(spine("gaia flagstaff jay"), indent=2))

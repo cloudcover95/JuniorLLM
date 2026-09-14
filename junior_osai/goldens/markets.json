@@ -1,0 +1,12 @@
+{
+  "suite": "JuniorOSai",
+  "species": "markets",
+  "download": false,
+  "live_feed": false,
+  "tiles": [
+    {"sym": "AAPL", "px": 228.4, "chg": 0.6},
+    {"sym": "MSFT", "px": 428.1, "chg": -0.3},
+    {"sym": "NVDA", "px": 119.2, "chg": 1.1},
+    {"sym": "GOLD", "px": 2684.0, "chg": 0.2}
+  ]
+}

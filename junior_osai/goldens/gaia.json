@@ -1,0 +1,10 @@
+{
+  "suite": "JuniorOSai",
+  "species": "gaia",
+  "download": false,
+  "cases": [
+    {"id": "named-they", "note": "gaia they home clock", "area": "home", "expect_ok": true},
+    {"id": "named-she", "note": "gaia she flagstaff jay", "area": "flagstaff", "expect_ok": true},
+    {"id": "private", "note": "gaia nest private land", "area": "birds", "private": true, "consent": false, "expect_ok": false}
+  ]
+}

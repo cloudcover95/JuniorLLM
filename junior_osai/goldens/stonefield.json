@@ -1,0 +1,9 @@
+{
+  "covenant": "no private land without owner word",
+  "scrape": false,
+  "nodes": [
+    {"id": "flagstaff-mtn", "name": "Flagstaff Mountain", "area": "Boulder CO", "kind": "boulders", "public": true, "holds": ["jug", "crimp", "edge", "smear"], "routes": [{"name": "picnic slab", "style": "boulder", "grade": "V1"}, {"name": "west face", "style": "trad", "grade": "5.6"}]},
+    {"id": "xanadu", "name": "Mt. Xanadu", "area": "Front Range", "kind": "boulders", "public": true, "holds": ["sloper", "pinch", "crimp"], "routes": [{"name": "classic line", "style": "boulder", "grade": "V4"}]},
+    {"id": "golden-clear-creek", "name": "Clear Creek Canyon", "area": "Golden CO", "kind": "trad+", "public": true, "holds": ["crack", "edge", "horn"], "routes": [{"name": "creek crack", "style": "trad", "grade": "5.8"}]}
+  ]
+}

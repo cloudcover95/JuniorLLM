@@ -1,0 +1,12 @@
+{
+  "suite": "JuniorOSai",
+  "species": "vk-stages",
+  "gpu_warranted": false,
+  "download": false,
+  "fetch_driver": false,
+  "stages_if_submit": ["TOP_OF_PIPE", "COMPUTE_SHADER", "HOST"],
+  "cases": [
+    {"id": "cpu-winsor", "note": "home dash", "expect_ok": true},
+    {"id": "no-fetch", "note": "do not curl mesa firmware", "expect_ok": true}
+  ]
+}

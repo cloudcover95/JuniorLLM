@@ -1,0 +1,24 @@
+{
+  "$id": "junior://osai/golden",
+  "title": "OSai golden suite",
+  "required": ["suite", "species", "cases", "download"],
+  "properties": {
+    "suite": {"const": "JuniorOSai"},
+    "species": {"type": "string"},
+    "download": {"const": false},
+    "cases": {
+      "type": "array",
+      "items": {
+        "required": ["id", "note", "expect_ok"],
+        "properties": {
+          "id": {"type": "string"},
+          "note": {"type": "string"},
+          "area": {"type": "string"},
+          "private": {"type": "boolean"},
+          "consent": {"type": "boolean"},
+          "expect_ok": {"type": "boolean"}
+        }
+      }
+    }
+  }
+}

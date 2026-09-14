@@ -1,0 +1,13 @@
+{
+  "$id": "junior://omega/job",
+  "title": "Omega agent job",
+  "required": ["job", "w", "h"],
+  "properties": {
+    "job": {"enum": ["dash-viewport", "gaia-spine", "terrain-obj", "agi-capsule"]},
+    "w": {"type": "integer"},
+    "h": {"type": "integer"},
+    "mesh": {"enum": ["obj", "ply"]},
+    "orient": {"enum": ["portrait", "landscape"]},
+    "launch": {"const": false}
+  }
+}

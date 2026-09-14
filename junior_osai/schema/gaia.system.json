@@ -1,0 +1,14 @@
+{
+  "$id": "junior://osai/gaia.system",
+  "title": "JuniorGaia system envelope",
+  "required": ["system", "ok", "who", "view", "note", "ue5_launch", "download"],
+  "properties": {
+    "system": {"const": "JuniorGaia"},
+    "who": {"required": ["name", "pronouns"]},
+    "view": {"properties": {"orient": {"enum": ["portrait", "landscape"]}, "scale": {"minimum": 0.35, "maximum": 1.0}}},
+    "note": {"properties": {"area": {"type": "string"}, "port": {"type": "string"}, "i2s_hex": {"type": "string"}}},
+    "omega": {"properties": {"job": {"type": "string"}, "w": {"type": "integer"}, "h": {"type": "integer"}}},
+    "ue5_launch": {"const": false},
+    "download": {"const": false}
+  }
+}

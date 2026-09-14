@@ -1,10 +1,15 @@
 {
   "suite": "JuniorOSai",
   "species": "asahi",
+  "contract": "host_userspace",
+  "kernel_patch": false,
+  "firmware_write": false,
+  "page_size": 16384,
+  "neural_engine": "out_of_tree",
   "download": false,
   "cases": [
-    {"id": "cpu-box", "note": "home dash", "expect_ok": true, "accel": "cpu"},
-    {"id": "asahi-userspace", "note": "t1 asahi mlx probe", "expect_ok": true, "accel": "mlx-if-import"},
-    {"id": "no-kernel-patch", "note": "do not write firmware", "expect_ok": true, "patch": false}
+    {"id": "cpu-box", "note": "home dash", "expect_ok": true},
+    {"id": "asahi-userspace", "note": "t1 asahi mlx probe", "expect_ok": true},
+    {"id": "no-kernel-patch", "note": "do not write firmware", "expect_ok": true}
   ]
 }

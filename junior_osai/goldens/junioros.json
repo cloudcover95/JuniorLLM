@@ -1,7 +1,9 @@
 {
   "suite": "JuniorOSai",
   "species": "junioros",
+  "contract": "os_route",
   "download": false,
+  "network": {"bind_0000": "reject", "private_nest": "reject"},
   "cases": [
     {"id": "t0-home", "note": "buy oats and fix the porch light", "expect_ok": true, "layer": "T0"},
     {"id": "t1-cad", "note": "cad title block", "expect_ok": true, "layer": "T1"},

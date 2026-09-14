@@ -1,9 +1,11 @@
 {
-  "covenant": "no private land without owner word",
-  "scrape": false,
+  "covenant": {"scrape": false, "private_land": false},
+  "suite": "JuniorOSai",
+  "species": "stonefield",
+  "download": false,
   "nodes": [
-    {"id": "flagstaff-mtn", "name": "Flagstaff Mountain", "area": "Boulder CO", "kind": "boulders", "public": true, "holds": ["jug", "crimp", "edge", "smear"], "routes": [{"name": "picnic slab", "style": "boulder", "grade": "V1"}, {"name": "west face", "style": "trad", "grade": "5.6"}]},
-    {"id": "xanadu", "name": "Mt. Xanadu", "area": "Front Range", "kind": "boulders", "public": true, "holds": ["sloper", "pinch", "crimp"], "routes": [{"name": "classic line", "style": "boulder", "grade": "V4"}]},
-    {"id": "golden-clear-creek", "name": "Clear Creek Canyon", "area": "Golden CO", "kind": "trad+", "public": true, "holds": ["crack", "edge", "horn"], "routes": [{"name": "creek crack", "style": "trad", "grade": "5.8"}]}
+    {"id": "flagstaff-mtn", "name": "Flagstaff Mountain", "area": "Boulder CO", "kind": "boulders", "public": true, "holds": ["jug", "crimp", "edge", "smear"], "holds_matrix": [[0.8, -1.2, 2.5], [0.1, 0.9, -0.4], [1.5, -0.7, 0.2]], "routes": [{"name": "picnic slab", "style": "boulder", "grade": "V1"}, {"name": "west face", "style": "trad", "grade": "5.6"}]},
+    {"id": "xanadu", "name": "Mt. Xanadu", "area": "Front Range", "kind": "boulders", "public": true, "holds": ["sloper", "pinch", "crimp"], "holds_matrix": [[2.1, 0.4, -1.8], [-0.5, 1.1, 0.3]], "routes": [{"name": "classic line", "style": "boulder", "grade": "V4"}]},
+    {"id": "golden-clear-creek", "name": "Clear Creek Canyon", "area": "Golden CO", "kind": "trad+", "public": true, "holds": ["crack", "edge", "horn"], "holds_matrix": [[0.6, 0.8, -0.2], [-1.0, 1.4, 0.5]], "routes": [{"name": "creek crack", "style": "trad", "grade": "5.8"}]}
   ]
 }

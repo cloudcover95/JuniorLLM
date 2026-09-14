@@ -1,0 +1,10 @@
+{
+  "$id": "junior://osai/stone.node",
+  "required": ["id", "public"],
+  "properties": {
+    "id": {"type": "string"},
+    "public": {"type": "boolean"},
+    "holds_matrix": {"type": "array"},
+    "scrape": {"const": false}
+  }
+}

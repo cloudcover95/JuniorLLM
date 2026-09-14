@@ -28,3 +28,4 @@ T9 done (juniorctl skill-pin verify, loopback).
 T10 done (juniorctl skill-pin verify-one REL, loopback).
 T11 done (juniorctl skill-pin tip, loopback).
 T12 done (juniorctl skill-pin log, loopback).
+T13 done (juniorctl skill-pin height, loopback).

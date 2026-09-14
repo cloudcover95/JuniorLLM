@@ -1,0 +1,10 @@
+{
+  "suite": "JuniorOSai",
+  "species": "xyz",
+  "contract": "X-junior Y-tq1 Z-iq1s",
+  "download": false,
+  "cases": [
+    {"id": "xyz-loopback", "note": "porch light 127.0.0.1", "expect_ok": true},
+    {"id": "xyz-bind", "note": "bind 0.0.0.0", "expect_ok": false}
+  ]
+}

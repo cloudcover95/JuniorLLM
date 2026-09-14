@@ -1,38 +1,39 @@
-"""48x48 retain-k. numpy.linalg.svd when present; else power energy."""
+"""A = U Σ V^T retain-k. Reconstructs mesh for OBJ."""
 from __future__ import annotations
 
 import math
 import time
+from typing import Any
+
+from ports.terrain_spine import flagstaff_mesh
 
 
-def _mat(n: int = 48, seed: int = 7) -> list[list[float]]:
-    a = []
-    for i in range(n):
-        row = []
-        for j in range(n):
-            row.append(math.sin((i + 1) * (j + seed) * 0.11) * 0.7 + 0.05 * ((i * 13 + j) % 5))
-        a.append(row)
-    return a
-
-
-def _energy_numpy(n: int, k: int) -> dict:
+def _energy_numpy(mesh: list[list[float]], k: int) -> dict[str, Any]:
     import numpy as np
 
-    a = np.array(_mat(n), dtype=float)
+    a = np.asarray(mesh, dtype=float)
     t0 = time.perf_counter()
-    _, s, _ = np.linalg.svd(a, full_matrices=False)
+    u, s, vt = np.linalg.svd(a, full_matrices=False)
+    approx = (u[:, :k] * s[:k]) @ vt[:k, :]
     ms = (time.perf_counter() - t0) * 1000
     tot = float((s * s).sum()) or 1.0
     kept = float((s[:k] * s[:k]).sum())
-    return {"backend": "numpy", "n": n, "k": k, "energy": round(kept / tot, 4), "ms": round(ms, 3), "s0": float(s[0])}
+    return {
+        "backend": "numpy",
+        "n": int(a.shape[0]),
+        "k": k,
+        "energy": round(kept / tot, 4),
+        "ms": round(ms, 3),
+        "mesh": approx.tolist(),
+    }
 
 
-def _energy_power(n: int, k: int) -> dict:
-    a = _mat(n)
+def _energy_power(mesh: list[list[float]], k: int) -> dict[str, Any]:
+    n = len(mesh)
+    work = [row[:] for row in mesh]
     t0 = time.perf_counter()
-    tot = sum(x * x for row in a for x in row) or 1.0
+    tot = sum(x * x for row in work for x in row) or 1.0
     kept = 0.0
-    work = [row[:] for row in a]
     for _ in range(min(k, n)):
         v = [1.0] * n
         for _it in range(8):
@@ -45,11 +46,20 @@ def _energy_power(n: int, k: int) -> dict:
             for j in range(n):
                 work[i][j] -= lam * v[i] * v[j]
     ms = (time.perf_counter() - t0) * 1000
-    return {"backend": "power", "n": n, "k": k, "energy": round(min(1.0, kept / tot), 4), "ms": round(ms, 3)}
+    return {
+        "backend": "power",
+        "n": n,
+        "k": k,
+        "energy": round(min(1.0, kept / tot), 4),
+        "ms": round(ms, 3),
+        "mesh": work,
+    }
 
 
-def tick(n: int = 48, k: int = 30) -> dict:
+def tick(n: int = 48, k: int = 30, mesh: list[list[float]] | None = None) -> dict[str, Any]:
+    src = mesh or flagstaff_mesh(n)
     try:
-        return _energy_numpy(n, k)
+        return _energy_numpy(src, k)
     except Exception:
-        return _energy_power(min(n, 24), min(k, 8))
+        small = [row[:24] for row in src[:24]]
+        return _energy_power(small, min(k, 8))

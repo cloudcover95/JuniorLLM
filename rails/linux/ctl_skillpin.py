@@ -362,3 +362,46 @@ def skill_pin_log(root: str | None = None) -> dict:
         "fetch": False,
         "exec": False,
     }
+
+
+def skill_pin_height(root: str | None = None) -> dict:
+    """T13 — report SKILL_PINS.jsonl chain height under a root. Never body. Never fetch. Never exec."""
+    from junior_aie.skill_pin import ZERO, SkillDenied, SkillPins
+
+    raw, err = _guard_root(root)
+    if err:
+        return err
+    try:
+        pins = SkillPins(Path(raw))
+        rows = pins._rows()
+    except SkillDenied as exc:
+        return _denied(str(exc), raw)
+
+    issues: list[str] = []
+    chain_ok = pins.verify_chain()
+    if not chain_ok:
+        issues.append("chain_break")
+    last = rows[-1] if rows else None
+    return {
+        "ok": chain_ok,
+        "issues": issues,
+        "bind": "127.0.0.1:8765",
+        "root": str(Path(raw).resolve()),
+        "op": "height",
+        "tip": pins.tip(),
+        "hdr": last.hdr if last else ZERO,
+        "height": last.height if last is not None else 0,
+        "count": len(rows),
+        "name": last.name if last else "",
+        "rel": last.rel if last else "",
+        "last_op": last.op if last else "",
+        "sha256": last.sha256 if last else ZERO,
+        "skills": [],
+        "chain_ok": chain_ok,
+        "empty": last is None,
+        "docker_socket": False,
+        "privileged": False,
+        "download": False,
+        "fetch": False,
+        "exec": False,
+    }

@@ -1,0 +1,11 @@
+{
+  "suite": "JuniorOSai",
+  "species": "trit",
+  "contract": "winsor-p95",
+  "alphabet": [-1, 0, 1],
+  "download": false,
+  "cases": [
+    {"id": "terraform-ok", "note": "porch light 127.0.0.1", "expect_ok": true},
+    {"id": "terraform-bind", "note": "terraform bind 0.0.0.0", "expect_ok": false}
+  ]
+}

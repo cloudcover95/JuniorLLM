@@ -1,0 +1,10 @@
+{
+  "suite": "JuniorOSai",
+  "species": "asahi",
+  "download": false,
+  "cases": [
+    {"id": "cpu-box", "note": "home dash", "expect_ok": true, "accel": "cpu"},
+    {"id": "asahi-userspace", "note": "t1 asahi mlx probe", "expect_ok": true, "accel": "mlx-if-import"},
+    {"id": "no-kernel-patch", "note": "do not write firmware", "expect_ok": true, "patch": false}
+  ]
+}

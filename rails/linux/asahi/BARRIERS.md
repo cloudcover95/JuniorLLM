@@ -1,34 +1,11 @@
-# Barriers for trit.comp (when someone actually submits)
+# Memory barriers vs Junior wire
 
-trit.comp only **writes** `t[i]`. γ is a push constant computed on CPU. No shared memory, no workgroup barrier inside the shader.
+trit.comp writes an SSBO. Home never `vkQueueSubmit`s, so a barrier graph cannot beat Python/C Winsor.
 
-## Host → SSBO in
-If the input buffer is non-coherent: `vkFlushMappedMemoryRanges` then
+If an Asahi box later submits one dispatch:
+- after compute: `VK_PIPELINE_STAGE_COMPUTE_SHADER_BIT` → `VK_PIPELINE_STAGE_HOST_BIT`
+- access: `SHADER_WRITE` → `HOST_READ`
+- or `vkMapMemory` with `HOST_COHERENT`
 
-```
-srcStage = HOST
-srcAccess = HOST_WRITE
-dstStage = COMPUTE_SHADER
-dstAccess = SHADER_READ
-```
-
-HOST_WRITE in srcAccess is the host→device domain op.
-
-## SSBO out → host
-After `vkCmdDispatch`:
-
-```
-srcStage = COMPUTE_SHADER
-srcAccess = SHADER_WRITE
-dstStage = HOST
-dstAccess = HOST_READ
-```
-
-Then wait a fence / timeline. A pipeline barrier alone does not wake the CPU. Non-coherent memory also needs `vkInvalidateMappedMemoryRanges`.
-
-## Not needed here
-Workgroup `barrier()` / `memoryBarrierShared` — we have no `shared` vars.
-Draw-indirect barriers — we do not chain dispatch sizes.
-Queue-family release — single compute queue.
-
-Home still does not submit. This file is the contract for an Asahi operator box.
+No intra-workgroup shared memory in trit.comp, so `memoryBarrierBuffer()` inside the shader is not a win.
+Do not add a second packer that waits on GPU just to clip 256 floats.

@@ -1,0 +1,11 @@
+{
+  "suite": "JuniorOSai",
+  "species": "ios",
+  "contract": "swift-rail",
+  "appstore": false,
+  "download": false,
+  "cases": [
+    {"id": "portrait-dash", "note": "home dash portrait", "expect_ok": true},
+    {"id": "no-cloud-llm", "note": "on-device trit pack only", "expect_ok": true}
+  ]
+}

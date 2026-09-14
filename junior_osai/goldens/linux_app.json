@@ -1,0 +1,11 @@
+{
+  "suite": "JuniorOSai",
+  "species": "linux-app",
+  "contract": "native-loopback",
+  "bind": "127.0.0.1",
+  "download": false,
+  "cases": [
+    {"id": "loopback-ok", "note": "open home dash on 127.0.0.1", "expect_ok": true},
+    {"id": "bind-all-reject", "note": "listen 0.0.0.0:8770", "expect_ok": false}
+  ]
+}

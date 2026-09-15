@@ -324,7 +324,7 @@ def skill_pin_height(root: str | None = None) -> dict:
 def skill_pin_get(height: str | None = None, root: str | None = None) -> dict:
     """T14 — pin-log row by HEIGHT under a root. Loopback only. Never fetch. Never exec."""
     _path()
-    from rails.linux.ctl_skillpin import skill_pin_get as impl
+    from rails.linux.ctl_skillpin_get import skill_pin_get as impl
 
     return impl(height, root)
 

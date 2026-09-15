@@ -106,13 +106,19 @@ def run(argv: list[str], ns: dict) -> int:
             report = ns["skill_pin_get"](height, dest)
             print(json.dumps(report, indent=2, default=str))
             return 0 if report["ok"] else 1
+        if sub == "at":
+            hdr = argv[3] if len(argv) > 3 else None
+            dest = argv[4] if len(argv) > 4 else None
+            report = ns["skill_pin_at"](hdr, dest)
+            print(json.dumps(report, indent=2, default=str))
+            return 0 if report["ok"] else 1
         print(
-            "usage: juniorctl skill-pin list [ROOT] | skill-pin load REL [ROOT] | skill-pin pin REL [ROOT] | skill-pin verify [ROOT] | skill-pin verify-one REL [ROOT] | skill-pin tip [ROOT] | skill-pin log [ROOT] | skill-pin height [ROOT] | skill-pin get HEIGHT [ROOT]",
+            "usage: juniorctl skill-pin list [ROOT] | skill-pin load REL [ROOT] | skill-pin pin REL [ROOT] | skill-pin verify [ROOT] | skill-pin verify-one REL [ROOT] | skill-pin tip [ROOT] | skill-pin log [ROOT] | skill-pin height [ROOT] | skill-pin get HEIGHT [ROOT] | skill-pin at HDR [ROOT]",
             file=sys.stderr,
         )
         return 2
     print(
-        "usage: juniorctl health | security | port list | ask <q> | night | quant | lake | net | oci validate | oci install [DEST] | path pin [DEST] | skill-pin list [ROOT] | skill-pin load REL [ROOT] | skill-pin pin REL [ROOT] | skill-pin verify [ROOT] | skill-pin verify-one REL [ROOT] | skill-pin tip [ROOT] | skill-pin log [ROOT] | skill-pin height [ROOT] | skill-pin get HEIGHT [ROOT]",
+        "usage: juniorctl health | security | port list | ask <q> | night | quant | lake | net | oci validate | oci install [DEST] | path pin [DEST] | skill-pin list [ROOT] | skill-pin load REL [ROOT] | skill-pin pin REL [ROOT] | skill-pin verify [ROOT] | skill-pin verify-one REL [ROOT] | skill-pin tip [ROOT] | skill-pin log [ROOT] | skill-pin height [ROOT] | skill-pin get HEIGHT [ROOT] | skill-pin at HDR [ROOT]",
         file=sys.stderr,
     )
     return 2

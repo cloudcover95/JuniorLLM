@@ -30,3 +30,4 @@ T11 done (juniorctl skill-pin tip, loopback).
 T12 done (juniorctl skill-pin log, loopback).
 T13 done (juniorctl skill-pin height, loopback).
 T14 done (juniorctl skill-pin get HEIGHT, loopback).
+T15 done (juniorctl skill-pin at HDR, loopback).

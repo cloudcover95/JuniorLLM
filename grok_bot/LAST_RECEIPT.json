@@ -1,22 +1,22 @@
 {
-  "at": "2026-09-15T01:14-06:00",
-  "slice": "T15 juniorctl skill-pin at HDR (loopback)",
+  "at": "2026-09-15T19:10-06:00",
+  "slice": "T16 juniorctl skill-pin range FROM TO (loopback)",
   "port": "JuniorAstraReason",
   "status": "shipped",
-  "next": "T16 juniorctl skill-pin range FROM TO (loopback)",
-  "run_at": "2026-09-15T01:14-06:00",
+  "next": "T17 juniorctl skill-pin since HDR (loopback)",
+  "run_at": "2026-09-15T19:10-06:00",
   "plan_bullets": [
-    "goal: juniorctl skill-pin at HDR returns one SKILL_PINS.jsonl row by hdr under a root, loopback only",
-    "files: rails/linux/ctl_skillpin_at.py, rails/linux/ctl_cli.py, rails/linux/juniorctl.py, tests/test_t15_juniorctl_skill_pin_at.py, docs/COMPILED_BACKLOG.md, STATE.md, receipts",
+    "goal: juniorctl skill-pin range FROM TO returns SKILL_PINS.jsonl rows with height in [FROM, TO] under a root, loopback only",
+    "files: rails/linux/ctl_skillpin_range.py, rails/linux/ctl_cli.py, rails/linux/juniorctl.py, tests/test_t16_juniorctl_skill_pin_range.py, docs/COMPILED_BACKLOG.md, STATE.md, receipts",
     "port: JuniorAstraReason",
-    "test: PYTHONPATH=. python tests/test_t15_juniorctl_skill_pin_at.py",
-    "done-check: empty at ZERO is missing_hdr; pin hdr is height 0; load hdr is height 1; refuse docker.sock/wildcard/path escape/PAT/bad_hdr; no body; no fetch; no exec"
+    "test: PYTHONPATH=. python tests/test_t16_juniorctl_skill_pin_range.py",
+    "done-check: empty range 0 0 is missing_range; pin range 0 0 is height 0; pin+load range 0 1 is two rows; inverted/empty/bad bounds refused; refuse docker.sock/wildcard/path escape/PAT; no body; no fetch; no exec"
   ],
   "files_added": [
-    "rails/linux/ctl_skillpin_at.py",
+    "rails/linux/ctl_skillpin_range.py",
     "rails/linux/ctl_cli.py",
     "rails/linux/juniorctl.py",
-    "tests/test_t15_juniorctl_skill_pin_at.py",
+    "tests/test_t16_juniorctl_skill_pin_range.py",
     "docs/COMPILED_BACKLOG.md",
     "STATE.md",
     "grok_bot/LAST_RECEIPT.md",
@@ -25,5 +25,5 @@
   "repos": ["cloudcover95/JuniorLLM"],
   "tests": "pass",
   "why_stopped": "",
-  "next_smallest_slice": "T16 juniorctl skill-pin range FROM TO (loopback)"
+  "next_smallest_slice": "T17 juniorctl skill-pin since HDR (loopback)"
 }

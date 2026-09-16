@@ -1,0 +1,12 @@
+{
+  "suite": "JuniorOSai",
+  "species": "tree",
+  "subs": ["hit", "zoom", "terraform"],
+  "download": false,
+  "cases": [
+    {"id": "hit-note", "note": "journal field note", "expect_ok": true},
+    {"id": "hit-vault", "note": "home vault memory", "expect_ok": true},
+    {"id": "hit-cad", "note": "dxf title block", "expect_ok": true},
+    {"id": "zoom-bind", "note": "bind 0.0.0.0 tree", "expect_ok": false}
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "suite": "JuniorOSai",
+  "species": "tree-subs",
+  "parent": "tree",
+  "download": false,
+  "cases": [
+    {"id": "terraform-spine", "note": "gaia spine", "expect_ok": true},
+    {"id": "agent-oats", "note": "buy oats", "expect_ok": true},
+    {"id": "og-palace", "note": "home vault memory", "expect_ok": true}
+  ]
+}

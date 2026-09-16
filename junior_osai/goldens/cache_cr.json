@@ -1,0 +1,11 @@
+{
+  "suite": "JuniorOSai",
+  "species": "cache-cr",
+  "download": false,
+  "trit_is_cr": false,
+  "cases": [
+    {"id": "a", "note": "buy oats", "expect_ok": true},
+    {"id": "b", "note": "journal field note", "expect_ok": true},
+    {"id": "bind", "note": "bind 0.0.0.0 cache", "expect_ok": false}
+  ]
+}

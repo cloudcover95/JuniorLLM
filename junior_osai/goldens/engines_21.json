@@ -1,0 +1,29 @@
+{
+  "suite": "JuniorOSai",
+  "species": "engines21",
+  "runtime": ["vault", "media", "notes", "stock", "cad", "os"],
+  "download": false,
+  "cases": [
+    {"id": "vault", "note": "vault seal porch light", "engine": "vault", "expect_ok": true},
+    {"id": "media", "note": "mp3 mix edit", "engine": "media", "expect_ok": true},
+    {"id": "notes", "note": "journal field note", "engine": "notes", "expect_ok": true},
+    {"id": "stock", "note": "ticker node book", "engine": "stock", "expect_ok": true},
+    {"id": "cad", "note": "dxf title block", "engine": "cad", "expect_ok": true},
+    {"id": "os", "note": "junioros llama", "engine": "os", "expect_ok": true},
+    {"id": "omega", "note": "omega height extrude", "engine": "cad", "expect_ok": true},
+    {"id": "drive", "note": "home dash drive", "engine": "os", "expect_ok": true},
+    {"id": "fieldcore", "note": "gaia spine", "engine": "notes", "expect_ok": true},
+    {"id": "brain", "note": "journal analysis expand", "engine": "notes", "expect_ok": true},
+    {"id": "audit", "note": "home vault seal", "engine": "vault", "expect_ok": true},
+    {"id": "mesh", "note": "omega mesh obj", "engine": "cad", "expect_ok": true},
+    {"id": "flagstaff", "note": "flagstaff jay", "engine": "notes", "expect_ok": true},
+    {"id": "climbs", "note": "v4 crimp beta", "engine": "notes", "expect_ok": true},
+    {"id": "stonefield", "note": "xanadu boulder", "engine": "notes", "expect_ok": true},
+    {"id": "birds", "note": "mountain chickadee feeder", "engine": "notes", "expect_ok": true},
+    {"id": "gaia", "note": "gaia spine", "engine": "notes", "expect_ok": true},
+    {"id": "dash", "note": "home dash", "engine": "os", "expect_ok": true},
+    {"id": "spine", "note": "gaia spine", "engine": "notes", "expect_ok": true},
+    {"id": "toolkit", "note": "home dash", "engine": "os", "expect_ok": true},
+    {"id": "trit", "note": "porch light 127.0.0.1", "engine": "os", "expect_ok": true}
+  ]
+}

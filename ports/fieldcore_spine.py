@@ -1,4 +1,4 @@
-"""FieldCore spine. Live path is trit energy. Full SVD is a probe."""
+"""FieldCore spine. Trit energy. Cap grid. SVD opt-in."""
 from __future__ import annotations
 
 import json
@@ -8,8 +8,12 @@ from pathlib import Path
 from junior_bitnet.winsor import pack
 from ports.terrain_spine import flagstaff_mesh
 
+MAX_N = 64
 
-def expand(n: int = 48, k: int = 30, *, full_svd: bool = False, out: Path | None = None) -> dict:
+
+def expand(n: int = 32, k: int = 8, *, full_svd: bool = False, out: Path | None = None) -> dict:
+    n = max(8, min(int(n or 32), MAX_N))
+    k = max(2, min(int(k or 8), n))
     mesh = flagstaff_mesh(n)
     flat = [z for row in mesh for z in row]
     q = pack(flat)
@@ -22,6 +26,7 @@ def expand(n: int = 48, k: int = 30, *, full_svd: bool = False, out: Path | None
         "sync": "local-only",
         "cluster": False,
         "svd": False,
+        "max_n": MAX_N,
     }
     if full_svd or os.environ.get("JUNIOR_SVD") == "1":
         from ports.svd_tick import tick

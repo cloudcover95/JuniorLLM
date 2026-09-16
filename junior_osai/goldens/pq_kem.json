@@ -1,0 +1,14 @@
+{
+  "suite": "JuniorOSai",
+  "species": "pq",
+  "download": false,
+  "ml_kem": false,
+  "libs": ["hashlib.sha3_256", "hashlib.blake2b"],
+  "operator": ["liboqs", "ML-KEM-768", "ML-DSA-65"],
+  "fips": ["203", "204", "205"],
+  "cases": [
+    {"id": "loopback", "note": "home dash 127.0.0.1", "expect_ok": true},
+    {"id": "member", "note": "member share vault", "expect_ok": true},
+    {"id": "no-rpc", "note": "bind 0.0.0.0 kem", "expect_ok": false}
+  ]
+}

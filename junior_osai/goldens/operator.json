@@ -1,0 +1,11 @@
+{
+  "suite": "JuniorOSai",
+  "species": "operator-box",
+  "download": false,
+  "spiffe": false,
+  "ml_kem": false,
+  "cases": [
+    {"id": "loopback", "note": "home dash 127.0.0.1", "expect_ok": true},
+    {"id": "bind", "note": "bind 0.0.0.0 spiffe", "expect_ok": false}
+  ]
+}

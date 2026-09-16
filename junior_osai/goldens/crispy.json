@@ -1,0 +1,12 @@
+{
+  "suite": "JuniorOSai",
+  "species": "crispy-mouse",
+  "runtime_active": false,
+  "sparse": true,
+  "download": false,
+  "cases": [
+    {"id": "loopback-hid", "note": "home dash 127.0.0.1", "expect_ok": true},
+    {"id": "sparse-note", "note": "journal field note", "expect_ok": true},
+    {"id": "bind-reject", "note": "bind 0.0.0.0 hid", "expect_ok": false}
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "suite": "JuniorOSai",
+  "species": "engr-resize",
+  "runtime": "cad",
+  "download": false,
+  "cases": [
+    {"id": "sheet-portrait", "note": "scan jpeg title block", "expect_ok": true},
+    {"id": "omega-dxf", "note": "dxf title block", "expect_ok": true},
+    {"id": "no-bind", "note": "bind 0.0.0.0 scan", "expect_ok": false}
+  ]
+}

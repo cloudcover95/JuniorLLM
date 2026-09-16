@@ -1,0 +1,10 @@
+{
+  "suite": "JuniorOSai",
+  "species": "imager-auto",
+  "download": false,
+  "parquet": false,
+  "cases": [
+    {"id": "spine", "note": "gaia spine", "expect_ok": true},
+    {"id": "bind", "note": "bind 0.0.0.0 imager", "expect_ok": false}
+  ]
+}

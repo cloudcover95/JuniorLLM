@@ -1,0 +1,11 @@
+{
+  "suite": "JuniorOSai",
+  "species": "imager",
+  "download": false,
+  "parquet": false,
+  "cases": [
+    {"id": "note", "note": "journal field note", "expect_ok": true},
+    {"id": "palace", "note": "home vault memory", "expect_ok": true},
+    {"id": "bind", "note": "bind 0.0.0.0 mesh", "expect_ok": false}
+  ]
+}

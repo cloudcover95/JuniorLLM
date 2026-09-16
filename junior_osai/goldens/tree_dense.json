@@ -1,0 +1,12 @@
+{
+  "suite": "JuniorOSai",
+  "species": "tree-dense",
+  "subs": ["issue", "artifact", "experiment", "belief", "code"],
+  "download": false,
+  "cases": [
+    {"id": "exp", "note": "gaia spine", "expect_ok": true},
+    {"id": "belief", "note": "member share vault", "expect_ok": true},
+    {"id": "artifact", "note": "dxf title block", "expect_ok": true},
+    {"id": "issue", "note": "bind 0.0.0.0 tree", "expect_ok": false}
+  ]
+}

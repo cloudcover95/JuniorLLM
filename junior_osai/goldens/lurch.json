@@ -1,0 +1,12 @@
+{
+  "suite": "JuniorOSai",
+  "species": "lurch",
+  "subs": ["search", "update", "fieldcore"],
+  "download": false,
+  "faiss": false,
+  "cases": [
+    {"id": "hit", "note": "gaia spine", "expect_ok": true},
+    {"id": "return", "note": "gaia spine", "expect_ok": true},
+    {"id": "fail", "note": "bind 0.0.0.0 lurch", "expect_ok": false}
+  ]
+}

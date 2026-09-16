@@ -1,0 +1,16 @@
+{
+  "suite": "JuniorOSai",
+  "species": "toolkit",
+  "download": false,
+  "hardware": {
+    "c": "rails/linux/absmean.c",
+    "winsor": "rails/linux/winsor.c",
+    "i2s": "rails/linux/i2s_pack.c",
+    "vk": "rails/linux/asahi/trit.comp"
+  },
+  "engines": ["vault", "media", "notes", "stock", "cad", "os"],
+  "cases": [
+    {"id": "toolkit-home", "note": "home dash", "expect_ok": true},
+    {"id": "no-bind-fleet", "note": "bind 0.0.0.0 fleet", "expect_ok": false}
+  ]
+}

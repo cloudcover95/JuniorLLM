@@ -1,0 +1,13 @@
+{
+  "suite": "JuniorOSai",
+  "species": "birds",
+  "download": false,
+  "cases": [
+    {"id": "raven", "note": "raven over flagstaff amphitheater", "area": "flagstaff", "expect_ok": true},
+    {"id": "nuthatch", "note": "nuthatch on ponderosa", "area": "flagstaff", "expect_ok": true},
+    {"id": "chickadee", "note": "mountain chickadee at home feeder", "area": "home", "expect_ok": true},
+    {"id": "hawk", "note": "red-tail hawk thermal", "area": "flagstaff", "expect_ok": true},
+    {"id": "flicker", "note": "northern flicker on aspen", "area": "flagstaff", "expect_ok": true},
+    {"id": "junco", "note": "dark-eyed junco under feeder", "area": "home", "expect_ok": true}
+  ]
+}

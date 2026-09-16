@@ -1,0 +1,12 @@
+{
+  "suite": "JuniorOSai",
+  "species": "receipts",
+  "download": false,
+  "crypto": false,
+  "cases": [
+    {"id": "member", "note": "member share vault", "expect_ok": true},
+    {"id": "oats", "note": "buy oats", "expect_ok": true},
+    {"id": "typo", "note": "buy oat", "expect_ok": true},
+    {"id": "bind", "note": "bind 0.0.0.0 receipt", "expect_ok": false}
+  ]
+}

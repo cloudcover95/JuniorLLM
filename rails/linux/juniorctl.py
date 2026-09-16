@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""juniorctl — JuniorOS entry. skill_pin_list skill_pin_verify skill_pin_verify_one skill_pin_tip skill_pin_log skill_pin_height skill_pin_get skill_pin_at"""
+"""juniorctl — JuniorOS entry. skill_pin_list skill_pin_verify skill_pin_verify_one skill_pin_tip skill_pin_log skill_pin_height skill_pin_get skill_pin_at skill_pin_range"""
 from __future__ import annotations
 
 import json
@@ -54,6 +54,7 @@ def health() -> dict:
             "skill-pin height",
             "skill-pin get",
             "skill-pin at",
+            "skill-pin range",
         ],
     }
 
@@ -336,6 +337,18 @@ def skill_pin_at(hdr: str | None = None, root: str | None = None) -> dict:
     from rails.linux.ctl_skillpin_at import skill_pin_at as impl
 
     return impl(hdr, root)
+
+
+def skill_pin_range(
+    start: str | None = None,
+    stop: str | None = None,
+    root: str | None = None,
+) -> dict:
+    """T16 — pin-log rows FROM TO under a root. Loopback only. Never fetch. Never exec."""
+    _path()
+    from rails.linux.ctl_skillpin_range import skill_pin_range as impl
+
+    return impl(start, stop, root)
 
 
 if __name__ == "__main__":

@@ -1,10 +1,9 @@
 def status() -> dict:
     return {
+        "liboqs": False,
+        "ml_kem_768": False,
         "spiffe": False,
         "mtls": False,
-        "liboqs": False,
-        "ml_kem": False,
-        "loopback": True,
-        "viz": "~/.juniorhome/gaia_mesh/tree_dense.html",
-        "persist": ["tree.jsonl", "tree_dense.jsonl", "receipts.jsonl", "imager.jsonl"],
+        "home_bind": "127.0.0.1",
+        "onboard_when": ["two-hosts", "liboqs-present", "spire-or-manual-svid"],
     }

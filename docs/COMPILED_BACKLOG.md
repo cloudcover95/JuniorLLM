@@ -34,3 +34,4 @@ T15 done (juniorctl skill-pin at HDR, loopback).
 T16 done (juniorctl skill-pin range FROM TO, loopback).
 T17 done (juniorctl skill-pin since HDR, loopback).
 T18 done (juniorctl skill-pin until HDR, loopback).
+T19 done (juniorctl skill-pin before HDR, loopback).

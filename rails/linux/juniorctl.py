@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""juniorctl — JuniorOS entry. skill_pin_list skill_pin_verify skill_pin_verify_one skill_pin_tip skill_pin_log skill_pin_height skill_pin_get skill_pin_at skill_pin_range skill_pin_since skill_pin_until"""
+"""juniorctl — JuniorOS entry. skill_pin_list skill_pin_verify skill_pin_verify_one skill_pin_tip skill_pin_log skill_pin_height skill_pin_get skill_pin_at skill_pin_range skill_pin_since skill_pin_until skill_pin_before"""
 from __future__ import annotations
 
 import json
@@ -57,6 +57,7 @@ def health() -> dict:
             "skill-pin range",
             "skill-pin since",
             "skill-pin until",
+            "skill-pin before",
         ],
     }
 
@@ -365,6 +366,14 @@ def skill_pin_until(hdr: str | None = None, root: str | None = None) -> dict:
     """T18 — pin-log rows until HDR under a root. Loopback only. Never fetch. Never exec."""
     _path()
     from rails.linux.ctl_skillpin_until import skill_pin_until as impl
+
+    return impl(hdr, root)
+
+
+def skill_pin_before(hdr: str | None = None, root: str | None = None) -> dict:
+    """T19 — pin-log rows before HDR under a root. Loopback only. Never fetch. Never exec."""
+    _path()
+    from rails.linux.ctl_skillpin_before import skill_pin_before as impl
 
     return impl(hdr, root)
 

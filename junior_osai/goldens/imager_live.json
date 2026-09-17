@@ -1,0 +1,12 @@
+{
+  "suite": "JuniorOSai",
+  "species": "imager-live",
+  "download": false,
+  "numpy": false,
+  "d3": false,
+  "rewrite_tree": false,
+  "cases": [
+    {"id": "tick", "note": "gaia spine", "expect_ok": true},
+    {"id": "bind", "note": "bind 0.0.0.0 live", "expect_ok": false}
+  ]
+}

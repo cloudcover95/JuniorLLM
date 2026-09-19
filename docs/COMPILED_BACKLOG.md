@@ -38,3 +38,4 @@ T19 done (juniorctl skill-pin before HDR, loopback).
 T20 done (juniorctl skill-pin after HDR, loopback).
 T21 done (juniorctl skill-pin first, loopback).
 T22 done (juniorctl skill-pin last, loopback).
+T23 done (juniorctl skill-pin tail, loopback).

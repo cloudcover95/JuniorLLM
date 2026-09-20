@@ -1,22 +1,22 @@
 {
-  "at": "2026-09-19T19:05-06:00",
-  "slice": "T24 juniorctl skill-pin head (loopback)",
+  "at": "2026-09-20T01:18-06:00",
+  "slice": "T25 juniorctl skill-pin count (loopback)",
   "port": "JuniorAstraReason",
   "status": "shipped",
-  "next": "T25 juniorctl skill-pin count (loopback)",
-  "run_at": "2026-09-19T19:05-06:00",
+  "next": "T26 juniorctl skill-pin genesis (loopback)",
+  "run_at": "2026-09-20T01:18-06:00",
   "plan_bullets": [
-    "goal: juniorctl skill-pin head returns first N SKILL_PINS.jsonl rows under a root, loopback only",
-    "files: rails/linux/ctl_skillpin_head.py, rails/linux/ctl_cli.py, rails/linux/juniorctl.py, tests/test_t24_juniorctl_skill_pin_head.py, docs/COMPILED_BACKLOG.md, STATE.md, receipts",
+    "goal: juniorctl skill-pin count returns SKILL_PINS.jsonl row count under a root, loopback only",
+    "files: rails/linux/ctl_skillpin_count.py, rails/linux/ctl_cli.py, rails/linux/juniorctl.py, tests/test_t25_juniorctl_skill_pin_count.py, docs/COMPILED_BACKLOG.md, STATE.md, receipts",
     "port: JuniorAstraReason",
-    "test: PYTHONPATH=. python tests/test_t24_juniorctl_skill_pin_head.py",
-    "done-check: empty head is ok empty height -1 ZERO entries []; pin then load head 2 is pin then load; default n=8; head 1 matches first hdr; refuse docker.sock/wildcard/path escape/PAT; no body; no fetch; no exec"
+    "test: PYTHONPATH=. python tests/test_t25_juniorctl_skill_pin_count.py",
+    "done-check: empty count is ok empty height -1 ZERO count 0 total 0 no entries; pin then load is count 1 then 2; refuse docker.sock/wildcard/path escape/PAT; no body; no fetch; no exec"
   ],
   "files_added": [
-    "rails/linux/ctl_skillpin_head.py",
+    "rails/linux/ctl_skillpin_count.py",
     "rails/linux/ctl_cli.py",
     "rails/linux/juniorctl.py",
-    "tests/test_t24_juniorctl_skill_pin_head.py",
+    "tests/test_t25_juniorctl_skill_pin_count.py",
     "docs/COMPILED_BACKLOG.md",
     "STATE.md",
     "grok_bot/LAST_RECEIPT.md",
@@ -25,5 +25,5 @@
   "repos": ["cloudcover95/JuniorLLM"],
   "tests": "pass",
   "why_stopped": "",
-  "next_smallest_slice": "T25 juniorctl skill-pin count (loopback)"
+  "next_smallest_slice": "T26 juniorctl skill-pin genesis (loopback)"
 }

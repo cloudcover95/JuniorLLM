@@ -41,3 +41,4 @@ T22 done (juniorctl skill-pin last, loopback).
 T23 done (juniorctl skill-pin tail, loopback).
 T24 done (juniorctl skill-pin head, loopback).
 T25 done (juniorctl skill-pin count, loopback).
+T26 done (juniorctl skill-pin genesis, loopback).

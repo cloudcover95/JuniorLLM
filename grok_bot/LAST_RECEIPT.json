@@ -1,22 +1,22 @@
 {
-  "at": "2026-09-20T19:08-06:00",
-  "slice": "T26 juniorctl skill-pin genesis (loopback)",
+  "at": "2026-09-21T01:13-06:00",
+  "slice": "T27 juniorctl skill-pin parent (loopback)",
   "port": "JuniorAstraReason",
   "status": "shipped",
-  "next": "T27 juniorctl skill-pin parent (loopback)",
-  "run_at": "2026-09-20T19:08-06:00",
+  "next": "T28 juniorctl skill-pin child (loopback)",
+  "run_at": "2026-09-21T01:13-06:00",
   "plan_bullets": [
-    "goal: juniorctl skill-pin genesis returns first SKILL_PINS.jsonl row (height 0, prev ZERO) under a root, loopback only",
-    "files: rails/linux/ctl_skillpin_genesis.py, rails/linux/ctl_cli.py, rails/linux/juniorctl.py, tests/test_t26_juniorctl_skill_pin_genesis.py, docs/COMPILED_BACKLOG.md, STATE.md, receipts",
+    "goal: juniorctl skill-pin parent HDR returns prev SKILL_PINS.jsonl row under a root, loopback only",
+    "files: rails/linux/ctl_skillpin_parent.py, rails/linux/ctl_cli.py, rails/linux/juniorctl.py, tests/test_t27_juniorctl_skill_pin_parent.py, docs/COMPILED_BACKLOG.md, STATE.md, receipts",
     "port: JuniorAstraReason",
-    "test: PYTHONPATH=. python tests/test_t26_juniorctl_skill_pin_genesis.py",
-    "done-check: empty genesis is ok empty height -1 ZERO count 0 total 0 is_genesis false; pin then load still height 0 prev ZERO hdr==first tip!=genesis; refuse docker.sock/wildcard/path escape/PAT; no body; no fetch; no exec"
+    "test: PYTHONPATH=. python tests/test_t27_juniorctl_skill_pin_parent.py",
+    "done-check: empty/missing hdr fail; parent of genesis is ok empty height -1 ZERO found false is_genesis true; parent of tip after pin+load is genesis height 0 prev ZERO; refuse docker.sock/wildcard/path escape/PAT; no body; no fetch; no exec"
   ],
   "files_added": [
-    "rails/linux/ctl_skillpin_genesis.py",
+    "rails/linux/ctl_skillpin_parent.py",
     "rails/linux/ctl_cli.py",
     "rails/linux/juniorctl.py",
-    "tests/test_t26_juniorctl_skill_pin_genesis.py",
+    "tests/test_t27_juniorctl_skill_pin_parent.py",
     "docs/COMPILED_BACKLOG.md",
     "STATE.md",
     "grok_bot/LAST_RECEIPT.md",
@@ -25,5 +25,5 @@
   "repos": ["cloudcover95/JuniorLLM"],
   "tests": "pass",
   "why_stopped": "",
-  "next_smallest_slice": "T27 juniorctl skill-pin parent (loopback)"
+  "next_smallest_slice": "T28 juniorctl skill-pin child (loopback)"
 }

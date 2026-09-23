@@ -45,3 +45,4 @@ T26 done (juniorctl skill-pin genesis, loopback).
 T27 done (juniorctl skill-pin parent, loopback).
 T28 done (juniorctl skill-pin child, loopback).
 T29 done (juniorctl skill-pin children, loopback).
+T30 done (juniorctl skill-pin ancestors, loopback).

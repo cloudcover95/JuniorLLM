@@ -1,0 +1,8 @@
+{
+  "suite": "JuniorOSai",
+  "species": "eval-stone",
+  "download": false,
+  "cases": [
+    {"id": "col", "note": "home dash poker ruling", "expect_ok": true}
+  ]
+}

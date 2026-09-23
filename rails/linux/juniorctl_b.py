@@ -1,6 +1,14 @@
 from __future__ import annotations
 
-from rails.linux.juniorctl_a import _path
+import sys
+from pathlib import Path
+
+_ROOT = Path(__file__).resolve().parents[2]
+
+
+def _path() -> None:
+    if str(_ROOT) not in sys.path:
+        sys.path.insert(0, str(_ROOT))
 
 
 def skill_pin_tip(root: str | None = None) -> dict:

@@ -1,0 +1,9 @@
+{
+  "suite": "JuniorOSai",
+  "species": "poker-abc",
+  "download": false,
+  "cases": [
+    {"id": "felt", "note": "home dash poker ruling", "expect_ok": true},
+    {"id": "bind", "note": "bind 0.0.0.0 poker", "expect_ok": false}
+  ]
+}

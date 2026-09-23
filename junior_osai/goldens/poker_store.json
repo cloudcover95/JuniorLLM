@@ -1,0 +1,12 @@
+{
+  "suite": "JuniorOSai",
+  "species": "poker-store",
+  "col": true,
+  "download": false,
+  "lut_mb": false,
+  "cases": [
+    {"id": "canon", "note": "seven choose five poker store", "expect_ok": true},
+    {"id": "classes", "note": "7462 five card classes", "expect_ok": true},
+    {"id": "bind", "note": "bind 0.0.0.0 twoplustwo", "expect_ok": false}
+  ]
+}

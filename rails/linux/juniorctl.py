@@ -21,3 +21,54 @@ HARDENING = (
 def _path() -> None:
     if str(ROOT) not in sys.path:
         sys.path.insert(0, str(ROOT))
+
+
+def health() -> dict:
+    _path()
+    from ports.registry import list_ports
+
+    return {
+        "product": "JuniorOS overlay",
+        "bitnetd": "127.0.0.1:8765",
+        "security": str(LINUX / "CONTAINER_SECURITY.md"),
+        "ports": [p["name"] for p in list_ports()],
+        "cmds": [
+            "health",
+            "port list",
+            "ask <q>",
+            "night",
+            "security",
+            "quant",
+            "lake",
+            "net",
+            "oci validate",
+            "oci install",
+            "path pin",
+            "skill-pin list",
+            "skill-pin load",
+            "skill-pin pin",
+            "skill-pin verify",
+            "skill-pin verify-one",
+            "skill-pin tip",
+            "skill-pin log",
+            "skill-pin height",
+            "skill-pin get",
+            "skill-pin at",
+            "skill-pin range",
+            "skill-pin since",
+            "skill-pin until",
+            "skill-pin before",
+            "skill-pin after",
+            "skill-pin first",
+            "skill-pin last",
+            "skill-pin tail",
+            "skill-pin head",
+            "skill-pin count",
+            "skill-pin genesis",
+            "skill-pin parent",
+            "skill-pin child",
+            "skill-pin children",
+            "skill-pin ancestors",
+            "skill-pin siblings",
+        ],
+    }

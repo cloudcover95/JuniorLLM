@@ -199,13 +199,19 @@ def run(argv: list[str], ns: dict) -> int:
             report = ns["skill_pin_children"](hdr, dest)
             print(json.dumps(report, indent=2, default=str))
             return 0 if report["ok"] else 1
+        if sub == "ancestors":
+            hdr = argv[3] if len(argv) > 3 else None
+            dest = argv[4] if len(argv) > 4 else None
+            report = ns["skill_pin_ancestors"](hdr, dest)
+            print(json.dumps(report, indent=2, default=str))
+            return 0 if report["ok"] else 1
         print(
-            "usage: juniorctl skill-pin list [ROOT] | skill-pin load REL [ROOT] | skill-pin pin REL [ROOT] | skill-pin verify [ROOT] | skill-pin verify-one REL [ROOT] | skill-pin tip [ROOT] | skill-pin log [ROOT] | skill-pin height [ROOT] | skill-pin get HEIGHT [ROOT] | skill-pin at HDR [ROOT] | skill-pin range FROM TO [ROOT] | skill-pin since HDR [ROOT] | skill-pin until HDR [ROOT] | skill-pin before HDR [ROOT] | skill-pin after HDR [ROOT] | skill-pin first [ROOT] | skill-pin last [ROOT] | skill-pin tail [N] [ROOT] | skill-pin head [N] [ROOT] | skill-pin count [ROOT] | skill-pin genesis [ROOT] | skill-pin parent HDR [ROOT] | skill-pin child HDR [ROOT] | skill-pin children HDR [ROOT]",
+            "usage: juniorctl skill-pin list [ROOT] | skill-pin load REL [ROOT] | skill-pin pin REL [ROOT] | skill-pin verify [ROOT] | skill-pin verify-one REL [ROOT] | skill-pin tip [ROOT] | skill-pin log [ROOT] | skill-pin height [ROOT] | skill-pin get HEIGHT [ROOT] | skill-pin at HDR [ROOT] | skill-pin range FROM TO [ROOT] | skill-pin since HDR [ROOT] | skill-pin until HDR [ROOT] | skill-pin before HDR [ROOT] | skill-pin after HDR [ROOT] | skill-pin first [ROOT] | skill-pin last [ROOT] | skill-pin tail [N] [ROOT] | skill-pin head [N] [ROOT] | skill-pin count [ROOT] | skill-pin genesis [ROOT] | skill-pin parent HDR [ROOT] | skill-pin child HDR [ROOT] | skill-pin children HDR [ROOT] | skill-pin ancestors HDR [ROOT]",
             file=sys.stderr,
         )
         return 2
     print(
-        "usage: juniorctl health | security | port list | ask <q> | night | quant | lake | net | oci validate | oci install [DEST] | path pin [DEST] | skill-pin list [ROOT] | skill-pin load REL [ROOT] | skill-pin pin REL [ROOT] | skill-pin verify [ROOT] | skill-pin verify-one REL [ROOT] | skill-pin tip [ROOT] | skill-pin log [ROOT] | skill-pin height [ROOT] | skill-pin get HEIGHT [ROOT] | skill-pin at HDR [ROOT] | skill-pin range FROM TO [ROOT] | skill-pin since HDR [ROOT] | skill-pin until HDR [ROOT] | skill-pin before HDR [ROOT] | skill-pin after HDR [ROOT] | skill-pin first [ROOT] | skill-pin last [ROOT] | skill-pin tail [N] [ROOT] | skill-pin head [N] [ROOT] | skill-pin count [ROOT] | skill-pin genesis [ROOT] | skill-pin parent HDR [ROOT] | skill-pin child HDR [ROOT] | skill-pin children HDR [ROOT]",
+        "usage: juniorctl health | security | port list | ask <q> | night | quant | lake | net | oci validate | oci install [DEST] | path pin [DEST] | skill-pin list [ROOT] | skill-pin load REL [ROOT] | skill-pin pin REL [ROOT] | skill-pin verify [ROOT] | skill-pin verify-one REL [ROOT] | skill-pin tip [ROOT] | skill-pin log [ROOT] | skill-pin height [ROOT] | skill-pin get HEIGHT [ROOT] | skill-pin at HDR [ROOT] | skill-pin range FROM TO [ROOT] | skill-pin since HDR [ROOT] | skill-pin until HDR [ROOT] | skill-pin before HDR [ROOT] | skill-pin after HDR [ROOT] | skill-pin first [ROOT] | skill-pin last [ROOT] | skill-pin tail [N] [ROOT] | skill-pin head [N] [ROOT] | skill-pin count [ROOT] | skill-pin genesis [ROOT] | skill-pin parent HDR [ROOT] | skill-pin child HDR [ROOT] | skill-pin children HDR [ROOT] | skill-pin ancestors HDR [ROOT]",
         file=sys.stderr,
     )
     return 2

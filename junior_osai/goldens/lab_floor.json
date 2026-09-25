@@ -1,0 +1,10 @@
+{
+  "suite": "JuniorOSai",
+  "species": "lab-floor",
+  "download": false,
+  "cortana": false,
+  "cases": [
+    {"id": "spin", "note": "home dash lab printer", "expect_ok": true},
+    {"id": "bind", "note": "bind 0.0.0.0 mill", "expect_ok": false}
+  ]
+}

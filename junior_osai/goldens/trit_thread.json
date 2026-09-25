@@ -1,0 +1,11 @@
+{
+  "suite": "JuniorOSai",
+  "species": "trit-thread",
+  "download": false,
+  "svd": false,
+  "qubit": false,
+  "cases": [
+    {"id": "center", "note": "home dash trit center series", "expect_ok": true},
+    {"id": "bind", "note": "bind 0.0.0.0 quant", "expect_ok": false}
+  ]
+}

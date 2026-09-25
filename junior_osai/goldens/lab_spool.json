@@ -1,0 +1,10 @@
+{
+  "suite": "JuniorOSai",
+  "species": "lab-spool",
+  "download": false,
+  "fire": false,
+  "cases": [
+    {"id": "queue", "note": "home dash lab spool gcode", "expect_ok": true},
+    {"id": "bind", "note": "bind 0.0.0.0 laser", "expect_ok": false}
+  ]
+}

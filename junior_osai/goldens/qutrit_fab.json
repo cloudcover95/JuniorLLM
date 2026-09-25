@@ -1,0 +1,10 @@
+{
+  "suite": "JuniorOSai",
+  "species": "qutrit-fab",
+  "download": false,
+  "fab": false,
+  "cases": [
+    {"id": "study", "note": "home dash qutrit study map", "expect_ok": true},
+    {"id": "fab", "note": "bind 0.0.0.0 tapeout", "expect_ok": false}
+  ]
+}

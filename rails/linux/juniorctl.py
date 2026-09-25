@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""juniorctl — JuniorOS entry. skill_pin_list skill_pin_verify skill_pin_verify_one skill_pin_tip skill_pin_log skill_pin_height skill_pin_get skill_pin_at skill_pin_range skill_pin_since skill_pin_until skill_pin_before skill_pin_after skill_pin_first skill_pin_last skill_pin_tail skill_pin_head skill_pin_count skill_pin_genesis skill_pin_parent skill_pin_child skill_pin_children skill_pin_ancestors skill_pin_siblings skill_pin_cousins skill_pin_uncles skill_pin_nephews"""
+"""juniorctl — JuniorOS entry. skill_pin_list skill_pin_verify skill_pin_verify_one skill_pin_tip skill_pin_log skill_pin_height skill_pin_get skill_pin_at skill_pin_range skill_pin_since skill_pin_until skill_pin_before skill_pin_after skill_pin_first skill_pin_last skill_pin_tail skill_pin_head skill_pin_count skill_pin_genesis skill_pin_parent skill_pin_child skill_pin_children skill_pin_ancestors skill_pin_siblings skill_pin_cousins skill_pin_uncles skill_pin_nephews skill_pin_grandchildren"""
 from __future__ import annotations
 
 import json
@@ -75,6 +75,7 @@ def health() -> dict:
             "skill-pin cousins",
             "skill-pin uncles",
             "skill-pin nephews",
+            "skill-pin grandchildren",
         ],
     }
 
@@ -266,6 +267,14 @@ def skill_pin_nephews(hdr: str | None = None, root: str | None = None) -> dict:
     """T34 — pin-log nephew rows of HDR under a root. Loopback only. Never fetch. Never exec."""
     _path()
     from rails.linux.ctl_skillpin_nephews import skill_pin_nephews as impl
+
+    return impl(hdr, root)
+
+
+def skill_pin_grandchildren(hdr: str | None = None, root: str | None = None) -> dict:
+    """T35 — pin-log grandchild rows of HDR under a root. Loopback only. Never fetch. Never exec."""
+    _path()
+    from rails.linux.ctl_skillpin_grandchildren import skill_pin_grandchildren as impl
 
     return impl(hdr, root)
 

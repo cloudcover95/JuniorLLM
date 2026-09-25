@@ -1,0 +1,10 @@
+{
+  "suite": "JuniorOSai",
+  "species": "shop-screen",
+  "download": false,
+  "pe_stamp": false,
+  "cases": [
+    {"id": "fan", "note": "home dash 200 lb hung load", "expect_ok": true},
+    {"id": "bind", "note": "bind 0.0.0.0 shop", "expect_ok": false}
+  ]
+}

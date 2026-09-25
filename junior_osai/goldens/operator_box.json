@@ -1,0 +1,10 @@
+{
+  "suite": "JuniorOSai",
+  "species": "operator-box",
+  "download": false,
+  "fab": false,
+  "cases": [
+    {"id": "collab", "note": "home dash operator collab ok", "expect_ok": true},
+    {"id": "tapeout", "note": "bind 0.0.0.0 cmos fab", "expect_ok": false}
+  ]
+}

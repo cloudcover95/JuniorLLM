@@ -1,4 +1,4 @@
-"""Omega → OBJ. Blender bpy optional. UE5 off. Trit on the note."""
+"""Omega → OBJ. Blender bpy optional. UE5 off. Trit on Z."""
 from __future__ import annotations
 
 from pathlib import Path

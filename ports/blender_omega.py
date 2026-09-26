@@ -1,4 +1,4 @@
-"""Omega → OBJ. Blender bpy optional. UE5 off. Trit on Z."""
+"""Omega → OBJ. Blender bpy optional. UE5 off."""
 from __future__ import annotations
 
 from pathlib import Path
@@ -46,5 +46,4 @@ def harness(note: str = "home dash terrain", out: str | None = None) -> dict:
         "ue5_launch": False,
         "download": False,
         "svd": False,
-        "mesh": "quad grid + trit z",
     }

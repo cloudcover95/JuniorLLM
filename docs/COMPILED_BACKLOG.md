@@ -51,3 +51,4 @@ T32 done (juniorctl skill-pin cousins, loopback).
 T33 done (juniorctl skill-pin uncles, loopback).
 T34 done (juniorctl skill-pin nephews, loopback).
 T35 done (juniorctl skill-pin grandchildren, loopback).
+T36 done (juniorctl skill-pin great-grandchildren, loopback).

@@ -1,12 +1,12 @@
 # Receipt
 
-- **run_at**: 2026-09-26T01:20-06:00
-- **slice**: T36 juniorctl skill-pin great-grandchildren (loopback)
+- **run_at**: 2026-09-26T01:35-06:00
+- **slice**: T37 juniorctl skill-pin great-great-grandchildren (loopback)
 - **port**: JuniorAstraReason
-- **plan_bullets**: goal=juniorctl skill-pin great-grandchildren HDR returns children-of-grandchildren from SKILL_PINS.jsonl, loopback only; files=ctl_skillpin_great_grandchildren.py+ctl_cli.py+juniorctl.py+test_t36+backlog+state+receipts; port=JuniorAstraReason; test=PYTHONPATH=. python tests/test_t36_juniorctl_skill_pin_great_grandchildren.py; done-check=empty/missing hdr fail; great-grandchildren of genesis after pin/load/pin is ok empty height -1 found false is_only true is_genesis true; after four-high pin+load+pin+load found tip parent=grandchild grandparent=child great_grandparent=genesis; tip/mid of linear chain is_only; refuse docker.sock/wildcard/path escape/PAT; no body no fetch no exec
-- **files_added**: rails/linux/ctl_skillpin_great_grandchildren.py, rails/linux/ctl_cli.py, rails/linux/juniorctl.py, tests/test_t36_juniorctl_skill_pin_great_grandchildren.py, docs/COMPILED_BACKLOG.md, STATE.md, grok_bot/LAST_RECEIPT.md, grok_bot/LAST_RECEIPT.json
+- **plan_bullets**: goal=juniorctl skill-pin great-great-grandchildren HDR returns children-of-great-grandchildren from SKILL_PINS.jsonl, loopback only; files=ctl_skillpin_great_great_grandchildren.py+ctl_cli.py+juniorctl.py+test_t37+backlog+state+receipts; port=JuniorAstraReason; test=PYTHONPATH=. python tests/test_t37_juniorctl_skill_pin_great_great_grandchildren.py; done-check=empty/missing hdr fail; great-great-grandchildren of genesis after pin/load/pin/load is ok empty height -1 found false is_only true is_genesis true; after five-high pin+load+pin+load+pin found tip parent=great-grandchild grandparent=grandchild great_grandparent=child great_great_grandparent=genesis; tip/mid of linear chain is_only; refuse docker.sock/wildcard/path escape/PAT; no body no fetch no exec
+- **files_added**: rails/linux/ctl_skillpin_great_great_grandchildren.py, rails/linux/ctl_cli.py, rails/linux/juniorctl.py, tests/test_t37_juniorctl_skill_pin_great_great_grandchildren.py, docs/COMPILED_BACKLOG.md, STATE.md, grok_bot/LAST_RECEIPT.md, grok_bot/LAST_RECEIPT.json
 - **repos**: cloudcover95/JuniorLLM
 - **tests**: pass
 - **status**: shipped
 - **why_stopped**:
-- **next_smallest_slice**: T37 juniorctl skill-pin great-great-grandchildren (loopback)
+- **next_smallest_slice**: T38 juniorctl skill-pin 2nd-cousins (loopback)

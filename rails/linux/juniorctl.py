@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""juniorctl — JuniorOS entry. skill_pin_list skill_pin_verify skill_pin_verify_one skill_pin_tip skill_pin_log skill_pin_height skill_pin_get skill_pin_at skill_pin_range skill_pin_since skill_pin_until skill_pin_before skill_pin_after skill_pin_first skill_pin_last skill_pin_tail skill_pin_head skill_pin_count skill_pin_genesis skill_pin_parent skill_pin_child skill_pin_children skill_pin_ancestors skill_pin_siblings skill_pin_cousins skill_pin_uncles skill_pin_nephews skill_pin_grandchildren skill_pin_great_grandchildren skill_pin_great_great_grandchildren skill_pin_2nd_cousins"""
+"""juniorctl — JuniorOS entry. skill_pin_list skill_pin_verify skill_pin_verify_one skill_pin_tip skill_pin_log skill_pin_height skill_pin_get skill_pin_at skill_pin_range skill_pin_since skill_pin_until skill_pin_before skill_pin_after skill_pin_first skill_pin_last skill_pin_tail skill_pin_head skill_pin_count skill_pin_genesis skill_pin_parent skill_pin_child skill_pin_children skill_pin_ancestors skill_pin_siblings skill_pin_cousins skill_pin_uncles skill_pin_nephews skill_pin_grandchildren skill_pin_great_grandchildren skill_pin_great_great_grandchildren skill_pin_2nd_cousins skill_pin_first_cousins_once_removed"""
 from __future__ import annotations
 
 import json
@@ -79,6 +79,7 @@ def health() -> dict:
             "skill-pin great-grandchildren",
             "skill-pin great-great-grandchildren",
             "skill-pin 2nd-cousins",
+            "skill-pin first-cousins-once-removed",
         ],
     }
 
@@ -304,6 +305,16 @@ def skill_pin_2nd_cousins(hdr: str | None = None, root: str | None = None) -> di
     """T38 — pin-log 2nd-cousin rows of HDR under a root. Loopback only. Never fetch. Never exec."""
     _path()
     from rails.linux.ctl_skillpin_2nd_cousins import skill_pin_2nd_cousins as impl
+
+    return impl(hdr, root)
+
+
+def skill_pin_first_cousins_once_removed(hdr: str | None = None, root: str | None = None) -> dict:
+    """T39 — pin-log 1C1R rows of HDR under a root. Loopback only. Never fetch. Never exec."""
+    _path()
+    from rails.linux.ctl_skillpin_first_cousins_once_removed import (
+        skill_pin_first_cousins_once_removed as impl,
+    )
 
     return impl(hdr, root)
 

@@ -1,22 +1,22 @@
 {
-  "at": "2026-09-26T19:01-06:00",
-  "slice": "T38 juniorctl skill-pin 2nd-cousins (loopback)",
+  "at": "2026-09-27T01:06-06:00",
+  "slice": "T39 juniorctl skill-pin first-cousins-once-removed (loopback)",
   "port": "JuniorAstraReason",
   "status": "shipped",
-  "next": "T39 juniorctl skill-pin first-cousins-once-removed (loopback)",
-  "run_at": "2026-09-26T19:01-06:00",
+  "next": "T40 juniorctl skill-pin second-cousins-once-removed (loopback)",
+  "run_at": "2026-09-27T01:06-06:00",
   "plan_bullets": [
-    "goal: juniorctl skill-pin 2nd-cousins HDR returns children-of-parent-cousins from SKILL_PINS.jsonl, loopback only",
-    "files: rails/linux/ctl_skillpin_2nd_cousins.py, rails/linux/ctl_cli.py, rails/linux/juniorctl.py, tests/test_t38_juniorctl_skill_pin_2nd_cousins.py, docs/COMPILED_BACKLOG.md, STATE.md, receipts",
+    "goal: juniorctl skill-pin first-cousins-once-removed HDR returns parent-cousins plus children-of-first-cousins from SKILL_PINS.jsonl, loopback only",
+    "files: rails/linux/ctl_skillpin_first_cousins_once_removed.py, rails/linux/ctl_cli.py, rails/linux/juniorctl.py, tests/test_t39_juniorctl_skill_pin_first_cousins_once_removed.py, docs/COMPILED_BACKLOG.md, STATE.md, receipts",
     "port: JuniorAstraReason",
-    "test: PYTHONPATH=. python tests/test_t38_juniorctl_skill_pin_2nd_cousins.py",
-    "done-check: empty/missing hdr fail; 2nd-cousins of genesis after pin is ok empty height -1 found false is_only true is_genesis true; linear four-high pin/load/pin/load is_only great_grandparent=genesis; refuse docker.sock/wildcard/path escape/PAT; no body; no fetch; no exec"
+    "test: PYTHONPATH=. python tests/test_t39_juniorctl_skill_pin_first_cousins_once_removed.py",
+    "done-check: empty/missing hdr fail; 1C1R of genesis after pin is ok empty height -1 found false is_only true is_genesis true; linear four-high pin/load/pin/load is_only great_grandparent=genesis; refuse docker.sock/wildcard/path escape/PAT; no body; no fetch; no exec"
   ],
   "files_added": [
-    "rails/linux/ctl_skillpin_2nd_cousins.py",
+    "rails/linux/ctl_skillpin_first_cousins_once_removed.py",
     "rails/linux/ctl_cli.py",
     "rails/linux/juniorctl.py",
-    "tests/test_t38_juniorctl_skill_pin_2nd_cousins.py",
+    "tests/test_t39_juniorctl_skill_pin_first_cousins_once_removed.py",
     "docs/COMPILED_BACKLOG.md",
     "STATE.md",
     "grok_bot/LAST_RECEIPT.md",
@@ -25,5 +25,5 @@
   "repos": ["cloudcover95/JuniorLLM"],
   "tests": "pass",
   "why_stopped": "",
-  "next_smallest_slice": "T39 juniorctl skill-pin first-cousins-once-removed (loopback)"
+  "next_smallest_slice": "T40 juniorctl skill-pin second-cousins-once-removed (loopback)"
 }

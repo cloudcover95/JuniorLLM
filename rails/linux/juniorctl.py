@@ -250,3 +250,159 @@ from rails.linux.juniorctl_b import *  # noqa: F403
 from rails.linux.juniorctl_bind import install as _install_skillpin
 
 _install_skillpin(globals())
+
+
+def skill_pin_cousins(hdr: str | None = None, root: str | None = None) -> dict:
+    """T32 — pin-log cousin rows of HDR under a root. Loopback only. Never fetch. Never exec."""
+    _path()
+    from rails.linux.ctl_skillpin_cousins import skill_pin_cousins as impl
+
+    return impl(hdr, root)
+
+
+def skill_pin_uncles(hdr: str | None = None, root: str | None = None) -> dict:
+    """T33 — pin-log uncle rows of HDR under a root. Loopback only. Never fetch. Never exec."""
+    _path()
+    from rails.linux.ctl_skillpin_uncles import skill_pin_uncles as impl
+
+    return impl(hdr, root)
+
+
+def skill_pin_nephews(hdr: str | None = None, root: str | None = None) -> dict:
+    """T34 — pin-log nephew rows of HDR under a root. Loopback only. Never fetch. Never exec."""
+    _path()
+    from rails.linux.ctl_skillpin_nephews import skill_pin_nephews as impl
+
+    return impl(hdr, root)
+
+
+def skill_pin_grandchildren(hdr: str | None = None, root: str | None = None) -> dict:
+    """T35 — pin-log grandchild rows of HDR under a root. Loopback only. Never fetch. Never exec."""
+    _path()
+    from rails.linux.ctl_skillpin_grandchildren import skill_pin_grandchildren as impl
+
+    return impl(hdr, root)
+
+
+def skill_pin_great_grandchildren(hdr: str | None = None, root: str | None = None) -> dict:
+    """T36 — pin-log great-grandchild rows of HDR under a root. Loopback only. Never fetch. Never exec."""
+    _path()
+    from rails.linux.ctl_skillpin_great_grandchildren import skill_pin_great_grandchildren as impl
+
+    return impl(hdr, root)
+
+
+def skill_pin_great_great_grandchildren(hdr: str | None = None, root: str | None = None) -> dict:
+    """T37 — pin-log great-great-grandchild rows of HDR under a root. Loopback only. Never fetch. Never exec."""
+    _path()
+    from rails.linux.ctl_skillpin_great_great_grandchildren import (
+        skill_pin_great_great_grandchildren as impl,
+    )
+
+    return impl(hdr, root)
+
+
+def skill_pin_2nd_cousins(hdr: str | None = None, root: str | None = None) -> dict:
+    """T38 — pin-log 2nd-cousin rows of HDR under a root. Loopback only. Never fetch. Never exec."""
+    _path()
+    from rails.linux.ctl_skillpin_2nd_cousins import skill_pin_2nd_cousins as impl
+
+    return impl(hdr, root)
+
+
+def skill_pin_first_cousins_once_removed(hdr: str | None = None, root: str | None = None) -> dict:
+    """T39 — pin-log 1C1R rows of HDR under a root. Loopback only. Never fetch. Never exec."""
+    _path()
+    from rails.linux.ctl_skillpin_first_cousins_once_removed import (
+        skill_pin_first_cousins_once_removed as impl,
+    )
+
+    return impl(hdr, root)
+
+
+def skill_pin_2nd_cousins_once_removed(hdr: str | None = None, root: str | None = None) -> dict:
+    """T40 — pin-log 2C1R rows of HDR under a root. Loopback only. Never fetch. Never exec."""
+    _path()
+    from rails.linux.ctl_skillpin_2nd_cousins_once_removed import (
+        skill_pin_2nd_cousins_once_removed as impl,
+    )
+
+    return impl(hdr, root)
+
+
+def quant() -> dict:
+    _path()
+    from scripts.bitnet_quant_prod import run
+
+    return run()
+
+
+def lake() -> dict:
+    _path()
+    import tempfile
+    from bitnet_pq.pipeline import run as lake_run
+
+    return lake_run(Path(tempfile.mkdtemp(prefix="juniorctl-lake-")))
+
+
+def net_status() -> dict:
+    _path()
+    import tempfile
+    from bitnet_net.node import Node
+
+    n = Node(Path(tempfile.mkdtemp(prefix="juniorctl-net-")))
+    n.mint("ctl", 1)
+    n.seal()
+    return {"balances": n.balances, "height": len(n.blocks), "bind": "127.0.0.1"}
+
+
+def oci_validate() -> dict:
+    _path()
+    from adaptations.gemma4.ondisk_bind import notes as gemma_notes
+    from rails.linux.oci import rootless
+
+    report = rootless.validate()
+    unit = rootless.unit()
+    gemma = gemma_notes()
+    return {
+        "ok": bool(report["ok"]),
+        "issues": list(report["issues"]),
+        "bind": report["bind"],
+        "rootless": bool(report["rootless"]),
+        "privileged": False,
+        "docker_socket": False,
+        "unit": unit["name"],
+        "unit_status": unit["status"],
+        "gemma": {
+            "port": gemma["port"],
+            "present": bool(gemma["present"]),
+            "path": gemma.get("path"),
+            "backend": gemma["backend"],
+            "fetch": False,
+        },
+        "weights": unit.get("weights"),
+    }
+
+
+def oci_install(dest: str | None = None) -> dict:
+    import os
+
+    _path()
+    from rails.linux.oci.install_bundle import stage
+
+    target = dest if dest else os.environ.get("DEST", "")
+    return stage(target)
+
+
+def path_pin(dest: str | None = None) -> dict:
+    import os
+
+    _path()
+    from rails.linux.path_pin import stage
+
+    target = dest if dest else os.environ.get("DEST", "")
+    return stage(target)
+
+
+if __name__ == "__main__":
+    raise SystemExit(main(sys.argv))

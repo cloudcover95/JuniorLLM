@@ -83,3 +83,61 @@ def health() -> dict:
             "skill-pin 2nd-cousins-once-removed",
         ],
     }
+
+
+def security() -> dict:
+    unit = (LINUX / "bitnetd.service").read_text(encoding="utf-8")
+    missing = [k for k in HARDENING if k not in unit]
+    seccomp = LINUX / "seccomp-bitnetd.json"
+    return {
+        "unit_ok": not missing,
+        "missing": missing,
+        "seccomp": seccomp.is_file(),
+        "bind": "127.0.0.1:8765",
+        "privileged": False,
+        "docker_socket": False,
+        "doc": "rails/linux/CONTAINER_SECURITY.md",
+    }
+
+
+def ask(q: str) -> dict:
+    _path()
+    from junior_aie import build_framework
+    from junior_aie.corpus import seed
+
+    fw = build_framework()
+    seed(fw.retrieval)
+    return fw.ask(
+        q,
+        memory=[("covenant", "do not publish private-land boulders without owner consent")],
+    )
+
+
+def night(ticks: int = 32) -> dict:
+    _path()
+    from bitnet_night.cycle import run_cycle
+
+    return run_cycle(ROOT / "agent" / "queue", "complete local suite and JuniorOS overlay", ticks=ticks)
+
+
+def ports() -> list:
+    _path()
+    from ports.registry import list_ports
+
+    return list_ports()
+
+
+def _skill_pin_denied(reason: str, raw: str) -> dict:
+    return {
+        "ok": False,
+        "issues": [reason],
+        "bind": "127.0.0.1:8765",
+        "root": raw,
+        "skills": [],
+        "count": 0,
+        "chain_ok": False,
+        "docker_socket": False,
+        "privileged": False,
+        "download": False,
+        "fetch": False,
+    }

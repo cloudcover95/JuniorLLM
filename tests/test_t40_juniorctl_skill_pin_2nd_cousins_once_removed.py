@@ -1,10 +1,12 @@
 """T40 — juniorctl skill-pin 2nd-cousins-once-removed is loopback-only and never fetches."""
 from __future__ import annotations
 
+import io
 import json
 import sys
 import tempfile
 import unittest
+from contextlib import redirect_stdout
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -68,6 +70,77 @@ class T40JuniorctlSkillPin2ndCousinsOnceRemovedTests(unittest.TestCase):
             self.assertNotIn("docker.sock", blob)
             self.assertNotIn("body", blob)
 
+    def test_cli_skill_pin_2nd_cousins_once_removed_exit_zero(self):
+        with tempfile.TemporaryDirectory() as raw:
+            td = Path(raw)
+            rel = self._tree(td)
+            juniorctl.skill_pin_pin(rel, str(td))
+            juniorctl.skill_pin_load(rel, str(td))
+            juniorctl.skill_pin_pin(rel, str(td))
+            juniorctl.skill_pin_load(rel, str(td))
+            juniorctl.skill_pin_pin(rel, str(td))
+            gen = juniorctl.skill_pin_genesis(str(td))
+            tip = juniorctl.skill_pin_tip(str(td))
+            buf = io.StringIO()
+            with redirect_stdout(buf):
+                code = juniorctl.main(
+                    [
+                        "juniorctl",
+                        "skill-pin",
+                        "2nd-cousins-once-removed",
+                        tip["hdr"],
+                        str(td),
+                    ]
+                )
+            self.assertEqual(code, 0)
+            payload = json.loads(buf.getvalue())
+            self.assertTrue(payload["ok"])
+            self.assertEqual(payload["bind"], "127.0.0.1:8765")
+            self.assertEqual(payload["op"], "2nd-cousins-once-removed")
+            self.assertFalse(payload["found"])
+            self.assertTrue(payload["is_only"])
+            self.assertEqual(payload["entries"], [])
+            self.assertEqual(payload["total"], 5)
+            self.assertEqual(payload["child_hdr"], tip["hdr"])
+            self.assertEqual(payload["child_height"], 4)
+            self.assertEqual(payload["great_great_grandparent_hdr"], gen["hdr"])
+            self.assertEqual(payload["great_great_grandparent_height"], 0)
+            self.assertFalse(payload["fetch"])
+            self.assertFalse(payload["exec"])
+            self.assertNotIn("body", payload)
+
+    def test_cli_2c1r_missing_and_bad_hdr(self):
+        with tempfile.TemporaryDirectory() as raw:
+            td = Path(raw)
+            buf = io.StringIO()
+            with redirect_stdout(buf):
+                code = juniorctl.main(
+                    [
+                        "juniorctl",
+                        "skill-pin",
+                        "2nd-cousins-once-removed",
+                        ZERO,
+                        str(td),
+                    ]
+                )
+            self.assertEqual(code, 1)
+            payload = json.loads(buf.getvalue())
+            self.assertFalse(payload["ok"])
+            self.assertEqual(payload["issues"], ["missing_hdr"])
+        empty = juniorctl.skill_pin_2nd_cousins_once_removed("", "/tmp")
+        self.assertFalse(empty["ok"])
+        self.assertEqual(empty["issues"], ["empty_hdr"])
+        bad = juniorctl.skill_pin_2nd_cousins_once_removed("tip", "/tmp")
+        self.assertFalse(bad["ok"])
+        self.assertEqual(bad["issues"], ["bad_hdr"])
+        buf = io.StringIO()
+        with redirect_stdout(buf):
+            code = juniorctl.main(["juniorctl", "skill-pin", "2nd-cousins-once-removed"])
+        self.assertEqual(code, 1)
+        payload = json.loads(buf.getvalue())
+        self.assertFalse(payload["ok"])
+        self.assertEqual(payload["issues"], ["empty_hdr"])
+
     def test_refuse_docker_wildcard_escape(self):
         sock = juniorctl.skill_pin_2nd_cousins_once_removed(ZERO, "/var/run/docker.sock")
         self.assertFalse(sock["ok"])
@@ -97,6 +170,11 @@ class T40JuniorctlSkillPin2ndCousinsOnceRemovedTests(unittest.TestCase):
         )
         self.assertNotIn("eval(", impl)
         self.assertNotIn("exec(", impl)
+        cli = (ROOT / "rails" / "linux" / "ctl_cli.py").read_text(encoding="utf-8")
+        self.assertIn("2nd-cousins-once-removed", cli)
+        self.assertIn("skill_pin_2nd_cousins_once_removed", cli)
+        self.assertNotIn("eval(", cli)
+        self.assertNotIn("exec(", cli)
         health = juniorctl.health()
         self.assertIn("skill-pin 2nd-cousins-once-removed", health["cmds"])
 

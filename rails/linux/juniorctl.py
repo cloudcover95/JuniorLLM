@@ -112,4 +112,17 @@ def ask(q: str) -> dict:
     return fw.ask(
         q,
         memory=[("covenant", "do not publish private-land boulders without owner consent")],
-    }
+    )
+
+
+from rails.linux.juniorctl_ops import *  # noqa: F403
+from rails.linux.juniorctl_pin import *  # noqa: F403
+from rails.linux.juniorctl_b import *  # noqa: F403
+from rails.linux.juniorctl_bind import install as _install_skillpin
+from rails.linux.juniorctl_kin import *  # noqa: F403
+
+_install_skillpin(globals())
+
+
+if __name__ == "__main__":
+    raise SystemExit(main(sys.argv))

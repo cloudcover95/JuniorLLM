@@ -1,20 +1,22 @@
 {
-  "at": "2026-09-29T01:02-06:00",
-  "slice": "T40 juniorctl skill-pin 2nd-cousins-once-removed (loopback)",
+  "at": "2026-09-29T19:11-06:00",
+  "slice": "T41 juniorctl skill-pin third-cousins (loopback)",
   "port": "JuniorAstraReason",
   "status": "shipped",
-  "next": "T41 juniorctl skill-pin third-cousins (loopback)",
-  "run_at": "2026-09-29T01:02-06:00",
+  "next": "T42 juniorctl skill-pin third-cousins-once-removed (loopback)",
+  "run_at": "2026-09-29T19:11-06:00",
   "plan_bullets": [
-    "goal: juniorctl skill-pin 2nd-cousins-once-removed HDR returns children-of-2nd-cousins plus parent-2nd-cousins from SKILL_PINS.jsonl, loopback only",
-    "files: rails/linux/ctl_cli.py, tests/test_t40_juniorctl_skill_pin_2nd_cousins_once_removed.py, docs/COMPILED_BACKLOG.md, STATE.md, receipts",
+    "goal: juniorctl skill-pin third-cousins HDR returns children of parent's 2nd-cousins from SKILL_PINS.jsonl, loopback only",
+    "files: rails/linux/ctl_skillpin_third_cousins.py, rails/linux/juniorctl.py, rails/linux/ctl_cli.py, tests/test_t41_juniorctl_skill_pin_third_cousins.py, docs/COMPILED_BACKLOG.md, STATE.md, receipts",
     "port: JuniorAstraReason",
-    "test: PYTHONPATH=. python tests/test_t40_juniorctl_skill_pin_2nd_cousins_once_removed.py",
+    "test: PYTHONPATH=. python tests/test_t41_juniorctl_skill_pin_third_cousins.py",
     "done-check: empty/missing hdr fail; 5-high linear pin/load/pin/load/pin is_only great_great_grandparent=genesis; CLI exit 0; refuse docker.sock/wildcard/path escape; no body; no fetch; no exec"
   ],
   "files_added": [
+    "rails/linux/ctl_skillpin_third_cousins.py",
+    "rails/linux/juniorctl.py",
     "rails/linux/ctl_cli.py",
-    "tests/test_t40_juniorctl_skill_pin_2nd_cousins_once_removed.py",
+    "tests/test_t41_juniorctl_skill_pin_third_cousins.py",
     "docs/COMPILED_BACKLOG.md",
     "STATE.md",
     "grok_bot/LAST_RECEIPT.md",
@@ -23,5 +25,5 @@
   "repos": ["cloudcover95/JuniorLLM"],
   "tests": "pass",
   "why_stopped": "",
-  "next_smallest_slice": "T41 juniorctl skill-pin third-cousins (loopback)"
+  "next_smallest_slice": "T42 juniorctl skill-pin third-cousins-once-removed (loopback)"
 }

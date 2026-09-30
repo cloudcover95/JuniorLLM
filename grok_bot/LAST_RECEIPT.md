@@ -1,12 +1,12 @@
 # Receipt
 
-- **run_at**: 2026-09-29T01:02-06:00
-- **slice**: T40 juniorctl skill-pin 2nd-cousins-once-removed (loopback)
+- **run_at**: 2026-09-29T19:11-06:00
+- **slice**: T41 juniorctl skill-pin third-cousins (loopback)
 - **port**: JuniorAstraReason
-- **plan_bullets**: goal=juniorctl skill-pin 2nd-cousins-once-removed HDR returns children-of-2nd-cousins plus parent-2nd-cousins from SKILL_PINS.jsonl, loopback only; files=ctl_cli.py+test_t40+backlog+state+receipts; port=JuniorAstraReason; test=PYTHONPATH=. python tests/test_t40_juniorctl_skill_pin_2nd_cousins_once_removed.py; done-check=empty/missing hdr fail; 5-high linear pin/load/pin/load/pin is_only great_great_grandparent=genesis; CLI exit 0; refuse docker.sock/wildcard/path escape; no body no fetch no exec
-- **files_added**: rails/linux/ctl_cli.py, tests/test_t40_juniorctl_skill_pin_2nd_cousins_once_removed.py, docs/COMPILED_BACKLOG.md, STATE.md, grok_bot/LAST_RECEIPT.md, grok_bot/LAST_RECEIPT.json
+- **plan_bullets**: goal=juniorctl skill-pin third-cousins HDR returns children of parent's 2nd-cousins from SKILL_PINS.jsonl, loopback only; files=ctl_skillpin_third_cousins.py+juniorctl.py+ctl_cli.py+test_t41+backlog+state+receipts; port=JuniorAstraReason; test=PYTHONPATH=. python tests/test_t41_juniorctl_skill_pin_third_cousins.py; done-check=empty/missing hdr fail; 5-high linear pin/load/pin/load/pin is_only great_great_grandparent=genesis; CLI exit 0; refuse docker.sock/wildcard/path escape; no body no fetch no exec
+- **files_added**: rails/linux/ctl_skillpin_third_cousins.py, rails/linux/juniorctl.py, rails/linux/ctl_cli.py, tests/test_t41_juniorctl_skill_pin_third_cousins.py, docs/COMPILED_BACKLOG.md, STATE.md, grok_bot/LAST_RECEIPT.md, grok_bot/LAST_RECEIPT.json
 - **repos**: cloudcover95/JuniorLLM
 - **tests**: pass
 - **status**: shipped
 - **why_stopped**:
-- **next_smallest_slice**: T41 juniorctl skill-pin third-cousins (loopback)
+- **next_smallest_slice**: T42 juniorctl skill-pin third-cousins-once-removed (loopback)

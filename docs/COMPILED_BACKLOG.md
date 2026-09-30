@@ -56,4 +56,5 @@ T37 done (juniorctl skill-pin great-great-grandchildren, loopback).
 T38 done (juniorctl skill-pin 2nd-cousins, loopback).
 T39 done (juniorctl skill-pin first-cousins-once-removed, loopback).
 T40 done (juniorctl skill-pin 2nd-cousins-once-removed, loopback).
-T41 next (juniorctl skill-pin third-cousins, loopback).
+T41 done (juniorctl skill-pin third-cousins, loopback).
+T42 next (juniorctl skill-pin third-cousins-once-removed, loopback).

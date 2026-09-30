@@ -1,22 +1,22 @@
 {
-  "at": "2026-09-29T19:11-06:00",
-  "slice": "T41 juniorctl skill-pin third-cousins (loopback)",
+  "at": "2026-09-30T01:03-06:00",
+  "slice": "T42 juniorctl skill-pin third-cousins-once-removed (loopback)",
   "port": "JuniorAstraReason",
   "status": "shipped",
-  "next": "T42 juniorctl skill-pin third-cousins-once-removed (loopback)",
-  "run_at": "2026-09-29T19:11-06:00",
+  "next": "T43 juniorctl skill-pin fourth-cousins (loopback)",
+  "run_at": "2026-09-30T01:03-06:00",
   "plan_bullets": [
-    "goal: juniorctl skill-pin third-cousins HDR returns children of parent's 2nd-cousins from SKILL_PINS.jsonl, loopback only",
-    "files: rails/linux/ctl_skillpin_third_cousins.py, rails/linux/juniorctl.py, rails/linux/ctl_cli.py, tests/test_t41_juniorctl_skill_pin_third_cousins.py, docs/COMPILED_BACKLOG.md, STATE.md, receipts",
+    "goal: juniorctl skill-pin third-cousins-once-removed HDR returns children of third-cousins union parent's third-cousins from SKILL_PINS.jsonl, loopback only",
+    "files: rails/linux/ctl_skillpin_third_cousins_once_removed.py, rails/linux/juniorctl.py, rails/linux/ctl_cli.py, tests/test_t42_juniorctl_skill_pin_third_cousins_once_removed.py, docs/COMPILED_BACKLOG.md, STATE.md, receipts",
     "port: JuniorAstraReason",
-    "test: PYTHONPATH=. python tests/test_t41_juniorctl_skill_pin_third_cousins.py",
+    "test: PYTHONPATH=. python tests/test_t42_juniorctl_skill_pin_third_cousins_once_removed.py",
     "done-check: empty/missing hdr fail; 5-high linear pin/load/pin/load/pin is_only great_great_grandparent=genesis; CLI exit 0; refuse docker.sock/wildcard/path escape; no body; no fetch; no exec"
   ],
   "files_added": [
-    "rails/linux/ctl_skillpin_third_cousins.py",
+    "rails/linux/ctl_skillpin_third_cousins_once_removed.py",
     "rails/linux/juniorctl.py",
     "rails/linux/ctl_cli.py",
-    "tests/test_t41_juniorctl_skill_pin_third_cousins.py",
+    "tests/test_t42_juniorctl_skill_pin_third_cousins_once_removed.py",
     "docs/COMPILED_BACKLOG.md",
     "STATE.md",
     "grok_bot/LAST_RECEIPT.md",
@@ -25,5 +25,5 @@
   "repos": ["cloudcover95/JuniorLLM"],
   "tests": "pass",
   "why_stopped": "",
-  "next_smallest_slice": "T42 juniorctl skill-pin third-cousins-once-removed (loopback)"
+  "next_smallest_slice": "T43 juniorctl skill-pin fourth-cousins (loopback)"
 }

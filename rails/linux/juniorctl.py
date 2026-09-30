@@ -124,5 +124,16 @@ from rails.linux.juniorctl_kin import *  # noqa: F403
 _install_skillpin(globals())
 
 
+def main(argv):
+    _path()
+    if len(argv) > 2 and argv[1] == "skill-pin" and argv[2] == "third-cousins-once-removed":
+        from rails.linux.ctl_cli_t42 import run_t42
+
+        return run_t42(argv, globals())
+    from rails.linux.ctl_cli import run
+
+    return run(argv, globals())
+
+
 if __name__ == "__main__":
     raise SystemExit(main(sys.argv))

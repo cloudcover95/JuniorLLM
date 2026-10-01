@@ -16,10 +16,10 @@ class LLMPort:
 
 PORTS = [
     LLMPort("JuniorOSai", "bitnet-native", "ternary-1.58", "flagstaff", 0.0, "Home kernel + Flagstaff. Ticket only."),
-    LLMPort("JuniorOmega", "mesh-cad", "ternary-1.58", "omega-in", 0.0, "Sheet ingest. launch false."),
-    LLMPort("AGI_SDK", "agent-port", "ternary-1.58", "agi-sdk", 0.0, "Agent job list. No weight pull."),
-    LLMPort("JuniorStoneField", "field-note", "ternary-1.58", "stonefield", 0.0, "Local seed. Public nodes only."),
-    LLMPort("web3node", "trit-quant", "ternary-1.58", "absmean", 0.0, "AbsMean ticket. Not a chain address."),
+    LLMPort("JuniorOmega", "mesh-cad", "ternary-1.58", "omega-job", 0.0, "CAD job pointer. launch false."),
+    LLMPort("AGI_SDK", "agent-port", "ternary-1.58", "agi-sdk", 0.0, "Agent port list. No weight pull."),
+    LLMPort("JuniorStoneField", "field-notes", "ternary-1.58", "stonefield", 0.0, "Local field seed. No scrape."),
+    LLMPort("web3node", "trit-quant", "ternary-1.58", "absmean", 0.0, "AbsMean / pack5 ticket. Not a chain address."),
     LLMPort("JuniorBitNetFieldCore", "bitnet-native", "ternary-1.58", "torch-ternary", 0.0, "Crowd/field scorer"),
     LLMPort("BitNet-2B4T", "bitnet-native", "I2_S", "bitnet.cpp", 1.5, "local GGUF header only if already on disk"),
     LLMPort("JuniorGemma4-4B", "high-quant", "Q4_K_M", "mlx", 4.0, "Apache-2.0 interactive portal"),
@@ -31,7 +31,7 @@ PORTS = [
         "Q4_K_M+ternary-loops",
         "mlx-or-gguf",
         8.0,
-        "Astra-class stand-in. Not a weight download from this port.",
+        "Astra-class stand-in. Not GPT-6 weights.",
     ),
     LLMPort("JuniorKimiK3-edge", "edge-moe", "pruned-ternary", "mlx", 8.0, "Never pull full 1.5TB"),
     LLMPort("Qwen-local", "high-quant", "Q4_K_M", "gguf", 8.0, "Quality baseline under 8GB cap"),
@@ -51,27 +51,27 @@ def _named(name: str) -> LLMPort:
 
 def pick(task: str, ram_gb: float) -> LLMPort:
     t = (task or "").lower()
-    if any(k in t for k in ("omega", "blender", "obj", "mesh job")):
+    if any(k in t for k in ("omega", "cad", "dxf", "dwg", "mesh")):
         return _named("JuniorOmega")
-    if any(k in t for k in ("agi", "agent sdk", "agi_sdk")):
+    if any(k in t for k in ("agi", "agent port", "sdk")):
         return _named("AGI_SDK")
-    if any(k in t for k in ("stone", "boulder", "crag", "stonefield")):
+    if any(k in t for k in ("stone", "boulder", "field note", "crag")):
         return _named("JuniorStoneField")
-    if any(k in t for k in ("web3", "absmean", "trit quant", "web3node")):
+    if any(k in t for k in ("web3", "tritquant", "absmean", "pack5")):
         return _named("web3node")
-    if any(k in t for k in ("deck", "audio", "tritquant", "osai join")):
-        return _named("JuniorDeck")
     if any(k in t for k in ("osai", "flagstaff", "home kernel")):
         return _named("JuniorOSai")
+    if any(k in t for k in ("deck", "audio")):
+        return _named("JuniorDeck")
     if any(k in t for k in ("gaia", "companion", "portrait", "goldend")):
         return _named("JuniorGaia")
-    if any(k in t for k in ("cad", "dxf", "dwg", "drawing", "title block", "draft")):
+    if "draft" in t or "title block" in t:
         return _named("JuniorBitNetDraft")
     if "astra-class" in t or "astra reason" in t or "qwen" in t:
         return _named("JuniorAstraReason")
-    if "durable" in t or "checkpoint" in t or t.strip() == "astra":
+    if "durable" in t or t.strip() == "astra":
         return _named("JuniorAstra")
-    if "field" in t or "beta" in t or "access" in t:
+    if "field" in t or "beta" in t:
         return _named("JuniorBitNetFieldCore")
     if "safety" in t or "fable" in t:
         return _named("JuniorFable")

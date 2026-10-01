@@ -46,6 +46,14 @@ PORTS = [
         0.0,
         "Local named HUD. Goldend spines. Omega mesh stub. Not Halo Cortana.",
     ),
+    LLMPort(
+        "JuniorDeck",
+        "audio-ticket",
+        "ternary-1.58",
+        "osai-join",
+        0.0,
+        "Deck inbox + tritquant join. Ticket only. No model pull.",
+    ),
 ]
 
 
@@ -59,6 +67,8 @@ def _named(name: str) -> LLMPort:
 
 def pick(task: str, ram_gb: float) -> LLMPort:
     t = (task or "").lower()
+    if any(k in t for k in ("deck", "audio", "tritquant", "osai join")):
+        return _named("JuniorDeck")
     if any(k in t for k in ("gaia", "companion", "portrait", "goldend")):
         return _named("JuniorGaia")
     if any(k in t for k in ("cad", "dxf", "dwg", "drawing", "title block", "omega", "draft")):

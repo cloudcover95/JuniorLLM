@@ -15,6 +15,7 @@ class LLMPort:
 
 
 PORTS = [
+    LLMPort("JuniorOSai", "bitnet-native", "ternary-1.58", "flagstaff", 0.0, "Home kernel + Flagstaff. Ticket only."),
     LLMPort("JuniorBitNetFieldCore", "bitnet-native", "ternary-1.58", "torch-ternary", 0.0, "Crowd/field scorer"),
     LLMPort("BitNet-2B4T", "bitnet-native", "I2_S", "bitnet.cpp", 1.5, "microsoft/bitnet-b1.58-2B-4T-gguf"),
     LLMPort("JuniorGemma4-4B", "high-quant", "Q4_K_M", "mlx", 4.0, "Apache-2.0 interactive portal"),
@@ -67,6 +68,8 @@ def _named(name: str) -> LLMPort:
 
 def pick(task: str, ram_gb: float) -> LLMPort:
     t = (task or "").lower()
+    if any(k in t for k in ("osai", "flagstaff", "home kernel")):
+        return _named("JuniorOSai")
     if any(k in t for k in ("deck", "audio", "tritquant", "osai join")):
         return _named("JuniorDeck")
     if any(k in t for k in ("gaia", "companion", "portrait", "goldend")):
@@ -78,11 +81,11 @@ def pick(task: str, ram_gb: float) -> LLMPort:
     if "durable" in t or "checkpoint" in t or t.strip() == "astra" or t.startswith("astra ") and "class" not in t:
         return _named("JuniorAstra")
     if "field" in t or "beta" in t or "access" in t:
-        return PORTS[0]
+        return _named("JuniorBitNetFieldCore")
     if "safety" in t or "fable" in t:
         return _named("JuniorFable")
     if ram_gb < 6:
-        return PORTS[1] if ram_gb >= 2 else PORTS[0]
+        return _named("BitNet-2B4T") if ram_gb >= 2 else _named("JuniorOSai")
     if "chat" in t or "gemma" in t:
         return _named("JuniorGemma4-4B")
-    return PORTS[0]
+    return _named("JuniorOSai")

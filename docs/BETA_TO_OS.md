@@ -23,3 +23,7 @@ A fresh clone:
 
 Debian/Alpine + `os-release.junior` + hardened `bitnetd.service` + `juniorctl` on PATH.
 I2_S 2B4T only if GGUF already on disk. No OSWorld score. No kernel blob.
+
+## Deck sheet
+
+Deck controls and Gaia helper stay separate. Package ports: JuniorLLM, AGI_SDK, JuniorOSai, JuniorOS, web3node, obsidian. Vault not synced. Device not opened. Schematic: JuniorHome `docs/deck_capability.svg`.

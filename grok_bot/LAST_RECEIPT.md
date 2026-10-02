@@ -8,5 +8,5 @@
 - **repos**: cloudcover95/JuniorLLM
 - **tests**: pass
 - **status**: shipped
-- **why_stopped**: first push 708ba0e landed CLI stub + STATE only; completing commit adds walker, wiring, test, backlog, receipts
+- **why_stopped**: zsh unavailable; additive pushes 708ba0e cli+STATE, f0384e4 backlog+receipts, 3e836cc walker, 82d4a2b juniorctl, 5654f7f tests; tip 5654f7f
 - **next_smallest_slice**: T47 juniorctl skill-pin sixth-cousins (loopback)

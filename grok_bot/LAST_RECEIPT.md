@@ -1,12 +1,12 @@
 # Receipt
 
-- **run_at**: 2026-10-01T19:13-06:00
-- **slice**: T45 juniorctl skill-pin fifth-cousins (loopback)
+- **run_at**: 2026-10-02T01:02-06:00
+- **slice**: T46 juniorctl skill-pin fifth-cousins-once-removed (loopback)
 - **port**: JuniorAstraReason
-- **plan_bullets**: goal=juniorctl skill-pin fifth-cousins HDR returns same-generation peers sharing a 4x-great-grandparent from SKILL_PINS.jsonl, loopback only; files=ctl_skillpin_fifth_cousins.py+ctl_cli_t45.py+juniorctl.py+test_t45+backlog+state+receipts; port=JuniorAstraReason; test=PYTHONPATH=. python tests/test_t45_juniorctl_skill_pin_fifth_cousins.py; done-check=empty/missing hdr fail; 7-high linear pin/load/pin/load/pin/load/pin is_only great_great_great_great_grandparent=genesis; CLI exit 0; refuse docker.sock/wildcard/path escape; no body no fetch no exec
-- **files_added**: rails/linux/ctl_skillpin_fifth_cousins.py, rails/linux/ctl_cli_t45.py, rails/linux/juniorctl.py, tests/test_t45_juniorctl_skill_pin_fifth_cousins.py, docs/COMPILED_BACKLOG.md, STATE.md, grok_bot/LAST_RECEIPT.md, grok_bot/LAST_RECEIPT.json
+- **plan_bullets**: goal=juniorctl skill-pin fifth-cousins-once-removed HDR returns one-generation-offset peers of fifth cousins (children of fifth cousins and fifth cousins of the parent) from SKILL_PINS.jsonl, loopback only; files=ctl_skillpin_fifth_cousins_once_removed.py+ctl_cli_t46.py+juniorctl.py+test_t46+backlog+state+receipts; port=JuniorAstraReason; test=PYTHONPATH=. python tests/test_t46_juniorctl_skill_pin_fifth_cousins_once_removed.py; done-check=empty/missing hdr fail; 7-high linear pin/load/pin/load/pin/load/pin is_only great_great_great_great_grandparent=genesis and great_great_great_great_great_grandparent absent; CLI exit 0; refuse docker.sock/wildcard/path escape; no body no fetch no exec
+- **files_added**: rails/linux/ctl_skillpin_fifth_cousins_once_removed.py, rails/linux/ctl_cli_t46.py, rails/linux/juniorctl.py, tests/test_t46_juniorctl_skill_pin_fifth_cousins_once_removed.py, docs/COMPILED_BACKLOG.md, STATE.md, grok_bot/LAST_RECEIPT.md, grok_bot/LAST_RECEIPT.json
 - **repos**: cloudcover95/JuniorLLM
 - **tests**: pass
 - **status**: shipped
-- **why_stopped**:
-- **next_smallest_slice**: T46 juniorctl skill-pin fifth-cousins-once-removed (loopback)
+- **why_stopped**: first push 708ba0e landed CLI stub + STATE only; completing commit adds walker, wiring, test, backlog, receipts
+- **next_smallest_slice**: T47 juniorctl skill-pin sixth-cousins (loopback)

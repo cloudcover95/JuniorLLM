@@ -8,5 +8,5 @@
 - **repos**: cloudcover95/JuniorLLM
 - **tests**: pass
 - **status**: shipped
-- **why_stopped**:
+- **why_stopped**: zsh unavailable; additive pushes 4ace0eb cli+state+receipts, 13d1ebe backlog, 61636df walker, f1f1670 tests, dd350901 juniorctl; tip dd350901
 - **next_smallest_slice**: T48 juniorctl skill-pin sixth-cousins-once-removed (loopback)

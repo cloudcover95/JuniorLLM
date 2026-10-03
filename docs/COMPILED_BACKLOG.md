@@ -63,4 +63,5 @@ T44 done (juniorctl skill-pin fourth-cousins-once-removed, loopback).
 T45 done (juniorctl skill-pin fifth-cousins, loopback).
 T46 done (juniorctl skill-pin fifth-cousins-once-removed, loopback).
 T47 done (juniorctl skill-pin sixth-cousins, loopback).
-T48 next (juniorctl skill-pin sixth-cousins-once-removed, loopback).
+T48 done (juniorctl skill-pin sixth-cousins-once-removed, loopback).
+T49 next (juniorctl skill-pin seventh-cousins, loopback).

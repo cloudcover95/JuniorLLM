@@ -1,12 +1,12 @@
 # Receipt
 
-- **run_at**: 2026-10-02T01:02-06:00
-- **slice**: T46 juniorctl skill-pin fifth-cousins-once-removed (loopback)
+- **run_at**: 2026-10-02T19:16-06:00
+- **slice**: T47 juniorctl skill-pin sixth-cousins (loopback)
 - **port**: JuniorAstraReason
-- **plan_bullets**: goal=juniorctl skill-pin fifth-cousins-once-removed HDR returns one-generation-offset peers of fifth cousins (children of fifth cousins and fifth cousins of the parent) from SKILL_PINS.jsonl, loopback only; files=ctl_skillpin_fifth_cousins_once_removed.py+ctl_cli_t46.py+juniorctl.py+test_t46+backlog+state+receipts; port=JuniorAstraReason; test=PYTHONPATH=. python tests/test_t46_juniorctl_skill_pin_fifth_cousins_once_removed.py; done-check=empty/missing hdr fail; 7-high linear pin/load/pin/load/pin/load/pin is_only great_great_great_great_grandparent=genesis and great_great_great_great_great_grandparent absent; CLI exit 0; refuse docker.sock/wildcard/path escape; no body no fetch no exec
-- **files_added**: rails/linux/ctl_skillpin_fifth_cousins_once_removed.py, rails/linux/ctl_cli_t46.py, rails/linux/juniorctl.py, tests/test_t46_juniorctl_skill_pin_fifth_cousins_once_removed.py, docs/COMPILED_BACKLOG.md, STATE.md, grok_bot/LAST_RECEIPT.md, grok_bot/LAST_RECEIPT.json
+- **plan_bullets**: goal=juniorctl skill-pin sixth-cousins HDR returns children of the parent's fifth cousins from SKILL_PINS.jsonl, loopback only; files=ctl_skillpin_sixth_cousins.py+ctl_cli_t47.py+juniorctl.py+test_t47+backlog+state+receipts; port=JuniorAstraReason; test=PYTHONPATH=. python tests/test_t47_juniorctl_skill_pin_sixth_cousins.py; done-check=empty/missing hdr fail; 8-high linear pin/load/pin/load/pin/load/pin/load is_only great_great_great_great_great_grandparent=genesis; CLI exit 0; refuse docker.sock/wildcard/path escape; no body no fetch no exec
+- **files_added**: rails/linux/ctl_skillpin_sixth_cousins.py, rails/linux/ctl_cli_t47.py, rails/linux/juniorctl.py, tests/test_t47_juniorctl_skill_pin_sixth_cousins.py, docs/COMPILED_BACKLOG.md, STATE.md, grok_bot/LAST_RECEIPT.md, grok_bot/LAST_RECEIPT.json
 - **repos**: cloudcover95/JuniorLLM
 - **tests**: pass
 - **status**: shipped
-- **why_stopped**: zsh unavailable; additive pushes 708ba0e cli+STATE, f0384e4 backlog+receipts, 3e836cc walker, 82d4a2b juniorctl, 5654f7f tests; tip 5654f7f
-- **next_smallest_slice**: T47 juniorctl skill-pin sixth-cousins (loopback)
+- **why_stopped**:
+- **next_smallest_slice**: T48 juniorctl skill-pin sixth-cousins-once-removed (loopback)

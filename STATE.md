@@ -1,9 +1,9 @@
 # STATE
 
-- at: 2026-10-02T01:02-06:00
-- bot_slice: T46 juniorctl skill-pin fifth-cousins-once-removed (loopback)
+- at: 2026-10-02T19:16-06:00
+- bot_slice: T47 juniorctl skill-pin sixth-cousins (loopback)
 - port: JuniorAstraReason
-- bot_next: T47 juniorctl skill-pin sixth-cousins (loopback)
+- bot_next: T48 juniorctl skill-pin sixth-cousins-once-removed (loopback)
 - chat_slice: Home UI + user/app/media/scan + TP + BitnetCloud + llama sit-beside
 - llama_ready: false until JUNIOR_GGUF on box
 - bind: 127.0.0.1:8770 hook / 8771 UI / 8767 i2sd

@@ -8,5 +8,5 @@
 - **repos**: cloudcover95/JuniorLLM
 - **tests**: pass
 - **status**: shipped
-- **why_stopped**: local tests 5/5 pass; branch refute u8+b10 only; additive commit follows
+- **why_stopped**: local tests 5/5 pass; branch refute u8+b10 only; additive commit c4bcf2c1a393fc80e36c9bff68218475eac68243
 - **next_smallest_slice**: T51 juniorctl skill-pin eighth-cousins (loopback)

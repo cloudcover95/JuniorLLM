@@ -8,5 +8,5 @@
 - **repos**: cloudcover95/JuniorLLM
 - **tests**: pass
 - **status**: shipped
-- **why_stopped**: local tests 5/5 pass; additive commit pending sha
+- **why_stopped**: local tests 5/5 pass; zsh unavailable; additive commit d8e1aa56ded577c3fbc9de7ae907e0c66d0bf712
 - **next_smallest_slice**: T53 juniorctl skill-pin ninth-cousins (loopback)

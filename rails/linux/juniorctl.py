@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""juniorctl — JuniorOS entry. skill_pin_list skill_pin_verify skill_pin_verify_one skill_pin_tip skill_pin_log skill_pin_height skill_pin_get skill_pin_at skill_pin_range skill_pin_since skill_pin_until skill_pin_before skill_pin_after skill_pin_first skill_pin_last skill_pin_tail skill_pin_head skill_pin_count skill_pin_genesis skill_pin_parent skill_pin_child skill_pin_children skill_pin_ancestors skill_pin_siblings skill_pin_cousins skill_pin_uncles skill_pin_nephews skill_pin_grandchildren skill_pin_great_grandchildren skill_pin_great_great_grandchildren skill_pin_2nd_cousins skill_pin_first_cousins_once_removed skill_pin_2nd_cousins_once_removed skill_pin_third_cousins skill_pin_third_cousins_once_removed skill_pin_fourth_cousins skill_pin_fourth_cousins_once_removed skill_pin_fifth_cousins skill_pin_fifth_cousins_once_removed skill_pin_sixth_cousins skill_pin_sixth_cousins_once_removed skill_pin_seventh_cousins skill_pin_seventh_cousins_once_removed"""
+"""juniorctl — JuniorOS entry. skill_pin_list skill_pin_verify skill_pin_verify_one skill_pin_tip skill_pin_log skill_pin_height skill_pin_get skill_pin_at skill_pin_range skill_pin_since skill_pin_until skill_pin_before skill_pin_after skill_pin_first skill_pin_last skill_pin_tail skill_pin_head skill_pin_count skill_pin_genesis skill_pin_parent skill_pin_child skill_pin_children skill_pin_ancestors skill_pin_siblings skill_pin_cousins skill_pin_uncles skill_pin_nephews skill_pin_grandchildren skill_pin_great_grandchildren skill_pin_great_great_grandchildren skill_pin_2nd_cousins skill_pin_first_cousins_once_removed skill_pin_2nd_cousins_once_removed skill_pin_third_cousins skill_pin_third_cousins_once_removed skill_pin_fourth_cousins skill_pin_fourth_cousins_once_removed skill_pin_fifth_cousins skill_pin_fifth_cousins_once_removed skill_pin_sixth_cousins skill_pin_sixth_cousins_once_removed skill_pin_seventh_cousins skill_pin_seventh_cousins_once_removed skill_pin_eighth_cousins"""
 from __future__ import annotations
 
 import json
@@ -91,6 +91,7 @@ def health() -> dict:
             "skill-pin sixth-cousins-once-removed",
             "skill-pin seventh-cousins",
             "skill-pin seventh-cousins-once-removed",
+            "skill-pin eighth-cousins",
         ],
     }
 
@@ -207,8 +208,21 @@ def skill_pin_seventh_cousins_once_removed(hdr: str | None = None, root: str | N
     return impl(hdr, root)
 
 
+
+def skill_pin_eighth_cousins(hdr: str | None = None, root: str | None = None) -> dict:
+    """T51 — pin-log eighth-cousin rows of HDR under a root. Loopback only. Never fetch. Never exec."""
+    _path()
+    from rails.linux.ctl_skillpin_eighth_cousins import skill_pin_eighth_cousins as impl
+
+    return impl(hdr, root)
+
+
 def main(argv):
     _path()
+    if len(argv) > 2 and argv[1] == "skill-pin" and argv[2] == "eighth-cousins":
+        from rails.linux.ctl_cli_t51 import run_t51
+
+        return run_t51(argv, globals())
     if len(argv) > 2 and argv[1] == "skill-pin" and argv[2] == "seventh-cousins-once-removed":
         from rails.linux.ctl_cli_t50 import run_t50
 

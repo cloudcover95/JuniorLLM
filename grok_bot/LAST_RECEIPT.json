@@ -10,7 +10,7 @@
     "files: rails/linux/ctl_skillpin_ninth_cousins.py, rails/linux/ctl_cli_t53.py, rails/linux/juniorctl.py, tests/test_t53_juniorctl_skill_pin_ninth_cousins.py, docs/COMPILED_BACKLOG.md, STATE.md, receipts",
     "port: JuniorAstraReason",
     "test: PYTHONPATH=. python tests/test_t53_juniorctl_skill_pin_ninth_cousins.py",
-    "done-check: empty/missing hdr fail; 11-high linear pin/load x5 plus pin is_only great_great_great_four_wait no"
+    "done-check: empty/missing hdr fail; 11-high linear pin/load x5 plus pin is_only 8-great-grandparent=genesis; CLI exit 0; refuse docker.sock/wildcard/path escape; no body; no fetch; no exec"
   ],
   "files_added": [
     "rails/linux/ctl_skillpin_ninth_cousins.py",

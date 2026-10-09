@@ -8,5 +8,5 @@
 - **repos**: cloudcover95/JuniorLLM
 - **tests**: pass
 - **status**: shipped
-- **why_stopped**: local tests 5/5 pass on clone of 7fa21841893c12330e6e789b974bb5f114ed227c; T58 regression 5/5 pass; project-internal imports only; no third-party; no delete; zsh unavailable
+- **why_stopped**: remote tip tests 5/5 pass on df691ee0fef2823ddd4cecf295a73adc409eca0d; T58 regression 5/5 pass; project-internal imports only; no third-party; no delete; zsh unavailable so API commits
 - **next_smallest_slice**: T60 juniorctl skill-pin twelfth-cousins-once-removed (loopback)

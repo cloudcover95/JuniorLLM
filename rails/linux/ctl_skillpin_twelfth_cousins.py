@@ -122,7 +122,7 @@ def skill_pin_twelfth_cousins(hdr: str | None = None, root: str | None = None) -
     gggggreat = (
         next((row for row in rows if row.hdr == gggggreat_hdr), None) if gggreat is not None else None
     )
-    ggggggreat_hdr = gggggreat.prev if gggggreat is not None else ZERO
+    ggggggreat_hdr = gggggreat.prev if ggggggreat is not None else ZERO
     ggggggreat = (
         next((row for row in rows if row.hdr == ggggggreat_hdr), None)
         if gggggreat is not None
@@ -235,7 +235,7 @@ def skill_pin_twelfth_cousins(hdr: str | None = None, root: str | None = None) -
         "great_great_great_great_great_great_great_grandparent_height": (
             ggggggggreat.height if ggggggggreat is not None else -1
         ),
-        "great_great_great_great_great_great_great_grandparent_op": (
+        "great_great_great_four_great_great_great_great_great_great_grandparent_op": (
             ggggggggreat.op if ggggggggreat else ""
         ),
         "great_great_great_great_great_great_great_great_grandparent_hdr": (
@@ -254,7 +254,7 @@ def skill_pin_twelfth_cousins(hdr: str | None = None, root: str | None = None) -
             ggggggggggreat.height if ggggggggggreat is not None else -1
         ),
         "great_great_great_great_great_great_great_great_great_grandparent_op": (
-            ggggggggggreat.op if gggggggggreat else ""
+            ggggggggggreat.op if ggggggggggreat else ""
         ),
         "great_great_great_great_great_great_great_great_great_great_grandparent_hdr": (
             g10.hdr if g10 is not None else ZERO
@@ -262,7 +262,7 @@ def skill_pin_twelfth_cousins(hdr: str | None = None, root: str | None = None) -
         "great_great_great_great_great_great_great_great_great_great_grandparent_height": (
             g10.height if g10 is not None else -1
         ),
-        "great_great_great_four_great_great_great_great_great_great_grandparent_op": (
+        "great_great_great_great_great_great_great_great_great_great_grandparent_op": (
             g10.op if g10 else ""
         ),
         "great_great_great_great_great_great_great_great_great_great_great_grandparent_hdr": (

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""juniorctl — JuniorOS entry. skill_pin_list skill_pin_verify skill_pin_verify_one skill_pin_tip skill_pin_log skill_pin_height skill_pin_get skill_pin_at skill_pin_range skill_pin_since skill_pin_until skill_pin_before skill_pin_after skill_pin_first skill_pin_last skill_pin_tail skill_pin_head skill_pin_count skill_pin_genesis skill_pin_parent skill_pin_child skill_pin_children skill_pin_ancestors skill_pin_siblings skill_pin_cousins skill_pin_uncles skill_pin_nephews skill_pin_grandchildren skill_pin_great_grandchildren skill_pin_great_great_grandchildren skill_pin_2nd_cousins skill_pin_first_cousins_once_removed skill_pin_2nd_cousins_once_removed skill_pin_third_cousins skill_pin_third_cousins_once_removed skill_pin_fourth_cousins skill_pin_fourth_cousins_once_removed skill_pin_fifth_cousins skill_pin_fifth_cousins_once_removed skill_pin_sixth_cousins skill_pin_sixth_cousins_once_removed skill_pin_seventh_cousins skill_pin_seventh_cousins_once_removed skill_pin_eighth_cousins skill_pin_eighth_cousins_once_removed skill_pin_ninth_cousins skill_pin_ninth_cousins_once_removed skill_pin_tenth_cousins skill_pin_tenth_cousins_once_removed skill_pin_eleventh_cousins skill_pin_eleventh_cousins_once_removed"""
+"""juniorctl — JuniorOS entry. skill_pin_list skill_pin_verify skill_pin_verify_one skill_pin_tip skill_pin_log skill_pin_height skill_pin_get skill_pin_at skill_pin_range skill_pin_since skill_pin_until skill_pin_before skill_pin_after skill_pin_first skill_pin_last skill_pin_tail skill_pin_head skill_pin_count skill_pin_genesis skill_pin_parent skill_pin_child skill_pin_children skill_pin_ancestors skill_pin_siblings skill_pin_cousins skill_pin_uncles skill_pin_nephews skill_pin_grandchildren skill_pin_great_grandchildren skill_pin_great_great_grandchildren skill_pin_2nd_cousins skill_pin_first_cousins_once_removed skill_pin_2nd_cousins_once_removed skill_pin_third_cousins skill_pin_third_cousins_once_removed skill_pin_fourth_cousins skill_pin_fourth_cousins_once_removed skill_pin_fifth_cousins skill_pin_fifth_cousins_once_removed skill_pin_sixth_cousins skill_pin_sixth_cousins_once_removed skill_pin_seventh_cousins skill_pin_seventh_cousins_once_removed skill_pin_eighth_cousins skill_pin_eighth_cousins_once_removed skill_pin_ninth_cousins skill_pin_ninth_cousins_once_removed skill_pin_tenth_cousins skill_pin_tenth_cousins_once_removed skill_pin_eleventh_cousins skill_pin_eleventh_cousins_once_removed skill_pin_twelfth_cousins"""
 from __future__ import annotations
 
 import json
@@ -99,6 +99,7 @@ def health() -> dict:
             "skill-pin tenth-cousins-once-removed",
             "skill-pin eleventh-cousins",
             "skill-pin eleventh-cousins-once-removed",
+            "skill-pin twelfth-cousins",
         ],
     }
 
@@ -277,6 +278,14 @@ def skill_pin_eleventh_cousins(hdr: str | None = None, root: str | None = None) 
     return impl(hdr, root)
 
 
+def skill_pin_twelfth_cousins(hdr: str | None = None, root: str | None = None) -> dict:
+    """T59 — pin-log twelfth-cousin rows of HDR under a root. Loopback only. Never fetch. Never exec."""
+    _path()
+    from rails.linux.ctl_skillpin_twelfth_cousins import skill_pin_twelfth_cousins as impl
+
+    return impl(hdr, root)
+
+
 def skill_pin_eleventh_cousins_once_removed(hdr: str | None = None, root: str | None = None) -> dict:
     """T58 — pin-log eleventh-cousin-once-removed rows of HDR under a root. Loopback only. Never fetch. Never exec."""
     _path()
@@ -289,6 +298,10 @@ def skill_pin_eleventh_cousins_once_removed(hdr: str | None = None, root: str | 
 
 def main(argv):
     _path()
+    if len(argv) > 2 and argv[1] == "skill-pin" and argv[2] == "twelfth-cousins":
+        from rails.linux.ctl_cli_t59 import run_t59
+
+        return run_t59(argv, globals())
     if len(argv) > 2 and argv[1] == "skill-pin" and argv[2] == "eleventh-cousins-once-removed":
         from rails.linux.ctl_cli_t58 import run_t58
 

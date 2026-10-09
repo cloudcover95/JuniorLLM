@@ -13,7 +13,7 @@ _MISSING = (
     "missing_great_great_great_grandparent",
     "missing_great_great_great_great_grandparent",
     "missing_great_great_great_great_great_grandparent",
-    "missing_great_great_great_four_great_great_great_great_great_great_grandparent",
+    "missing_great_great_great_great_great_great_grandparent",
     "missing_great_great_great_great_great_great_great_grandparent",
     "missing_great_great_great_great_great_great_great_great_grandparent",
     "missing_great_great_great_great_great_great_great_great_great_grandparent",
@@ -148,7 +148,7 @@ def skill_pin_twelfth_cousins(hdr: str | None = None, root: str | None = None) -
     )
     ggggggggggreat_hdr = gggggggggreat.prev if gggggggggreat is not None else ZERO
     ggggggggggreat = (
-        next((row for row in rows if row.hdr == gggggggggreat_hdr), None)
+        next((row for row in rows if row.hdr == ggggggggggreat_hdr), None)
         if gggggggggreat is not None
         else None
     )
@@ -228,16 +228,14 @@ def skill_pin_twelfth_cousins(hdr: str | None = None, root: str | None = None) -
         "great_great_great_great_great_great_grandparent_height": (
             gggggggreat.height if gggggggreat is not None else -1
         ),
-        "great_great_great_four_great_great_great_great_great_great_grandparent_op": (
-            gggggggreat.op if gggggggreat else ""
-        ),
-        "great_great_great_four_great_great_great_great_great_great_grandparent_hdr": (
+        "great_great_great_great_great_great_grandparent_op": gggggggreat.op if gggggggreat else "",
+        "great_great_great_great_great_great_great_grandparent_hdr": (
             ggggggggreat_hdr if gggggggreat is not None else ZERO
         ),
-        "great_great_great_four_great_great_great_great_great_great_grandparent_height": (
+        "great_great_great_great_great_great_great_grandparent_height": (
             ggggggggreat.height if ggggggggreat is not None else -1
         ),
-        "great_great_great_four_great_great_great_great_great_great_grandparent_op": (
+        "great_great_great_great_great_great_great_grandparent_op": (
             ggggggggreat.op if ggggggggreat else ""
         ),
         "great_great_great_great_great_great_great_great_grandparent_hdr": (

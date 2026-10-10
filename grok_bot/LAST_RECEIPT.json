@@ -25,8 +25,8 @@
   "repos": [
     "cloudcover95/JuniorLLM"
   ],
-  "tests": "not_run",
-  "why_stopped": "additive only; no delete; no eval/exec; loopback only; GitHub available",
+  "tests": "pass",
+  "why_stopped": "tests 5/5 pass; additive only; no delete; no eval/exec; loopback only",
   "next_smallest_slice": "T63 juniorctl skill-pin fourteenth-cousins (loopback)",
   "tip_before": "65bd302f5ec80ba9902cf9411b2c2041fdf1c42e"
 }

@@ -81,7 +81,7 @@ class T61JuniorctlSkillPinThirteenthCousinsTests(unittest.TestCase):
                 missing["great_great_great_great_great_great_great_great_grandparent_hdr"], ZERO
             )
             self.assertEqual(
-                missing["great_great_great_four_great_great_great_great_great_great_grandparent_hdr"], ZERO
+                missing["great_great_great_great_great_great_great_great_great_grandparent_hdr"], ZERO
             )
             self.assertEqual(missing[G10], ZERO)
             self.assertEqual(missing[G10H], -1)

@@ -76,4 +76,5 @@ T57 done (juniorctl skill-pin eleventh-cousins, loopback).
 T58 done (juniorctl skill-pin eleventh-cousins-once-removed, loopback).
 T59 done (juniorctl skill-pin twelfth-cousins, loopback).
 T60 done (juniorctl skill-pin twelfth-cousins-once-removed, loopback).
-T61 next (juniorctl skill-pin thirteenth-cousins, loopback).
+T61 done (juniorctl skill-pin thirteenth-cousins, loopback).
+T62 next (juniorctl skill-pin thirteenth-cousins-once-removed, loopback).

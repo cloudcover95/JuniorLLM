@@ -1,0 +1,56 @@
+---
+local: true
+date: 2026-11-02
+wave: "2026-11-02 18:05 (bench 18:55, ran 19:03 to 19:24 MT)"
+roadmap_item: "JuniorLLM docs/BETA_TO_OS.md Live beta step 2: `juniorctl health` / `ask` / `night` / `security` + test_junior_aie + test_linux_security (`ask` scoring a B=8 concurrent batch against a memory-capped memmap index)"
+verdict: viable
+tags: [osai, vault, findings, ternary, pair-codes, int8, juniorctl, ask, memmap, memory-cap, gemm, bench]
+---
+
+# juniorctl ask, B = 8 batch, memory-capped memmap: pair codes beat int8 by about 3.8x when the index does not fit in RAM
+
+## Question
+
+The 14:55 note ([[2026-11-02_1455_ask-small-batch-b2-64-concurrent-pair-codes-vs-int8-resident]]) closed the resident-index ask thread: int8 wins at every B from 1 to 64. Its next question is the one measured here. On a memory-capped run (index sized past MemAvailable, read through the page cache with `np.memmap` from a local file), does a B = 8 `ask` batch on pair codes beat int8 by 1.5x on latency, the way `night` did on disk?
+
+## Method
+
+Synthetic 24,000,000-row x 384-dim index built with the 2026-10-30 14:55 encoders (absmean ternarization, 39 uint16 pair codes of 10 trits per row, 78 B/row; int8 trits 384 B/row), streamed to two flat files under the scratch `data/` dir and fsynced. Int8 file is 9.2 GB; pair file is 1.87 GB (4.92x smaller). MemAvailable after each build was 6.5 to 6.6 GB, so int8 cannot stay resident while pair can. Files were then dropped from Python and reopened as read-only `np.memmap`. Each B = 8 query batch is scored per 8,192-row chunk (one unpack or cast per chunk, shared by all 8 queries, then an N_chunk x 384 by 384 x 8 GEMM), top-10 per query per chunk, merged. OpenBLAS pinned to 1 thread, 8 worker threads. Two seeds; the second runs pair before int8. 12 timed batches per warm cell after one priming pass; 5 timed batches per cold cell with `posix_fadvise(DONTNEED)` and remap before every batch. The first two batches of every cell are checked query by query against an exact single-threaded int8 memmap reference. numpy 2.5.4, 8 vCPU shared box, 16 GB RAM, python3 and numpy only, no network, nothing bound. A 131,072-row smoke run passed first (top-10 exact). Script (`bench.py`, scratch folder) imports `build`, `V10`, `D`, `PW`, `TOP`, `NC` from the 2026-10-30 14:55 scratch script. Commands, data files deleted afterwards:
+
+```
+python3 bench.py 131072 202611021855 4 8 warm-int8,warm-pair,cold-int8,cold-pair          # smoke
+python3 bench.py 24000000 202611021855 12 8 warm-int8,warm-pair
+python3 bench.py 24000000 202611021856 12 8 warm-pair,warm-int8                           # second seed, reversed
+python3 bench.py 24000000 202611021855 5 8 cold-pair,cold-int8
+```
+
+## Results
+
+Median ms per B = 8 batch, p10 to p90 in brackets. Top-10 matched the int8 reference exactly (100.00%) in every checked batch. "pair vs int8" is int8 time divided by pair time.
+
+| cell | file bytes | seed ...1855 ms | seed ...1856 ms (reversed) | ms per query | pair vs int8 |
+|---|---|---|---|---|---|
+| warm int8 | 9,216,000,000 | 4268.4 (4082.3-4437.3) | 4132.6 (3986.9-4591.5) | 517 to 534 | 1.00x |
+| warm pair | 1,872,000,000 | 1131.1 (1110.3-1170.8) | 1079.1 (1044.6-1177.8) | 135 to 141 | **3.77x / 3.83x** |
+| cold int8 | 9,216,000,000 | 3475.2 (3427.7-3719.5) | — | 434 | 1.00x |
+| cold pair | 1,872,000,000 | 1351.9 (1309.6-1526.6) | — | 169 | **2.57x** |
+
+Warm, int8 is stuck near its cold cost (4.1 to 4.3 s) because 9.2 GB does not fit in about 6.5 GB MemAvailable, while pair stays around 1.1 s (most of its 1.87 GB served from cache). That is a 3.77x to 3.83x latency win for pair, well above the 1.5x bar. Cold (forced eviction every batch) still favors pair 2.57x: the disk delivers int8 at about 2.65 GB/s (3.48 s for 9.2 GB), but pair reads 4.92x fewer bytes and finishes in 1.35 s. Cold int8 is actually a little faster than warm int8 here (sequential re-read vs thrashing page cache), which matches the 05:55 night observation that once int8 is out of cache the "warm" path stops helping it.
+
+Compared with the resident 14:55 B = 8 cells (pair 0.71x of int8 at 1M to 2M rows), the regime flip is complete: the same B = 8 ask batch that lost on a resident index wins by about 3.8x once the index is memory-capped. The night 05:55 warm lead at the same 24M size was only 1.48x because B = 64 makes pair compute-bound; B = 8 leaves pair well under that floor while int8 still pays the full out-of-cache read.
+
+## Verdict
+
+**Viable.** On a memory-capped memmap ask at 24,000,000 rows (int8 9.2 GB past MemAvailable, pair 1.87 GB fitting), a B = 8 concurrent batch on pair codes is 3.77x to 3.83x faster warm and 2.57x faster cold than int8, with exact top-10 match. Memory is also 4.92x smaller (already known). For `ask`, use int8 while the index fits in RAM (14:55), and switch to pair-code memmap once it does not; the latency bar clears cleanly in the out-of-RAM regime at B = 8.
+
+Caveats: synthetic embeddings; numpy temporary arrays and the interpreter add overhead a compiled kernel would not; shared 8 vCPU box; the virtual disk (about 2.6 GB/s cold) is faster than Deck or SBC targets, so the cold lead would be larger on a slower device; two warm seeds only, one cold seed.
+
+## Pair files this wave
+
+- No pair file for the 18:05 wave reached this run, and no new roadmap item is named; the roadmap blobs have had nothing uncovered since 2026-10-24 (about the 46th idle wave), and the ledger will confirm the Chief's call. JuniorLLM's tip after the 14:55 push was [091d50b](https://github.com/cloudcover95/JuniorLLM/commit/091d50b); this note adds one new file under `junior_osai/vault/findings/` only. The `ask` side still builds on pair A's 2026-10-18 05:05 files: Winsor [JuniorQuant 946f352](https://github.com/cloudcover95/JuniorQuant/commit/946f352) and Trit Pack [JuniorLLM 184a480](https://github.com/cloudcover95/JuniorLLM/commit/184a480).
+
+## Next question
+
+With ask now viable under a memory-capped memmap at B = 8, does the same hold at B = 1 (single interactive query) against the same 24M out-of-RAM memmap index, or does the lost GEMM amortization drop the pair lead back below 1.5x the way resident B = 1 did?
+
+close: 154727418fd0312f (sha256 of previous note text || this note text above this line, first 16 hex; prev 2026-11-02_1455)
